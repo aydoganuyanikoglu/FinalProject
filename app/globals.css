@@ -1,0 +1,290 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  transition: all ease-in-out 0.4s;
+  box-sizing: border-box;
+  outline: none;
+  list-style: none;
+  scroll-behavior: smooth;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.clipPath1 {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 28% 100%);
+}
+
+.needHelpClipPath {
+  clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%);
+}
+
+@media screen and (max-width: 1100px) {
+  .clipPath1,
+  .needHelpClipPath {
+    clip-path: none;
+  }
+}
+
+.openInfos {
+  height: fit-content !important;
+  padding: 10px 20px !important;
+  transition: all ease-in-out 0.45s;
+  z-index: 0;
+}
+
+.hiddenInfos {
+  height: 0 !important;
+  padding: 0 !important;
+  transition: all ease-in-out 0.45s;
+  z-index: -1;
+}
+
+.appearClass {
+  animation: appear 1.65s ease-in-out;
+  animation-iteration-count: 1;
+}
+
+.myButton1 {
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 30px;
+  background-color: #003c6e;
+  color: white;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0);
+  z-index: 0;
+  overflow: hidden;
+}
+
+.myButton1::before {
+  position: absolute;
+  content: "";
+  background-color: white;
+  width: 0;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  height: 100%;
+  transition: all ease-in-out 0.4s;
+}
+.myButton1:hover::before {
+  width: 100%;
+}
+
+.myButton1:hover {
+  color: #003c6e;
+  border: 2px solid #003c6e;
+}
+
+.addtoCartButton {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 15px;
+  background-color: #003c6e;
+  color: white;
+  font-weight: 700;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0);
+  z-index: 0;
+  overflow: hidden;
+}
+
+.addtoCartButton::before {
+  position: absolute;
+  content: "";
+  background-color: white;
+  width: 0;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  height: 100%;
+  transition: all ease-in-out 0.4s;
+}
+.addtoCartButton:hover::before {
+  width: 100%;
+}
+
+.addtoCartButton:hover {
+  color: #003c6e;
+  border: 2px solid #003c6e;
+}
+
+.sliderContainer .slick-track {
+  display: flex;
+  gap: 10px;
+}
+
+.footerLinks {
+  border-bottom: 1px solid rgba(255, 255, 255, 0);
+  width: fit-content;
+  cursor: pointer;
+}
+
+.footerLinks:hover {
+  border-bottom: 1px solid white;
+}
+
+.icons {
+  cursor: pointer;
+}
+
+.decreaseIncreaseIcons {
+  cursor: pointer;
+  font-size: 18px;
+  transition-duration: 0s;
+}
+
+.decreaseIncreaseIcons:hover {
+  color: black;
+  transition-duration: 0s;
+}
+
+.decreaseIncreaseContainer:hover {
+  border-color: black;
+}
+
+.loginRegisterInputs {
+  width: 100%;
+  height: 50px;
+  padding: 5px 16px;
+  font-size: 13px;
+  color: black;
+  border-radius: 5px;
+  background: rgb(238, 238, 238);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-weight: 500;
+}
+
+.loginRegisterInputs::placeholder {
+  color: rgb(164, 164, 164);
+  font-size: 14px;
+}
+
+.loginRegisterInputs:hover {
+  background: rgb(249, 249, 249);
+}
+
+.loginRegisterInputs:focus {
+  border: 2px solid orangered;
+}
+
+.loginRegisterButton {
+  width: 100%;
+  height: 60px;
+  padding: 5px 16px;
+  background-color: orangered;
+  color: white;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.loginRegisterButton:hover {
+  background-color: white;
+  color: orangered;
+  border: 1px solid orangered;
+}
+
+.inputErrorMessages {
+  color: red;
+  font-size: 12px;
+}
+
+.regularButton {
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 20px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0);
+}
+
+.regularButton span {
+  color: black;
+  font-weight: 600;
+}
+
+.regularButton:hover {
+  background-color: rgb(233, 233, 233);
+}
+
+.sendMessageInputs {
+  width: 100%;
+  height: 50px;
+  padding: 5px 16px;
+  font-size: 13px;
+  color: black;
+  border-radius: 5px;
+  background: rgb(238, 238, 238);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-weight: 500;
+}
+
+.sendMessageInputs::placeholder {
+  color: rgb(164, 164, 164);
+  font-size: 14px;
+}
+
+.sendMessageInputs:hover {
+  background: rgb(249, 249, 249);
+}
+
+.sendMessageInputs:focus {
+  border: 2px solid black;
+}
+
+.myButton2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: 45px;
+  padding: 4px 20px;
+  background-color: white;
+  color: #003c6e;
+  border-radius: 30px;
+  border: 1.5px solid rgba(255, 255, 255, 0);
+  font-size: 14px;
+}
+
+.myButton2:hover {
+  border: 1.5px solid white;
+  background-color: #003c6e;
+  color: white;
+}
+
+.cartItems:hover .deleteItemContainer {
+  display: block;
+}
