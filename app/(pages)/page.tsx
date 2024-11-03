@@ -12,10 +12,13 @@ import {
   Brands,
   SendMessage,
 } from "../const";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const HomePage = () => {
   return (
     <div className="w-full min-h-[100vh] h-fit overflow-hidden">
+      <ToastContainer />
       <Navbar />
       <MainSlider />
       <Deals />

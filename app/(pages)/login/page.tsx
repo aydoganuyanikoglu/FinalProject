@@ -3,12 +3,15 @@ import SignIn from "./SignIn";
 import { styles } from "@/app/const";
 import Image from "next/image";
 import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginScreen = () => {
   return (
     <div
       className={`relative w-full h-[100vh] py-[100px] flex flex-col gap-10 items-center justify-center max-sm:justify-center max-sm:h-[100vh] ${styles.pagePaddingX}`}
     >
+      <ToastContainer />
       <Link href="/" className="fixed left-[20px] top-[20px]">
         <button className="regularButton">
           <Image src="/arrowleft.svg" alt="arrow" width={12} height={12} />
