@@ -3,7 +3,6 @@ import { verifySession } from "@/auth/session";
 
 export async function GET() {
   const sessionData = await verifySession();
-  console.log("server sessionData", sessionData);
 
   if (!sessionData) {
     return NextResponse.json(

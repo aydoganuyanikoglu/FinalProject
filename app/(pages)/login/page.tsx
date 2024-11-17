@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 const LoginScreen = () => {
   return (
     <div
-      className={`relative w-full h-[100vh] py-[100px] flex flex-col gap-10 items-center justify-center max-sm:justify-center max-sm:h-[100vh] ${styles.pagePaddingX}`}
+      className={`relative w-full h-fit min-h-[100vh] py-[100px] flex flex-col gap-10 items-center justify-center max-sm:justify-center max-sm:h-[100vh] ${styles.pagePaddingX}`}
     >
       <ToastContainer />
       <Link href="/" className="fixed left-[20px] top-[20px]">
