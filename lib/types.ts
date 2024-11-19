@@ -14,6 +14,20 @@ export type typeUsers = {
   expiresAt?: Date;
 };
 
+export type Productstype = {
+  id?: string;
+  name: string;
+  category: string;
+  short_description: string;
+  long_description?: string;
+  price: string;
+  image_url: string;
+  discount_price?: string;
+  discount_start_date?: Date;
+  discount_end_date?: Date;
+  discount_percentage?: string;
+};
+
 export type typeFormState =
   | {
       user?: {

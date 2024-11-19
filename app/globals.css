@@ -288,3 +288,7 @@
 .cartItems:hover .deleteItemContainer {
   display: block;
 }
+
+.hoverZoomEffect:hover {
+  transform: scale(85%);
+}

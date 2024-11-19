@@ -12,9 +12,9 @@ import { paymentMethods } from "../const";
 const Footer = () => {
   return (
     <section
-      className={`relative w-full h-fit py-[100px] pb-[300px] grid grid-cols-4 gap-[150px] max-md:grid-cols-1 max-md:gap-[50px] bg-gray-400 text-white ${styles.pagePaddingX}`}
+      className={`relative w-full h-fit py-[100px] pb-[300px] grid grid-cols-4 gap-[150px] max-md:grid-cols-1 max-md:gap-[50px] bg-white text-black ${styles.pagePaddingX}`}
     >
-      <div className="leftleft ">
+      <div className="leftleft max-md:text-center">
         <h2 className="text-[22px] max-md:text-[18px] font-bold">
           {footerLeftLeft.title}
         </h2>
@@ -22,11 +22,11 @@ const Footer = () => {
           {footerLeftLeft.name}
         </p>
       </div>
-      <div className="leftright">
+      <div className="leftright max-md:text-center">
         <h2 className="text-[22px] max-md:text-[18px] font-bold">
           {footerLeftRight.title}
         </h2>
-        <ul>
+        <ul className="max-md:text-center max-md:w-full max-md:flex max-md:flex-col max-md:items-center">
           {footerLeftRight.links.map((item) => (
             <li
               key={item.id}
@@ -37,11 +37,11 @@ const Footer = () => {
           ))}
         </ul>
       </div>
-      <div className="rightleft">
+      <div className="rightleft max-md:text-center">
         <h2 className="text-[22px] max-md:text-[18px] font-bold">
           {footerRightLeft.title}
         </h2>
-        <ul>
+        <ul className="max-md:text-center max-md:w-full max-md:flex max-md:flex-col max-md:items-center">
           {footerRightLeft.links.map((item) => (
             <li
               key={item.id}
@@ -52,11 +52,11 @@ const Footer = () => {
           ))}
         </ul>
       </div>
-      <div className="rightright">
+      <div className="rightright max-md:text-center">
         <h2 className="text-[22px] max-md:text-[18px] font-bold">
           {footerRightRight.title}
         </h2>
-        <ul>
+        <ul className="max-md:text-center max-md:w-full max-md:flex max-md:flex-col max-md:items-center">
           {footerRightRight.links.map((item) => (
             <li
               key={item.id}
@@ -69,7 +69,7 @@ const Footer = () => {
       </div>
       <div className="bottom absolute bottom-0 w-full flex flex-col gap-[50px] items-center">
         <div className="acceptingPayments w-full flex flex-col items-center gap-[10px]">
-          <p className="text-[14px] font-light text-gray-200">
+          <p className="text-[14px] font-light">
             We accept the following paying methods
           </p>
           <ul className="grid grid-cols-4 gap-4">

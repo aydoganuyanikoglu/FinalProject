@@ -96,6 +96,25 @@ export const contactInfo = [
   },
 ];
 
+export const productCategories = [
+  { logo: "/products/phone.webp", title: "Phones", link: "/products" },
+  { logo: "/products/watch.jpg", title: "Watches", link: "/products" },
+  { logo: "/products/drone.jpg", title: "Drones", link: "/products" },
+  { logo: "/products/camera.webp", title: "Cameras", link: "/products" },
+  { logo: "/products/tablet.webp", title: "Tablets", link: "/products" },
+  { logo: "/products/headphone.jpg", title: "Headphones", link: "/products" },
+  { logo: "/products/speaker.jpg", title: "Speakers", link: "/products" },
+  { logo: "/products/computer.webp", title: "Computers", link: "/products" },
+];
+
+export const BrandsNames = [
+  { name: "Asus" },
+  { name: "Sony" },
+  { name: "Samsung" },
+  { name: "Apple" },
+  { name: "Canon" },
+];
+
 export {
   Navbar,
   MainSlider,

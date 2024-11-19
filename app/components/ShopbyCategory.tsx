@@ -1,8 +1,8 @@
 import React from "react";
-import { styles } from "../const";
+import { styles, productCategories } from "../const";
+import Image from "next/image";
 
 const ShopbyCategory = () => {
-  const list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
   return (
     <section
       className={`w-full h-fit py-[100px] bg-gray-400 max-md:py-[20px] ${styles.pagePaddingX}`}
@@ -12,12 +12,18 @@ const ShopbyCategory = () => {
           Shop by Category
         </h2>
         <div>
-          <ul className="gridContainer mt-[50px] w-full h-fit grid grid-cols-5 gap-2 max-md:gap-4 max-sm:grid-cols-2">
-            {list.map((item, index) => (
+          <ul className="gridContainer mt-[50px] w-full h-fit grid grid-cols-5 gap-8 max-md:grid-cols-4 max-sm:grid-cols-2">
+            {productCategories.map((item, index) => (
               <li className="flex flex-col items-center" key={index}>
-                <div className="w-[300px] h-[300px] max-lg:w-[200px] max-lg:h-[200px] max-md:w-[140px] max-md:h-[140px] rounded-[50%] bg-gray-200"></div>
-                <p className="text-[18px] max-md:text-[15px] font-bold">
-                  Category
+                <Image
+                  src={item.logo}
+                  alt={item.title}
+                  width={150}
+                  height={150}
+                  className="hoverZoomEffect cursor-pointer flex items-center justify-center w-[300px] h-[300px] max-lg:w-[200px] max-lg:h-[200px] max-md:w-[140px] max-md:h-[140px]"
+                />
+                <p className="mt-2 text-[15px] max-md:text-[13px] font-bold">
+                  {item.title}
                 </p>
               </li>
             ))}
