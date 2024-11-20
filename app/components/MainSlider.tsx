@@ -30,14 +30,14 @@ const MainSlider = () => {
         </div>
         <div className="bg-orange-400 w-full h-[90vh]"></div>
       </Slider>
-      <div className="absolute left-[100px] bottom-[100px] z-1">
+      <div className="absolute left-[100px] top-[100px] z-1">
         <h2 className="bestPrices w-fit h-fit text-[14px] rounded-sm bg-red-600 px-[8px] py-1">
           Best Prices!
         </h2>
-        <h2 className="sliderTitle w-[350px] font-bold text-[40px] max-md:text-[30px] max-sm:w-full">
+        <h2 className="sliderTitle w-[450px] font-bold text-[50px] max-md:text-[35px] max-sm:w-full">
           Incredible Prices on All Your Favorite Items
         </h2>
-        <p className="getMore font-normal text-[14px] text-gray-400">
+        <p className="getMore font-normal text-[14px]">
           Get more for less on selected brands
         </p>
         <button className="myButton1 mt-3 text-[25px] max-md:text-[20px]">

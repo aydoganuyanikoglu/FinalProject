@@ -292,3 +292,28 @@
 .hoverZoomEffect:hover {
   transform: scale(85%);
 }
+
+.filterInputs input {
+  font-size: 11px;
+  padding: 4px 8px;
+}
+
+.filterInputs input::placeholder {
+  font-size: 11px;
+}
+
+.productDetailButtons {
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 35px;
+  background-color: #003c6e;
+  color: white;
+  border-radius: 10px;
+  font-size: 15px;
+  border: 1px solid #003c6e;
+}
+
+.productDetailButtons:hover {
+  background-color: white;
+  color: #003c6e;
+}
