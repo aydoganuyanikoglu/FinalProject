@@ -317,3 +317,17 @@
   background-color: white;
   color: #003c6e;
 }
+
+.leaveReviewButton {
+  background-color: #37006e;
+  color: white;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 8px 30px;
+  border: 1px solid #37006e;
+}
+
+.leaveReviewButton:hover {
+  background-color: white;
+  color: #37006e;
+}
