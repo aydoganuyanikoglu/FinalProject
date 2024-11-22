@@ -1,12 +1,15 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Navbar, Footer, NeedHelp } from "@/app/const";
-import SimilarProducts from "./SimilarProducts";
-import Comments from "./Comments";
 import ReactStars from "react-stars";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import YouMightLike from "./YouMightLike";
+import LeaveCommentForm from "./LeaveCommentForm";
 
 const ProductDetails = () => {
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const handleReviewForm = () => {
+    setShowReviewForm((prev) => !prev);
+  };
   const product = {
     name: "Example Product",
     rating: 4.2,
@@ -37,7 +40,7 @@ const ProductDetails = () => {
         <div className="detailContainer w-[700px] py-[100px] max-md:w-[80%] max-smp:w-[100%] max-smp:px-[20px]">
           <div className="upperContainer flex gap-5 max-md:flex-col max-md:justify-start">
             <div className="leftContainer">
-              <div className="w-[300px] h-[300px] bg-gray-200"></div>
+              <div className="w-[300px] h-[300px] bg-gray-200 max-xs:w-full"></div>
             </div>
             <div className="rightContainer flex flex-col justify-between">
               <div className="rightTopContainer">
@@ -103,10 +106,16 @@ const ProductDetails = () => {
                 Based on {product.totalReviews} reviews.
               </p>
               <div className="reviewContainer mt-2">
-                <button className="leaveReviewButton">Leave a Review</button>
+                <button
+                  onClick={() => handleReviewForm()}
+                  className="leaveReviewButton"
+                >
+                  Leave a Review
+                </button>
               </div>
             </div>
           </div>
+          {showReviewForm && <LeaveCommentForm onclose={handleReviewForm} />}
           <div className="commentBottomContainer mt-10">
             <p className="w-full pb-5 text-[14px] font-light">
               {product.totalReviews} reviews
@@ -138,6 +147,7 @@ const ProductDetails = () => {
               ))}
             </ul>
           </div>
+          <YouMightLike />
         </div>
       </div>
       <NeedHelp />
