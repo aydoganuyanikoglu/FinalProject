@@ -6,22 +6,23 @@ import { CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { logoutServer } from "@/auth/auth";
 import { useAuth } from "@/context/AuthContext";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useToast } from "@/context/ToastContext";
 
 const ProfileContainer = () => {
   const router = useRouter();
   const { logoutClient } = useAuth();
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const [loginRegister, setloginRegister] = useState(false);
+  const { showToast } = useToast();
 
   const handleLogout = async () => {
     setIsButtonLoading(true);
     logoutClient();
     await logoutServer();
     setIsButtonLoading(false);
-    toast.success("Successfully logged out!");
-    router.push("/login");
+    showToast("Successfully logged out!");
+    router.push("/");
   };
 
   return (

@@ -3,15 +3,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { typeLogin } from "@/lib/types";
 import { loginServer } from "@/auth/auth";
-import { toast } from "react-toastify";
+import { useToast } from "@/context/ToastContext";
 
 const LoginForm = () => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
-  const router = useRouter();
+  const { showToast } = useToast();
   const { loginClient } = useAuth();
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -32,8 +31,7 @@ const LoginForm = () => {
     } else if (formState?.user) {
       setIsButtonLoading(false);
       loginClient();
-      toast.success("Successfully logged in!");
-      router.push("/");
+      showToast("You successfully logged in!");
     }
   };
 

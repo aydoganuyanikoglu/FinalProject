@@ -5,10 +5,11 @@ import * as Yup from "yup";
 import { typeUsers } from "@/lib/types";
 import { signup } from "@/auth/auth";
 import CircularProgress from "@mui/material/CircularProgress";
-import { toast } from "react-toastify";
+import { useToast } from "@/context/ToastContext";
 
 const RegisterForm = () => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
+  const { showToast } = useToast();
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -33,7 +34,7 @@ const RegisterForm = () => {
       alert(formState.message);
     } else {
       setIsButtonLoading(false);
-      toast.success("Registration successful!");
+      showToast("Registration is successfull!");
     }
   };
 

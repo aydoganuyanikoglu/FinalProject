@@ -20,7 +20,8 @@ const ShopbyCategory = () => {
                   alt={item.title}
                   width={150}
                   height={150}
-                  className="hoverZoomEffect cursor-pointer flex items-center justify-center w-[300px] h-[300px] max-lg:w-[200px] max-lg:h-[200px] max-md:w-[140px] max-md:h-[140px]"
+                  className="hoverZoomEffect cursor-pointer flex items-center justify-center w-[17
+                  0px] h-[170px] max-lg:w-[150px] max-lg:h-[150px] max-md:w-[140px] max-md:h-[140px]"
                 />
                 <p className="mt-2 text-[15px] max-md:text-[13px] font-bold">
                   {item.title}

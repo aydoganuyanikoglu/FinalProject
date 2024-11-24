@@ -30,7 +30,7 @@ const MainSlider = () => {
         </div>
         <div className="bg-orange-400 w-full h-[90vh]"></div>
       </Slider>
-      <div className="absolute left-[100px] top-[100px] z-1">
+      <div className="absolute z-1 left-[50px] top-0 h-full flex flex-col justify-center max-md:left-[20px]">
         <h2 className="bestPrices w-fit h-fit text-[14px] rounded-sm bg-red-600 px-[8px] py-1">
           Best Prices!
         </h2>

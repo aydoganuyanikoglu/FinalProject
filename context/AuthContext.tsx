@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { typeUsers } from "../lib/types";
 
 interface AuthContextType {
@@ -13,6 +14,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [currentUser, setCurrentUser] = useState<typeUsers | null>(null);
+  const router = useRouter();
 
   const fetchCookie = async () => {
     const res = await fetch(`/api/getUserCookie`);
@@ -49,6 +51,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const user = await fetchCookie();
       setCurrentUser(user);
+      if (user.isAdmin) {
+        router.push("/adminpanel");
+      } else {
+        router.push("/");
+      }
     } catch (error) {
       console.error("Login error:", error);
     }

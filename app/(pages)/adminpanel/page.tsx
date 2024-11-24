@@ -1,9 +1,14 @@
 import React from "react";
+import AdminNavbar from "./AdminNavbar";
+import SelectedComponent from "./SelectedComponent";
 
 const page = () => {
   return (
-    <div className="w-full h-[100vh] flex justify-center items-center font-extrabold text-[40px]">
-      Admin Panel
+    <div className="w-full min-h-[100vh] h-fit">
+      <AdminNavbar />
+      <div className="adminContainer w-full">
+        <SelectedComponent />
+      </div>
     </div>
   );
 };
