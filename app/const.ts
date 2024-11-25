@@ -13,6 +13,7 @@ import BestPriceTag from "./components/BestPriceTag";
 import Brands from "./components/Brands";
 import SendMessage from "./components/SendMessage";
 import ShoppingCart from "./(pages)/cart/ShoppingCart";
+import AreYouSure from "./components/modals/AreYouSure";
 
 export const paymentMethods = [
   { path: "/visa.png" },
@@ -116,6 +117,7 @@ export const BrandsNames = [
 ];
 
 export {
+  AreYouSure,
   Navbar,
   MainSlider,
   Deals,

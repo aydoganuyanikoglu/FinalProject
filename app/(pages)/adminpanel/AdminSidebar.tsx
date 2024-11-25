@@ -56,7 +56,7 @@ const AdminSidebar: React.FC<SidebarProps> = ({ isActive, setIsActive }) => {
       </ul>
       <div className="mt-10 w-full px-10">
         <button
-          className="h-[45px] w-full py-2 font-bold bg-red-600 rounded-md text-white text-[14px]
+          className="h-[45px] w-full py-2 font-bold bg-[#4048b9] rounded-md text-white text-[14px]
           hover:bg-black"
           onClick={() => handleLogout()}
         >

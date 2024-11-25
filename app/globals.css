@@ -332,6 +332,15 @@
   color: #37006e;
 }
 
+.userDeleteButton:hover {
+  background-color: white;
+}
+
+.userDeleteButton:hover .userDeleteIcon,
+.userDeleteButton:hover p {
+  color: red;
+}
+
 @media screen and (max-width: 1100px) {
   .clipPath1,
   .needHelpClipPath {
