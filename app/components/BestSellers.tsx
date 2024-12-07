@@ -4,8 +4,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { styles } from "../const";
+import { useProduct } from "@/context/ProductContext";
 
 const BestSellers = () => {
+  const { allProducts } = useProduct();
+  console.log(allProducts);
   const settings = {
     infinite: true,
     speed: 500,

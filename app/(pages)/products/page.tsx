@@ -9,10 +9,11 @@ const page = () => {
     <div>
       <Navbar />
       <div className={`w-full py-[50px] ${styles.pagePaddingX}`}>
-        <div className="mb-10 font-light">Home | Products</div>
-        <div className={`h-fit flex gap-5 max-sm:flex-col`}>
-          <FilterProducts />
-          <ProductList />
+        <div className={`h-fit w-full flex justify-center`}>
+          <div className="w-[1100px] flex gap-5 max-sm:flex-col max-md:w-full">
+            <FilterProducts />
+            <ProductList />
+          </div>
         </div>
       </div>
       <Footer />

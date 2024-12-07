@@ -109,6 +109,7 @@
   border: 2px solid rgba(255, 255, 255, 0);
   z-index: 0;
   overflow: hidden;
+  font-size: 12px;
 }
 
 .addtoCartButton::before {
@@ -339,6 +340,37 @@
 .userDeleteButton:hover .userDeleteIcon,
 .userDeleteButton:hover p {
   color: red;
+}
+
+.loadingButton {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 15px;
+  background-color: black;
+  color: white;
+  font-weight: 700;
+  border-radius: 3px;
+  border: 2px solid black;
+  overflow: hidden;
+}
+
+.addedtoCartButton {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 15px;
+  background-color: black;
+  color: white;
+  font-weight: 700;
+  border-radius: 3px;
+  border: 2px solid black;
+  overflow: hidden;
+  font-size: 12px;
 }
 
 @media screen and (max-width: 1100px) {

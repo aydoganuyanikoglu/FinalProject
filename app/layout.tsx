@@ -4,6 +4,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { AuthProvider } from "@/context/AuthContext";
+import { ProductProvider } from "@/context/ProductContext";
 import { ToastProvider } from "@/context/ToastContext";
 import "react-toastify/dist/ReactToastify.css";
 import theme from "./theme";
@@ -15,10 +16,12 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ToastProvider>
             <AuthProvider>
-              <ThemeProvider theme={theme}>
-                <CssBaseline />
-                {props.children}
-              </ThemeProvider>
+              <ProductProvider>
+                <ThemeProvider theme={theme}>
+                  <CssBaseline />
+                  {props.children}
+                </ThemeProvider>
+              </ProductProvider>
             </AuthProvider>
           </ToastProvider>
         </AppRouterCacheProvider>

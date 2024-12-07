@@ -5,7 +5,7 @@ export type profileInfoType = {
 };
 
 export type typeUsers = {
-  id?: string;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -15,7 +15,7 @@ export type typeUsers = {
 };
 
 export type Productstype = {
-  id?: string;
+  id: string;
   name: string;
   category: string;
   short_description: string;
@@ -26,6 +26,24 @@ export type Productstype = {
   discount_start_date?: Date;
   discount_end_date?: Date;
   discount_percentage?: string;
+  brand?: string;
+};
+
+export type CartProductsType = {
+  user_id: string;
+  quantity: number;
+  id: string;
+  name: string;
+  category: string;
+  short_description: string;
+  long_description?: string;
+  price: string;
+  image_url: string;
+  discount_price?: string;
+  discount_start_date?: Date;
+  discount_end_date?: Date;
+  discount_percentage?: string;
+  brand?: string;
 };
 
 export type typeFormState =

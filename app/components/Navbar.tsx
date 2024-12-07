@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@mui/material";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
@@ -10,9 +10,19 @@ import CloseIcon from "@mui/icons-material/Close";
 import { navbarLinks } from "../const";
 import { useState } from "react";
 import { styles } from "../const";
+import { useProduct } from "@/context/ProductContext";
+import { useAuth } from "@/context/AuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { handleFetchTotalQuantity, totalQuantity } = useProduct();
+  const { currentUser } = useAuth();
+
+  useEffect(() => {
+    if (currentUser) {
+      handleFetchTotalQuantity(currentUser.id);
+    }
+  }, [currentUser]);
 
   const handleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -45,8 +55,11 @@ const Navbar = () => {
           <Link href="/profile">
             <PersonOutlineRoundedIcon className="icons" />
           </Link>
-          <Link href="/cart">
+          <Link className="relative" href="/cart">
             <ShoppingCartOutlinedIcon className="icons" />
+            <div className="totalQuantityContainer w-[16px] h-[16px] flex justify-center items-center absolute -bottom-[5px] -right-1 text-[9px] bg-white border-[2px] border-black rounded-[50%] font-bold">
+              {totalQuantity}
+            </div>
           </Link>
           <Link href="/favoritelist">
             <FavoriteBorderOutlinedIcon className="icons" />

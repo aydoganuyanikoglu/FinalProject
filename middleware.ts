@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { decrypt } from "@/auth/session";
 
-const protectedRoutes = ["/adminpanel", "/profile", "/favoritelist"];
+const protectedRoutes = ["/adminpanel", "/profile", "/favoritelist", "/cart"];
 const adminRoute = ["/adminpanel"];
 const loginRoutes = ["/login"];
 
@@ -29,5 +29,12 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/adminpanel", "/login", "/register", "/profile", "/favoritelist"],
+  matcher: [
+    "/adminpanel",
+    "/login",
+    "/register",
+    "/profile",
+    "/favoritelist",
+    "/cart",
+  ],
 };

@@ -1,14 +1,23 @@
+"use client";
 import React from "react";
-import { navbarLinks } from "@/app/const";
+import { useProduct } from "@/context/ProductContext";
 
 const FilterProducts = () => {
+  const filterLinks = [
+    { id: "0", name: "All Products" },
+    { id: "1", name: "Mobile & Wearable Tech" },
+    { id: "2", name: "Drones & Cameras" },
+    { id: "3", name: "Tablets" },
+    { id: "4", name: "Headphones & Speakers" },
+    { id: "5", name: "Computers" },
+  ];
   return (
     <div className="w-[20%] max-md:w-[45%] max-sm:w-full">
       <h2 className="font-normal text-[20px] max-md:text-[16px]">Browse By</h2>
       <hr />
       <div className="browseByContainer h-fit mt-2 py-[20px]">
         <ul className="flex flex-col gap-2">
-          {navbarLinks.map((item, index) => (
+          {filterLinks.map((item, index) => (
             <li
               key={index}
               className="w-fit text-[14px] max-md:text-[13px] font-normal cursor-pointer border-b-[1px] border-b-[#00000000] hover:border-b-[#000]"
