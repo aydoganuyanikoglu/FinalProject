@@ -5,7 +5,7 @@ export type profileInfoType = {
 };
 
 export type typeUsers = {
-  id: string;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
