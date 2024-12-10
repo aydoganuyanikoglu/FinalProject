@@ -39,7 +39,7 @@ const Orders = () => {
         <span className="gray-400">|</span>
         <p className="font-normal text-[15px] text-gray-400">Orders</p>
       </div>
-      <div className="mt-5 w-[1100px] h-fit border-[1px] border-gray-200 rounded-md flex flex-col gap-7 items-center px-[40px] max-sm:w-full max-sm:px-[10px]">
+      <div className="mt-5 w-[1100px] py-10 max-md:py-2 h-fit border-[1px] border-gray-200 rounded-md flex flex-col gap-7 items-center px-[40px] max-sm:w-full max-sm:px-[10px]">
         <div className="w-full h-fit p-3 bg-white rounded shadow-md">
           <div className="w-full flex justify-between items-center">
             <h2 className="text-[19px] max-md:text-[15px] font-bold">

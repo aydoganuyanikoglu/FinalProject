@@ -5,17 +5,21 @@ import * as Yup from "yup";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/context/AuthContext";
 import { useProduct } from "@/context/ProductContext";
+import { toast } from "react-toastify";
 
 const ReactStars = dynamic(() => import("react-stars"), { ssr: false });
 
 interface LeaveCommentFormProps {
-  id: string; // Dinamik id
+  id: string;
   onclose: () => void;
 }
 
 const LeaveCommentForm: React.FC<LeaveCommentFormProps> = ({ id, onclose }) => {
   const { currentUser } = useAuth();
-  const { handleAddReview } = useProduct();
+  const { handleAddReview, reviews } = useProduct();
+  const isReviewed = reviews.some(
+    (review) => review.user_id === currentUser?.id
+  );
 
   return (
     <Formik
@@ -36,8 +40,10 @@ const LeaveCommentForm: React.FC<LeaveCommentFormProps> = ({ id, onclose }) => {
           .required("Review is required."),
       })}
       onSubmit={(values) => {
-        if (currentUser?.id) {
+        if (currentUser?.id && !isReviewed) {
           handleAddReview(values, currentUser.id, currentUser.firstname, id);
+        } else {
+          toast.error("You can not rate more than one to same product!");
         }
       }}
     >

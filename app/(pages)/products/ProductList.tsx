@@ -10,35 +10,82 @@ import { CircularProgress } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { ProductsSkeleton } from "@/app/components/skeletons/Skeletons";
+import { useSearchParams } from "next/navigation";
+import { getFilteredProducts } from "@/lib/data";
 
 const ProductList = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const categoryparam = searchParams.get("category");
+  const wordparam = searchParams.get("word");
+  const maxPriceParam = searchParams.get("maxPrice");
+  const minPriceParam = searchParams.get("minPrice");
+  const sortParam = searchParams.get("sortBy");
+  const [loading, setLoading] = useState(true);
+  const filterList = [
+    { name: "Category", query: "category", value: categoryparam },
+    { name: "Word", query: "word", value: wordparam },
+    { name: "Max Price", query: "maxPrice", value: maxPriceParam },
+    { name: "Min Price", query: "minPrice", value: minPriceParam },
+  ];
+  const [filteredProducts, setfilteredProducts] = useState<Productstype[]>([]);
   const [isVisible, setisVisible] = useState(false);
   const { currentUser } = useAuth();
   const {
-    selectedOrderBy,
-    setSelectedOrderBy,
-    filteredProducts,
-    fetchAllProducts,
     handleAddtoCart,
     productStates,
     favoriteProducts,
     handleFetchFavoriteProducts,
     handleAddToFavorites,
     handleRemoveFromFavorites,
-    loading,
   } = useProduct();
   const orderItems = [
-    { name: "Recommended" },
-    { name: "Price (low to high)" },
-    { name: "Price (high to low)" },
-    { name: "Name A-Z" },
-    { name: "Name Z-A" },
+    { name: "Recommended", value: "" },
+    { name: "Price (low to high)", value: "priceDesc" },
+    { name: "Price (high to low)", value: "priceAsc" },
+    { name: "Name A-Z", value: "nameAsc" },
+    { name: "Name Z-A", value: "nameDesc" },
   ];
+  const selectedOrderBy =
+    orderItems.find((item) => item.value === sortParam)?.name || "Recommended";
+  const currentParams = new URLSearchParams(searchParams.toString());
+
+  const handleApplySortFilter = (sortby: string) => {
+    if (sortby == "") {
+      handleRemoveFilter("sortBy");
+      return;
+    }
+    currentParams.set("sortBy", sortby);
+    router.push(`/products?${currentParams.toString()}`);
+  };
+
+  const handleRemoveFilter = (filterName: string) => {
+    const currentParams = new URLSearchParams(searchParams.toString());
+    currentParams.delete(filterName);
+    router.push(`/products?${currentParams.toString()}`);
+  };
+
+  const fetchProductsByFilter = async () => {
+    try {
+      const results = await getFilteredProducts({
+        category: categoryparam,
+        minPrice: minPriceParam,
+        maxPrice: maxPriceParam,
+        sortBy: sortParam,
+        word: wordparam,
+      });
+      setfilteredProducts(results);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error while fetching filtered products", error);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetchAllProducts();
-  }, []);
+    setLoading(true);
+    fetchProductsByFilter();
+  }, [categoryparam, wordparam, minPriceParam, maxPriceParam, sortParam]);
 
   useEffect(() => {
     if (currentUser?.id) {
@@ -69,8 +116,8 @@ const ProductList = () => {
             <li
               key={index}
               onClick={() => {
+                handleApplySortFilter(item.value);
                 setisVisible((prev) => !prev);
-                setSelectedOrderBy(item.name);
               }}
               className="cursor-pointer p-2 text-white hover:bg-white hover:text-black"
             >
@@ -79,6 +126,25 @@ const ProductList = () => {
           ))}
         </ul>
       </div>
+      <ul className="filtersContainer flex items-center gap-2">
+        {filterList.map((item, index) =>
+          item.value ? (
+            <li
+              key={index}
+              className="mt-3 flex items-center flex-wrap gap-1 p-2 border-[1px] border-orange-600 rounded-md bg-orange-600 text-white text-[11px] hover:bg-white hover:text-orange-600"
+            >
+              <p>{item.name}</p>
+              <p>"{item.value}"</p>
+              <button
+                onClick={() => handleRemoveFilter(item.query)}
+                className="ml-5"
+              >
+                x
+              </button>
+            </li>
+          ) : null
+        )}
+      </ul>
       <div className="productsContainer w-full h-fit mt-5">
         {loading ? (
           <ProductsSkeleton />
@@ -87,7 +153,7 @@ const ProductList = () => {
             {filteredProducts.map((item, index) => {
               const productState = productStates[item.id] || {};
               const { loading, added } = productState;
-              const isLiked = favoriteProducts.some(
+              const isLiked = favoriteProducts?.some(
                 (product) => product.name === item.name
               );
               const isDiscounted = item.price !== item.discount_price;
@@ -130,7 +196,7 @@ const ProductList = () => {
                   )}
                   <div className="image bg-gray-300 w-full h-[190px] max-sm:!h-[150px]"></div>
                   <div className="titleContainer">
-                    <h2 className="productTitle text-[14px] font-medium mt-2 max-md:text-[13px]">
+                    <h2 className="productTitle h-[30px] text-[14px] font-medium mt-2 max-md:text-[13px]">
                       {item.name}
                     </h2>
                   </div>

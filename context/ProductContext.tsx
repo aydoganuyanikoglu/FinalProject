@@ -41,14 +41,12 @@ import { useToast } from "./ToastContext";
 
 interface ProductContextType {
   reviews: ReviewsType[];
-  totalQuantity: number;
-  totalPrice: number;
+  totalQuantity: number | undefined;
+  totalPrice: number | undefined;
   loading: boolean;
-  selectedOrderBy: String;
-  setSelectedOrderBy: React.Dispatch<React.SetStateAction<string>>;
   allProducts: Productstype[];
-  cartProducts: CartProductsType[];
-  favoriteProducts: FavoriteProductsType[];
+  cartProducts: CartProductsType[] | undefined;
+  favoriteProducts: FavoriteProductsType[] | undefined;
   filteredProducts: Productstype[];
   productStates: { [key: string]: { loading: boolean; added: boolean } };
   productById?: Productstype;
@@ -105,15 +103,17 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   const { showToast } = useToast();
   const [productById, setProductById] = useState<Productstype>();
   const [allProducts, setAllProducts] = useState<Productstype[]>([]);
-  const [cartProducts, setCartProducts] = useState<CartProductsType[]>([]);
+  const [cartProducts, setCartProducts] = useState<
+    CartProductsType[] | undefined
+  >([]);
   const [favoriteProducts, setFavoriteProducts] = useState<
-    FavoriteProductsType[]
+    FavoriteProductsType[] | undefined
   >([]);
   const [filteredProducts, setFilteredProducts] =
     useState<Productstype[]>(allProducts);
   const [selectedOrderBy, setSelectedOrderBy] = useState("Recommended");
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [totalQuantity, setTotalQuantity] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number | undefined>(0);
+  const [totalQuantity, setTotalQuantity] = useState<number | undefined>(0);
   const [productStates, setProductStates] = useState<{
     [key: number]: { loading: boolean; added: boolean };
   }>({});
@@ -381,8 +381,6 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         allProducts,
         fetchAllProducts,
         filteredProducts,
-        selectedOrderBy,
-        setSelectedOrderBy,
         handleAddtoCart,
         productStates,
         cartProducts,

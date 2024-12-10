@@ -7,7 +7,7 @@ import { contactInfo } from "@/app/const";
 const ContactInformation = () => {
   return (
     <section
-      className={`h-fit py-[100px] w-full flex flex-col gap-10 justify-center bg-white px-[200px] max-lg:px-[100px] max-md:px-[20px] max-md:h-fit max-md:py-[100px]`}
+      className={`h-fit py-[100px] w-full flex flex-col gap-10 justify-center bg-white px-[50px] max-lg:px-[100px] max-md:px-[20px] max-md:h-fit max-md:py-[100px]`}
     >
       <div className="title">
         <h2 className="text-[16px] font-bold max-lg:text-[15px]">Contact</h2>

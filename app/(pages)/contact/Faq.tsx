@@ -21,7 +21,7 @@ const Faq = () => {
             return (
               <li
                 className={`w-full p-3 border-[2px] border-b-0  ${
-                  openIndex === index ? "border-blue-600" : "border-black"
+                  openIndex === index ? "border-orange-600" : "border-black"
                 }`}
                 key={index}
               >

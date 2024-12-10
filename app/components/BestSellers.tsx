@@ -60,7 +60,7 @@ const BestSellers = () => {
   }, [allProducts.length]);
 
   const settings = {
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -102,7 +102,7 @@ const BestSellers = () => {
             {randomProducts.map((item, index) => {
               const productState = productStates[item.id] || {};
               const { loading, added } = productState;
-              const isLiked = favoriteProducts.some(
+              const isLiked = favoriteProducts?.some(
                 (product) => product.name === item.name
               );
               const isDiscounted = item.price !== item.discount_price;

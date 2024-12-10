@@ -40,7 +40,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
     handleFetchReviewCount,
     reviewStats,
   } = useProduct();
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState<boolean | undefined>(false);
   const isDiscounted = productById?.price !== productById?.discount_price;
 
   useEffect(() => {
@@ -56,12 +56,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
     if (currentUser?.id) {
       handleFetchFavoriteProducts(currentUser.id);
     }
-    const liked = favoriteProducts.some(
+    const liked = favoriteProducts?.some(
       (item) => item.name === productById?.name
     );
 
     setIsLiked(liked);
-  }, [currentUser, favoriteProducts.length]);
+  }, [currentUser, favoriteProducts?.length]);
 
   return (
     <div>

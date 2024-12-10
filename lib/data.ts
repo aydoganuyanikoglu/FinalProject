@@ -13,6 +13,58 @@ import {
 } from "./types";
 import { verifySession } from "@/auth/session";
 
+export const getFilteredProducts = async (filters: {
+  category?: string | null;
+  minPrice?: string | null;
+  maxPrice?: string | null;
+  sortBy?: string | null;
+  word?: string | null;
+}): Promise<Productstype[]> => {
+  const values: any[] = [];
+
+  let query = `SELECT * FROM products WHERE 1=1`;
+
+  if (filters.category && filters.category.toLowerCase() !== "all products") {
+    query += ` AND category = $${values.length + 1}`;
+    values.push(filters.category);
+  }
+
+  if (filters.minPrice) {
+    query += ` AND price >= $${values.length + 1}`;
+    values.push(filters.minPrice);
+  }
+
+  if (filters.maxPrice) {
+    query += ` AND price <= $${values.length + 1}`;
+    values.push(filters.maxPrice);
+  }
+
+  if (filters.word) {
+    query += ` AND name ILIKE $${values.length + 1}`;
+    values.push(`%${filters.word}%`);
+  }
+
+  if (filters.sortBy) {
+    if (filters.sortBy === "priceAsc") {
+      query += ` ORDER BY price ASC`;
+    } else if (filters.sortBy === "priceDesc") {
+      query += ` ORDER BY price DESC`;
+    } else if (filters.sortBy === "nameAsc") {
+      query += ` ORDER BY name ASC`;
+    } else if (filters.sortBy === "nameDesc") {
+      query += ` ORDER BY name DESC`;
+    }
+  }
+
+  try {
+    const result = await sql.query(query, values);
+    return result.rows;
+  } catch (error) {
+    console.error("Database query failed", error);
+    throw error;
+  }
+};
+
 export const fetchCookie = async (): Promise<string | undefined> => {
   try {
     const sessionData = await verifySession();
@@ -306,6 +358,11 @@ export const addReview = async (
   userName: string,
   productId: string
 ): Promise<void> => {
+  const reviews = await fetchReviews(productId);
+  const isReviewedBefore = reviews?.some((review) => review.user_id === userId);
+  if (isReviewedBefore) {
+    return;
+  }
   const id = await fetchCookie();
   if (id !== userId) {
     console.log("You dont have a permission!");
