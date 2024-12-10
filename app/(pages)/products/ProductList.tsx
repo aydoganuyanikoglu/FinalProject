@@ -7,6 +7,9 @@ import Image from "next/image";
 import { Productstype } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { ProductsSkeleton } from "@/app/components/skeletons/Skeletons";
 
 const ProductList = () => {
   const router = useRouter();
@@ -19,6 +22,11 @@ const ProductList = () => {
     fetchAllProducts,
     handleAddtoCart,
     productStates,
+    favoriteProducts,
+    handleFetchFavoriteProducts,
+    handleAddToFavorites,
+    handleRemoveFromFavorites,
+    loading,
   } = useProduct();
   const orderItems = [
     { name: "Recommended" },
@@ -31,6 +39,12 @@ const ProductList = () => {
   useEffect(() => {
     fetchAllProducts();
   }, []);
+
+  useEffect(() => {
+    if (currentUser?.id) {
+      handleFetchFavoriteProducts(currentUser.id);
+    }
+  }, [currentUser]);
 
   return (
     <div className="w-[80%] h-fit max-md:w-[55%] max-sm:w-full">
@@ -65,54 +79,107 @@ const ProductList = () => {
           ))}
         </ul>
       </div>
-      <div className="productsContainer w-full h-fit mt-2">
-        <ul className="w-full h-fit grid grid-cols-4 gap-2 max-md:grid-cols-2">
-          {filteredProducts.map((item, index) => {
-            const productState = productStates[item.id] || {};
-            const { loading, added } = productState;
+      <div className="productsContainer w-full h-fit mt-5">
+        {loading ? (
+          <ProductsSkeleton />
+        ) : (
+          <ul className="w-full h-fit grid grid-cols-4 gap-2 max-md:grid-cols-2">
+            {filteredProducts.map((item, index) => {
+              const productState = productStates[item.id] || {};
+              const { loading, added } = productState;
+              const isLiked = favoriteProducts.some(
+                (product) => product.name === item.name
+              );
+              const isDiscounted = item.price !== item.discount_price;
 
-            return (
-              <li key={index} className="relative w-full h-fit flex flex-col">
-                <div className="image bg-gray-300 w-full h-[190px] max-sm:!h-[150px]"></div>
-                <div className="titleContainer">
-                  <h2 className="productTitle text-[14px] font-medium mt-2 max-md:text-[13px]">
-                    {item.name}
-                  </h2>
-                </div>
-                <div className="priceContainer font-bold text-[14px]">
-                  <p>{item.price}$</p>
-                </div>
-                <div className="buttonContainer">
-                  <button
-                    className={`${
-                      loading
-                        ? "loadingButton mt-7"
-                        : added
-                        ? "addedtoCartButton mt-7"
-                        : "addtoCartButton mt-7"
-                    }`}
-                    disabled={loading}
-                    onClick={() => {
-                      if (currentUser?.id) {
-                        handleAddtoCart(currentUser.id, item);
-                      } else {
-                        router.push("/login");
-                      }
-                    }}
-                  >
-                    {loading ? (
-                      <CircularProgress size={20} className="text-white" />
-                    ) : added ? (
-                      "Added to Cart"
+              return (
+                <li key={index} className="relative w-full h-fit flex flex-col">
+                  {currentUser && (
+                    <div className="addLikeContainer absolute right-2 top-2 cursor-pointer">
+                      <button
+                        onClick={() => {
+                          if (currentUser?.id) {
+                            if (isLiked) {
+                              handleRemoveFromFavorites(
+                                currentUser.id,
+                                item.id
+                              );
+                            } else {
+                              handleAddToFavorites(currentUser.id, item);
+                            }
+                          } else {
+                            router.push("/login");
+                          }
+                        }}
+                      >
+                        {isLiked ? (
+                          <FavoriteIcon className="text-red-600" />
+                        ) : (
+                          <FavoriteBorderIcon />
+                        )}
+                      </button>
+                    </div>
+                  )}
+                  {isDiscounted && (
+                    <div className="absolute left-1 top-2.5 z-1 flex justify-center items-center -rotate-45">
+                      <div className="absolute !w-[50px] !h-[50px] rounded-[50%] bg-red-600"></div>
+                      <p className="relative z-1 text-white font-bold text-[12px]">
+                        {item.discount_percentage}%
+                      </p>
+                    </div>
+                  )}
+                  <div className="image bg-gray-300 w-full h-[190px] max-sm:!h-[150px]"></div>
+                  <div className="titleContainer">
+                    <h2 className="productTitle text-[14px] font-medium mt-2 max-md:text-[13px]">
+                      {item.name}
+                    </h2>
+                  </div>
+                  <div className="priceContainer mt-4 font-bold">
+                    {isDiscounted ? (
+                      <div className="h-[45px]">
+                        <p className="text-[12px] line-through font-normal">
+                          {item.price}$
+                        </p>
+                        <p className="text-[16px]">{item.discount_price}$</p>
+                      </div>
                     ) : (
-                      "Add to Cart"
+                      <div className="h-[45px] flex items-end">
+                        <p className="text-[16px]">{item.discount_price}$</p>
+                      </div>
                     )}
-                  </button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                  </div>
+                  <div className="buttonContainer">
+                    <button
+                      className={`${
+                        loading
+                          ? "loadingButton"
+                          : added
+                          ? "addedtoCartButton"
+                          : "addtoCartButton"
+                      }`}
+                      disabled={loading}
+                      onClick={() => {
+                        if (currentUser?.id) {
+                          handleAddtoCart(currentUser.id, item);
+                        } else {
+                          router.push("/login");
+                        }
+                      }}
+                    >
+                      {loading ? (
+                        <CircularProgress size={20} className="text-white" />
+                      ) : added ? (
+                        "Added to Cart"
+                      ) : (
+                        "Add to Cart"
+                      )}
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );

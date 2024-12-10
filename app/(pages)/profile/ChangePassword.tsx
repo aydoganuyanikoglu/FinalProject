@@ -47,7 +47,7 @@ const ChangePassword = () => {
       <h2 className="text-[24px] max-md:text-[21px] font-bold">
         Change Password
       </h2>
-      <p className="text-gray-600">
+      <p className="text-[16px] max-md:text-[14px] text-gray-600">
         Your password must contain at least one letter, one number, and one
         special character. It must also be at least 8 characters long.
       </p>
@@ -105,7 +105,7 @@ const ChangePassword = () => {
           <p className="inputErrorMessages">{formik.errors.newPassword}</p>
         )}
       </div>
-      <p className="text-sm text-gray-500 mb-6">
+      <p className="text-[16px] max-md:text-[14px] text-gray-500 mb-6">
         For your security, do not include your name, surname, or date of birth
         in your password.
       </p>

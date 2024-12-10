@@ -1,34 +1,39 @@
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
+import { useAuth } from "@/context/AuthContext";
+import { typeUsers } from "@/lib/types";
 
 const ProfileInfo = () => {
   const [isPending, setIsPending] = useState(false);
+  const { currentUser } = useAuth();
+  const [user, setUser] = useState<typeUsers>();
+
+  useEffect(() => {
+    if (currentUser) {
+      setUser(currentUser);
+      console.log(user);
+    }
+  }, [currentUser]);
 
   const validationSchema = Yup.object({
-    firstName: Yup.string()
+    firstname: Yup.string()
       .min(2, "Firstname must be at least 2 characters")
       .matches(/^[A-Za-z]+$/, "Firstname cannot contain numbers")
       .required("Firstname is required"),
-    lastName: Yup.string()
+    lastname: Yup.string()
       .min(2, "Lastname must be at least 2 characters")
       .matches(/^[A-Za-z]+$/, "Lastname can't contain numbers")
       .required("Lastname is required"),
-    birthDate: Yup.date()
-      .max(
-        new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
-        "You must be at least 18 years old"
-      )
-      .required("Date of Birth is required"),
   });
 
   const formik = useFormik({
     initialValues: {
-      firstName: "Aydoğan",
-      lastName: "Uyanıkoğlu",
-      birthDate: "",
+      firstname: user?.firstname,
+      lastname: user?.lastname,
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -47,7 +52,7 @@ const ProfileInfo = () => {
       <h2 className="text-[24px] max-md:text-[21px] font-bold mb-4">
         Profile Information
       </h2>
-      <p className="text-gray-600">
+      <p className="text-[16px] max-md:text-[14px] text-gray-600">
         To keep your experience on our platform at its best, please update your
         profile information here if it is needed.
       </p>
@@ -55,68 +60,46 @@ const ProfileInfo = () => {
       <div className="mt-4 mb-4">
         <label
           className="block text-[13px] font-medium text-gray-700"
-          htmlFor="firstName"
+          htmlFor="firstname"
         >
           First Name
         </label>
         <input
           type="text"
-          id="firstName"
-          name="firstName"
-          value={formik.values.firstName}
+          id="firstname"
+          name="firstname"
+          value={formik.values.firstname}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           className="loginRegisterInputs"
           placeholder="First Name"
         />
-        {formik.touched.firstName && formik.errors.firstName ? (
-          <div className="inputErrorMessages">{formik.errors.firstName}</div>
+        {formik.touched.firstname && formik.errors.firstname ? (
+          <div className="inputErrorMessages">{formik.errors.firstname}</div>
         ) : null}
       </div>
 
       <div className="mb-4">
         <label
           className="block text-[13px] font-medium text-gray-700"
-          htmlFor="lastName"
+          htmlFor="lastname"
         >
           Last Name
         </label>
         <input
           type="text"
-          id="lastName"
-          name="lastName"
-          value={formik.values.lastName}
+          id="lastname"
+          name="lastname"
+          value={formik.values.lastname}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           className="loginRegisterInputs"
           placeholder="Last Name"
         />
-        {formik.touched.lastName && formik.errors.lastName ? (
-          <div className="inputErrorMessages">{formik.errors.lastName}</div>
+        {formik.touched.lastname && formik.errors.lastname ? (
+          <div className="inputErrorMessages">{formik.errors.lastname}</div>
         ) : null}
       </div>
-
-      <div className="mb-4">
-        <label
-          className="block text-[13px] font-medium text-gray-700"
-          htmlFor="birthDate"
-        >
-          Date of Birth
-        </label>
-        <input
-          type="date"
-          id="birthDate"
-          name="birthDate"
-          value={formik.values.birthDate}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          className="loginRegisterInputs"
-        />
-        {formik.touched.birthDate && formik.errors.birthDate ? (
-          <div className="inputErrorMessages">{formik.errors.birthDate}</div>
-        ) : null}
-      </div>
-
       <Button
         type="submit"
         variant="contained"

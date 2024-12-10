@@ -19,7 +19,7 @@ const Navbar = () => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser?.id) {
       handleFetchTotalQuantity(currentUser.id);
     }
   }, [currentUser]);
@@ -44,26 +44,32 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="rightMiddleContainer flex items-center gap-3">
-          <Link href="/login">
-            <Button
-              className="text-[13px] px-[8px] py-1 font-normal"
-              variant="contained"
-            >
-              Login
-            </Button>
-          </Link>
-          <Link href="/profile">
-            <PersonOutlineRoundedIcon className="icons" />
-          </Link>
-          <Link className="relative" href="/cart">
-            <ShoppingCartOutlinedIcon className="icons" />
-            <div className="totalQuantityContainer w-[16px] h-[16px] flex justify-center items-center absolute -bottom-[5px] -right-1 text-[9px] bg-white border-[2px] border-black rounded-[50%] font-bold">
-              {totalQuantity}
+          {!currentUser && (
+            <Link href="/login">
+              <Button
+                className="text-[13px] px-[8px] py-1 font-normal"
+                variant="contained"
+              >
+                Login
+              </Button>
+            </Link>
+          )}
+          {currentUser && (
+            <div className="flex items-center gap-3">
+              <Link href="/profile">
+                <PersonOutlineRoundedIcon className="icons" />
+              </Link>
+              <Link className="relative" href="/cart">
+                <ShoppingCartOutlinedIcon className="icons" />
+                <div className="totalQuantityContainer w-[16px] h-[16px] flex justify-center items-center absolute -bottom-[5px] -right-1 text-[9px] bg-white border-[2px] border-black rounded-[50%] font-bold">
+                  {totalQuantity}
+                </div>
+              </Link>
+              <Link href="/favoritelist">
+                <FavoriteBorderOutlinedIcon className="icons" />
+              </Link>
             </div>
-          </Link>
-          <Link href="/favoritelist">
-            <FavoriteBorderOutlinedIcon className="icons" />
-          </Link>
+          )}
         </div>
       </div>
       <nav className="relative">

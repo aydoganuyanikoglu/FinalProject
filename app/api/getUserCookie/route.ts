@@ -13,8 +13,8 @@ export async function GET() {
 
   const filteredData = {
     id: sessionData.id,
-    firstName: sessionData.firstName,
-    lastName: sessionData.lastName,
+    firstname: sessionData.firstname,
+    lastname: sessionData.lastname,
     email: sessionData.email,
     isAdmin: sessionData.isAdmin,
   };

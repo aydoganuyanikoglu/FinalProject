@@ -3,6 +3,7 @@ import "server-only";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { typeUsers } from "@/lib/types";
+import { fetchUserById } from "@/lib/data";
 
 const secretKey = process.env.JWT_SECRET;
 const key = new TextEncoder().encode(secretKey);
@@ -38,12 +39,15 @@ export const createSession = async (user: typeUsers) => {
   const isAdmin = user.email === "aslan321@gmail.com";
   const session = await encrypt({
     id: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
+    firstname: user.firstname,
+    lastname: user.lastname,
     email: user.email,
     isAdmin,
     expiresAt,
   });
+
+  console.log("user before session:", user);
+  console.log("session:", session);
 
   cookies().set("session", session, {
     httpOnly: true,

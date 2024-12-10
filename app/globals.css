@@ -39,6 +39,11 @@
   }
 }
 
+.addressClass:hover .deleteAddressContainer {
+  opacity: 1;
+  z-index: 10;
+}
+
 .openInfos {
   height: fit-content !important;
   padding: 10px 20px !important;
@@ -100,13 +105,13 @@
   justify-content: center;
   align-items: center;
   padding: 3px 15px;
-  background-color: #003c6e;
+  background-color: #007f8d;
   color: white;
   font-weight: 700;
   border-radius: 3px;
   cursor: pointer;
   position: relative;
-  border: 2px solid rgba(255, 255, 255, 0);
+  border: 2px solid rgba(100, 100, 100, 0);
   z-index: 0;
   overflow: hidden;
   font-size: 12px;
@@ -128,8 +133,8 @@
 }
 
 .addtoCartButton:hover {
-  color: #003c6e;
-  border: 2px solid #003c6e;
+  color: #007f8d;
+  border: 2px solid #007f8d;
 }
 
 .sliderContainer .slick-track {

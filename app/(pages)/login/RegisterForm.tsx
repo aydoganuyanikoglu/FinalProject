@@ -12,10 +12,10 @@ const RegisterForm = () => {
   const { showToast } = useToast();
 
   const validationSchema = Yup.object().shape({
-    firstName: Yup.string()
+    firstname: Yup.string()
       .min(2, "First name must be at least 2 characters")
       .required("First name is required"),
-    lastName: Yup.string()
+    lastname: Yup.string()
       .min(2, "Last name must be at least 2 characters")
       .required("Last name is required"),
     email: Yup.string()
@@ -41,8 +41,8 @@ const RegisterForm = () => {
   return (
     <Formik
       initialValues={{
-        firstName: "",
-        lastName: "",
+        firstname: "",
+        lastname: "",
         email: "",
         password: "",
       }}
@@ -55,11 +55,11 @@ const RegisterForm = () => {
             <Field
               className="loginRegisterInputs"
               type="text"
-              name="firstName"
+              name="firstname"
               placeholder="First Name"
             />
             <ErrorMessage
-              name="firstName"
+              name="firstname"
               component="div"
               className="inputErrorMessages"
             />
@@ -68,11 +68,11 @@ const RegisterForm = () => {
             <Field
               className="loginRegisterInputs"
               type="text"
-              name="lastName"
+              name="lastname"
               placeholder="Last Name"
             />
             <ErrorMessage
-              name="lastName"
+              name="lastname"
               component="div"
               className="inputErrorMessages"
             />

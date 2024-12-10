@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import ChangePassword from "./ChangePassword";
 import ProfileInfo from "./ProfileInfo";
 import { CircularProgress } from "@mui/material";
@@ -8,6 +8,8 @@ import { logoutServer } from "@/auth/auth";
 import { useAuth } from "@/context/AuthContext";
 import "react-toastify/dist/ReactToastify.css";
 import { useToast } from "@/context/ToastContext";
+import { styles } from "@/app/const";
+import Link from "next/link";
 
 const ProfileContainer = () => {
   const router = useRouter();
@@ -26,8 +28,24 @@ const ProfileContainer = () => {
   };
 
   return (
-    <div className="w-full h-fit flex flex-col items-center py-[100px]">
+    <div
+      className={`w-full h-fit flex flex-col items-center py-[100px] max-md:px-[10px]`}
+    >
       <div className="w-[500px] h-fit py-[50px] border-[1px] border-gray-200 rounded-md flex flex-col gap-7 items-center px-[40px] max-sm:w-full max-sm:px-[10px]">
+        <div className="navigateButtons flex gap-2">
+          <Link
+            href="/profile/addresses"
+            className="productDetailButtons flex items-center justify-center !w-[200px] !h-[50px] !bg-orange-600 !border-orange-600 hover:!bg-white hover:!text-orange-600 max-md:!w-[140px]"
+          >
+            Addresses
+          </Link>
+          <Link
+            href="/profile/orders"
+            className="productDetailButtons flex items-center justify-center !w-[200px] !h-[50px] !bg-orange-600 !border-orange-600 hover:!bg-white hover:!text-orange-600 max-md:!w-[140px]"
+          >
+            Orders
+          </Link>
+        </div>
         <div className="login&registercontainer w-full grid grid-cols-2 border-b-[1px] border-b-gray-300">
           <div
             onClick={() => setloginRegister(false)}

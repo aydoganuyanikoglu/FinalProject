@@ -1,19 +1,28 @@
-// pages/review-form.tsx
+"use client";
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import dynamic from "next/dynamic";
+import { useAuth } from "@/context/AuthContext";
+import { useProduct } from "@/context/ProductContext";
 
 const ReactStars = dynamic(() => import("react-stars"), { ssr: false });
 
-const LeaveCommentForm = ({ onclose }: { onclose: () => void }) => {
+interface LeaveCommentFormProps {
+  id: string; // Dinamik id
+  onclose: () => void;
+}
+
+const LeaveCommentForm: React.FC<LeaveCommentFormProps> = ({ id, onclose }) => {
+  const { currentUser } = useAuth();
+  const { handleAddReview } = useProduct();
+
   return (
     <Formik
       initialValues={{
         rating: 0,
         title: "",
         review: "",
-        media: [],
       }}
       validationSchema={Yup.object({
         rating: Yup.number()
@@ -26,9 +35,10 @@ const LeaveCommentForm = ({ onclose }: { onclose: () => void }) => {
           .max(1000, "Review must be 1000 characters or less.")
           .required("Review is required."),
       })}
-      onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
-        setSubmitting(false);
+      onSubmit={(values) => {
+        if (currentUser?.id) {
+          handleAddReview(values, currentUser.id, currentUser.firstname, id);
+        }
       }}
     >
       {({ setFieldValue, values }) => (
@@ -82,21 +92,6 @@ const LeaveCommentForm = ({ onclose }: { onclose: () => void }) => {
               name="review"
               component="div"
               className="inputErrorMessages"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-1 font-light">
-              Add images & videos (0/5)
-            </label>
-            <input
-              type="file"
-              accept="image/*,video/*"
-              className="sendMessageInputs"
-              multiple
-              onChange={(event) => {
-                const files = Array.from(event.target.files || []);
-                setFieldValue("media", files.slice(0, 5));
-              }}
             />
           </div>
           <div className="flex justify-end space-x-2">

@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { decrypt } from "@/auth/session";
 
-const protectedRoutes = ["/adminpanel", "/profile", "/favoritelist", "/cart"];
+const protectedRoutes = [
+  "/adminpanel",
+  "/profile",
+  "/favoritelist",
+  "/cart",
+  "/profile/addresses",
+  "/profile/orders",
+];
 const adminRoute = ["/adminpanel"];
 const loginRoutes = ["/login"];
 
@@ -36,5 +43,7 @@ export const config = {
     "/profile",
     "/favoritelist",
     "/cart",
+    "/profile/addresses",
+    "/profile/orders",
   ],
 };

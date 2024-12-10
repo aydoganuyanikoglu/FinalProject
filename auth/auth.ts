@@ -30,18 +30,19 @@ export const loginServer = async (
   }
 
   const result2 = await sql<typeUsers>`
-    SELECT id,firstName,lastName,email
+    SELECT id,firstname,lastname,email
     FROM users
     WHERE email = ${email}
     `;
 
   const userWithoutPassword = result2.rows[0];
+  console.log("user before create session:", user);
   await createSession(user);
   return { user: userWithoutPassword };
 };
 
 export const signup = async (data: typeUsers): Promise<typeFormState> => {
-  const { firstName, lastName, email, password } = data;
+  const { firstname, lastname, email, password } = data;
   const existingUser =
     await sql<typeUsers>`SELECT * FROM users WHERE email = ${email}`;
 
@@ -55,8 +56,8 @@ export const signup = async (data: typeUsers): Promise<typeFormState> => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const result =
-    await sql<typeUsers>`INSERT INTO users (firstName,lastName, email, password) 
-    VALUES (${firstName},${lastName}, ${email}, ${hashedPassword}) RETURNING *;`;
+    await sql<typeUsers>`INSERT INTO users (firstname,lastname, email, password) 
+    VALUES (${firstname},${lastname}, ${email}, ${hashedPassword}) RETURNING *;`;
 
   if (!result) {
     return { message: "Error while inserting data to database!" };

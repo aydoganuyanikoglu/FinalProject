@@ -1,74 +1,191 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Footer, NeedHelp } from "@/app/const";
 import ReactStars from "react-stars";
 import YouMightLike from "./YouMightLike";
 import LeaveCommentForm from "./LeaveCommentForm";
+import { useProduct } from "@/context/ProductContext";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { CircularProgress } from "@mui/material";
+import { EmptyReview } from "@/app/components/EmptyComponents";
+import Link from "next/link";
 
-const ProductDetails = () => {
+interface ProductDetailsProps {
+  params: {
+    id: string;
+  };
+}
+
+const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
+  const { id } = params;
+  const router = useRouter();
   const [showReviewForm, setShowReviewForm] = useState(false);
   const handleReviewForm = () => {
     setShowReviewForm((prev) => !prev);
   };
-  const product = {
-    name: "Example Product",
-    rating: 4.2,
-    totalReviews: 120,
-  };
+  const { currentUser } = useAuth();
+  const {
+    handleFetchProductbyId,
+    productById,
+    handleAddToFavorites,
+    handleFetchFavoriteProducts,
+    favoriteProducts,
+    handleRemoveFromFavorites,
+    handleAddtoCart,
+    cartButtonState,
+    favoriteButtonState,
+    handleFetchReviews,
+    reviews,
+    handleFetchReviewCount,
+    reviewStats,
+  } = useProduct();
+  const [isLiked, setIsLiked] = useState(false);
+  const isDiscounted = productById?.price !== productById?.discount_price;
 
-  const reviews = [
-    {
-      title: "Awesome Product!",
-      nickname: "Aydoğan Uyanıkoğlu",
-      comment:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      date: "18 April 2024",
-    },
-    {
-      title: "Amazing!",
-      nickname: "Atakan Erçetin",
-      comment:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-      date: "25 March 2024",
-    },
-  ];
+  useEffect(() => {
+    handleFetchProductbyId(id);
+  }, []);
+
+  useEffect(() => {
+    handleFetchReviews(id);
+    handleFetchReviewCount(id);
+  }, [reviews.length]);
+
+  useEffect(() => {
+    if (currentUser?.id) {
+      handleFetchFavoriteProducts(currentUser.id);
+    }
+    const liked = favoriteProducts.some(
+      (item) => item.name === productById?.name
+    );
+
+    setIsLiked(liked);
+  }, [currentUser, favoriteProducts.length]);
 
   return (
     <div>
       <Navbar />
       <div className="w-full flex justify-center">
         <div className="detailContainer w-[700px] py-[100px] max-md:w-[80%] max-smp:w-[100%] max-smp:px-[20px]">
-          <div className="upperContainer flex gap-5 max-md:flex-col max-md:justify-start">
-            <div className="leftContainer">
+          <div className="navigatorContainer flex gap-2">
+            <Link
+              className="w-fit text-[15px] text-gray-800 border-b-[1px] border-b-[#0000] hover:border-b-[#000]"
+              href="/"
+            >
+              Home
+            </Link>
+            <span className="gray-400">|</span>
+            <Link
+              className="w-fit text-[15px] text-gray-800 border-b-[1px] border-b-[#0000] hover:border-b-[#000]"
+              href="/products"
+            >
+              Products
+            </Link>
+            <span className="gray-400">|</span>
+            <p className="font-normal text-[15px] text-gray-400">
+              {productById?.name}
+            </p>
+          </div>
+          <div className="mt-10 upperContainer flex gap-5 max-md:flex-col max-md:justify-start">
+            <div className="leftContainer relative">
+              {isDiscounted && (
+                <div className="absolute left-1 top-2.5 z-1 flex justify-center items-center -rotate-45">
+                  <div className="absolute !w-[70px] !h-[70px] rounded-[50%] bg-red-600"></div>
+                  <p className="relative z-1 text-white font-bold text-[15px]">
+                    {productById?.discount_percentage}%
+                  </p>
+                </div>
+              )}
               <div className="w-[300px] h-[300px] bg-gray-200 max-xs:w-full"></div>
             </div>
             <div className="rightContainer flex flex-col justify-between">
               <div className="rightTopContainer">
                 <h2 className="productName font-semibold text-[25px] max-md:text-[22px]">
-                  JP - Space Tablet 10.4" Wi-Fi 32GB
+                  {productById?.name}
                 </h2>
                 <div className="rating">
                   <ReactStars
                     count={5}
-                    value={product.rating}
+                    value={reviewStats.avgRating}
                     size={24}
                     color2={"#ffd700"}
                     edit={false}
                   />
                   <p>
-                    {product.rating} / 5 ({product.totalReviews} değerlendirme)
+                    {reviewStats.avgRating} / 5 ({reviewStats.reviewCount} total
+                    reviews)
                   </p>
                 </div>
               </div>
               <div className="rightBottomContainer flex flex-col gap-1">
-                <p className="productPrice font-normal text-[17px] max-md:text-[15px]">
-                  85.00$
-                </p>
+                {isDiscounted ? (
+                  <div className="h-[45px]">
+                    <p className="text-[12px] line-through font-normal">
+                      {productById?.price}$
+                    </p>
+                    <p className="text-[16px]">
+                      {productById?.discount_price}$
+                    </p>
+                  </div>
+                ) : (
+                  <div className="h-[45px] flex items-end">
+                    <p className="text-[16px]">
+                      {productById?.discount_price}$
+                    </p>
+                  </div>
+                )}
                 <div className="flex gap-1">
-                  <button className="productDetailButtons !bg-pink-700 !border-pink-700 hover:!bg-white hover:!text-pink-700">
-                    Add to Favorites!
+                  <button
+                    onClick={() => {
+                      if (currentUser?.id && productById) {
+                        if (isLiked) {
+                          handleRemoveFromFavorites(
+                            currentUser.id,
+                            productById.id
+                          );
+                        } else {
+                          handleAddToFavorites(currentUser.id, productById);
+                        }
+                      } else {
+                        router.push("/login");
+                      }
+                    }}
+                    className="productDetailButtons !w-[200px] !h-[50px] !bg-pink-700 !border-pink-700 hover:!bg-white hover:!text-pink-700"
+                  >
+                    {favoriteButtonState ? (
+                      <CircularProgress size={20} className="text-black" />
+                    ) : isLiked ? (
+                      "Remove Like"
+                    ) : (
+                      "Add to Favorites"
+                    )}
                   </button>
-                  <button className="productDetailButtons">Add to Cart!</button>
+                  <button
+                    className={`${
+                      cartButtonState.loading
+                        ? "loadingButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
+                        : cartButtonState.added
+                        ? "addedtoCartButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
+                        : "addtoCartButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
+                    }`}
+                    disabled={cartButtonState.loading}
+                    onClick={() => {
+                      if (currentUser?.id && productById) {
+                        handleAddtoCart(currentUser.id, productById);
+                      } else {
+                        router.push("/login");
+                      }
+                    }}
+                  >
+                    {cartButtonState.loading ? (
+                      <CircularProgress size={20} className="text-white" />
+                    ) : cartButtonState.added ? (
+                      "Added to Cart"
+                    ) : (
+                      "Add to Cart"
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
@@ -78,13 +195,7 @@ const ProductDetails = () => {
               Product Information
             </h2>
             <p className="text-[14px] font-light">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
-              repellat explicabo, consectetur reprehenderit inventore doloribus
-              quos mollitia perspiciatis repellendus tempora neque facere est
-              eveniet assumenda. Iusto id similique non dicta fuga, recusandae
-              ad repudiandae voluptatibus, laudantium blanditiis ullam
-              voluptatem beatae sequi rerum accusantium provident nobis sed vel
-              quaerat laborum exercitationem.
+              {productById?.long_description}
             </p>
           </div>
           <div className="commentTopContainer mt-10 ">
@@ -95,15 +206,17 @@ const ProductDetails = () => {
               <div className="ratingTop flex items-center gap-1">
                 <ReactStars
                   count={5}
-                  value={product.rating}
+                  value={reviewStats.avgRating}
                   size={30}
                   color2={"#ffd700"}
                   edit={false}
                 />
-                <p className="text-[17px] font-light">{product.rating}</p>
+                <p className="text-[17px] font-light">
+                  {reviewStats.avgRating}
+                </p>
               </div>
               <p className="totalReviewsContainer text-[15px] font-light">
-                Based on {product.totalReviews} reviews.
+                Based on {reviewStats.reviewCount} reviews.
               </p>
               <div className="reviewContainer mt-2">
                 <button
@@ -115,37 +228,47 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
-          {showReviewForm && <LeaveCommentForm onclose={handleReviewForm} />}
+          {showReviewForm && (
+            <LeaveCommentForm id={id as string} onclose={handleReviewForm} />
+          )}
           <div className="commentBottomContainer mt-10">
-            <p className="w-full pb-5 text-[14px] font-light">
-              {product.totalReviews} reviews
-            </p>
-            <ul className="userReviewsContainer">
-              {reviews.map((item, index) => (
-                <li
-                  key={index}
-                  className="w-full py-5 border-t-[1px] border-gray-600"
-                >
-                  <div className="reviewerNameContainer flex items-center gap-1 text-[14px] font-light">
-                    <p>{item.nickname} -</p>
-                    <p>{item.date}</p>
-                  </div>
-                  <div className="starsRating">
-                    <ReactStars
-                      count={5}
-                      value={5}
-                      size={24}
-                      color2={"#ffd700"}
-                      edit={false}
-                    />
-                  </div>
-                  <h2 className="reviewTitle mt-3 text-[20px] max-md:text-[17px] font-bold">
-                    {item.title}
-                  </h2>
-                  <p className="mt-2 text-[14px] font-light">{item.comment}</p>
-                </li>
-              ))}
-            </ul>
+            {reviews.length === 0 ? (
+              <EmptyReview />
+            ) : (
+              <ul className="userReviewsContainer">
+                {reviews.map((item, index) => (
+                  <li
+                    key={index}
+                    className="w-full py-5 border-t-[1px] border-gray-600"
+                  >
+                    <div className="reviewerNameContainer flex items-center gap-1 text-[14px] font-light">
+                      <p>{item.user_name} -</p>
+                      <p>
+                        {item.created_at &&
+                          new Intl.DateTimeFormat("en-US", {
+                            day: "2-digit",
+                            month: "short",
+                            year: "numeric",
+                          }).format(new Date(item.created_at))}
+                      </p>
+                    </div>
+                    <div className="starsRating">
+                      <ReactStars
+                        count={5}
+                        value={5}
+                        size={24}
+                        color2={"#ffd700"}
+                        edit={false}
+                      />
+                    </div>
+                    <h2 className="reviewTitle mt-3 text-[20px] max-md:text-[17px] font-bold">
+                      {item.review_title}
+                    </h2>
+                    <p className="mt-2 text-[14px] font-light">{item.review}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <YouMightLike />
         </div>

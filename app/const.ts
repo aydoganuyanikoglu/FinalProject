@@ -14,7 +14,7 @@ import Brands from "./components/Brands";
 import SendMessage from "./components/SendMessage";
 import ShoppingCart from "./(pages)/cart/ShoppingCart";
 import AreYouSure from "./components/modals/AreYouSure";
-import EmptyCart from "./components/EmptyCart";
+import { EmptyCart } from "./components/EmptyComponents";
 
 export const paymentMethods = [
   { path: "/visa.png" },
