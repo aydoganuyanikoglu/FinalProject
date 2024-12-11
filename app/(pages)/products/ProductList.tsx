@@ -12,6 +12,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { ProductsSkeleton } from "@/app/components/skeletons/Skeletons";
 import { useSearchParams } from "next/navigation";
 import { getFilteredProducts } from "@/lib/data";
+import ReactStars from "react-stars";
+import { EmptyFilteredProducts } from "@/app/components/EmptyComponents";
 
 const ProductList = () => {
   const router = useRouter();
@@ -41,8 +43,8 @@ const ProductList = () => {
   } = useProduct();
   const orderItems = [
     { name: "Recommended", value: "" },
-    { name: "Price (low to high)", value: "priceDesc" },
-    { name: "Price (high to low)", value: "priceAsc" },
+    { name: "Price (low to high)", value: "priceAsc" },
+    { name: "Price (high to low)", value: "priceDesc" },
     { name: "Name A-Z", value: "nameAsc" },
     { name: "Name Z-A", value: "nameDesc" },
   ];
@@ -99,7 +101,7 @@ const ProductList = () => {
         Our Products
       </h2>
       <hr />
-      <div className="relative mt-3">
+      <div className="relative mt-3 z-[101]">
         <div
           onClick={() => setisVisible((prev) => !prev)}
           className="w-fit cursor-pointer flex items-center text-[12px]"
@@ -126,6 +128,9 @@ const ProductList = () => {
           ))}
         </ul>
       </div>
+      <p className="filteredCounter mt-2 text-[14px] text-gray-600 font-medium">
+        {filteredProducts.length} products found.
+      </p>
       <ul className="filtersContainer flex items-center gap-2">
         {filterList.map((item, index) =>
           item.value ? (
@@ -148,6 +153,8 @@ const ProductList = () => {
       <div className="productsContainer w-full h-fit mt-5">
         {loading ? (
           <ProductsSkeleton />
+        ) : filteredProducts.length === 0 ? (
+          <EmptyFilteredProducts />
         ) : (
           <ul className="w-full h-fit grid grid-cols-4 gap-2 max-md:grid-cols-2">
             {filteredProducts.map((item, index) => {
@@ -187,14 +194,28 @@ const ProductList = () => {
                     </div>
                   )}
                   {isDiscounted && (
-                    <div className="absolute left-1 top-2.5 z-1 flex justify-center items-center -rotate-45">
+                    <div className="absolute left-1 top-2.5 z-20 flex justify-center items-center -rotate-45">
                       <div className="absolute !w-[50px] !h-[50px] rounded-[50%] bg-red-600"></div>
                       <p className="relative z-1 text-white font-bold text-[12px]">
                         {item.discount_percentage}%
                       </p>
                     </div>
                   )}
-                  <div className="image bg-gray-300 w-full h-[190px] max-sm:!h-[150px]"></div>
+                  <div className="relative imageContainer bg-gray-300 w-full h-[190px] max-sm:!h-[170px]">
+                    <div className="absolute left-1 bottom-1 z-19 rating flex gap-1 items-center">
+                      <ReactStars
+                        count={5}
+                        value={item.average_rating}
+                        size={24}
+                        color2={"#ffd700"}
+                        edit={false}
+                      />
+                      <p className="text-[11px] text-gray-500">
+                        {item.average_rating?.toFixed(2)}/5 ({item.review_count}
+                        )
+                      </p>
+                    </div>
+                  </div>
                   <div className="titleContainer">
                     <h2 className="productTitle h-[30px] text-[14px] font-medium mt-2 max-md:text-[13px]">
                       {item.name}

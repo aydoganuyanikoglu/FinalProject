@@ -42,8 +42,10 @@ const LeaveCommentForm: React.FC<LeaveCommentFormProps> = ({ id, onclose }) => {
       onSubmit={(values) => {
         if (currentUser?.id && !isReviewed) {
           handleAddReview(values, currentUser.id, currentUser.firstname, id);
+          onclose();
         } else {
           toast.error("You can not rate more than one to same product!");
+          onclose();
         }
       }}
     >

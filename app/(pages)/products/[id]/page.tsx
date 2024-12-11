@@ -10,6 +10,12 @@ import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import { EmptyReview } from "@/app/components/EmptyComponents";
 import Link from "next/link";
+import {
+  ReviewsSkeleton,
+  ProductNameSkeleton,
+  ProductDetailSkeleton,
+  ProductBottomDetailsSkeleton,
+} from "@/app/components/skeletons/Skeletons";
 
 interface ProductDetailsProps {
   params: {
@@ -39,6 +45,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
     reviews,
     handleFetchReviewCount,
     reviewStats,
+    loadingReviews,
+    loading,
   } = useProduct();
   const [isLiked, setIsLiked] = useState<boolean | undefined>(false);
   const isDiscounted = productById?.price !== productById?.discount_price;
@@ -83,156 +91,172 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
               Products
             </Link>
             <span className="gray-400">|</span>
-            <p className="font-normal text-[15px] text-gray-400">
-              {productById?.name}
-            </p>
+            {loading ? (
+              <ProductNameSkeleton />
+            ) : (
+              <p className="font-normal text-[15px] text-gray-400">
+                {productById?.name}
+              </p>
+            )}
           </div>
-          <div className="mt-10 upperContainer flex gap-5 max-md:flex-col max-md:justify-start">
-            <div className="leftContainer relative">
-              {isDiscounted && (
-                <div className="absolute left-1 top-2.5 z-1 flex justify-center items-center -rotate-45">
-                  <div className="absolute !w-[70px] !h-[70px] rounded-[50%] bg-red-600"></div>
-                  <p className="relative z-1 text-white font-bold text-[15px]">
-                    {productById?.discount_percentage}%
-                  </p>
-                </div>
-              )}
-              <div className="w-[300px] h-[300px] bg-gray-200 max-xs:w-full"></div>
-            </div>
-            <div className="rightContainer flex flex-col justify-between">
-              <div className="rightTopContainer">
-                <h2 className="productName font-semibold text-[25px] max-md:text-[22px]">
-                  {productById?.name}
-                </h2>
-                <div className="rating">
-                  <ReactStars
-                    count={5}
-                    value={reviewStats.avgRating}
-                    size={24}
-                    color2={"#ffd700"}
-                    edit={false}
-                  />
-                  <p>
-                    {reviewStats.avgRating} / 5 ({reviewStats.reviewCount} total
-                    reviews)
-                  </p>
-                </div>
-              </div>
-              <div className="rightBottomContainer flex flex-col gap-1">
-                {isDiscounted ? (
-                  <div className="h-[45px]">
-                    <p className="text-[12px] line-through font-normal">
-                      {productById?.price}$
-                    </p>
-                    <p className="text-[16px]">
-                      {productById?.discount_price}$
-                    </p>
-                  </div>
-                ) : (
-                  <div className="h-[45px] flex items-end">
-                    <p className="text-[16px]">
-                      {productById?.discount_price}$
+          {loading ? (
+            <ProductDetailSkeleton />
+          ) : (
+            <div className="mt-10 upperContainer flex gap-5 max-md:flex-col max-md:justify-start">
+              <div className="leftContainer relative">
+                {isDiscounted && (
+                  <div className="absolute left-1 top-2.5 z-1 flex justify-center items-center -rotate-45">
+                    <div className="absolute !w-[70px] !h-[70px] rounded-[50%] bg-red-600"></div>
+                    <p className="relative z-1 text-white font-bold text-[15px]">
+                      {productById?.discount_percentage}%
                     </p>
                   </div>
                 )}
-                <div className="flex gap-1">
-                  <button
-                    onClick={() => {
-                      if (currentUser?.id && productById) {
-                        if (isLiked) {
-                          handleRemoveFromFavorites(
-                            currentUser.id,
-                            productById.id
-                          );
+                <div className="w-[300px] h-[300px] bg-gray-200 max-xs:w-full"></div>
+              </div>
+              <div className="rightContainer flex flex-col justify-between">
+                <div className="rightTopContainer">
+                  <h2 className="productName font-semibold text-[25px] max-md:text-[22px]">
+                    {productById?.name}
+                  </h2>
+                  <div className="rating">
+                    <ReactStars
+                      count={5}
+                      value={reviewStats.avgRating}
+                      size={24}
+                      color2={"#ffd700"}
+                      edit={false}
+                    />
+                    <p>
+                      {reviewStats.avgRating.toFixed(2)} / 5 (
+                      {reviewStats.reviewCount} total reviews)
+                    </p>
+                  </div>
+                </div>
+                <div className="rightBottomContainer flex flex-col gap-1">
+                  {isDiscounted ? (
+                    <div className="h-[45px]">
+                      <p className="text-[12px] line-through font-normal">
+                        {productById?.price}$
+                      </p>
+                      <p className="text-[16px]">
+                        {productById?.discount_price}$
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="h-[45px] flex items-end">
+                      <p className="text-[16px]">
+                        {productById?.discount_price}$
+                      </p>
+                    </div>
+                  )}
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => {
+                        if (currentUser?.id && productById) {
+                          if (isLiked) {
+                            handleRemoveFromFavorites(
+                              currentUser.id,
+                              productById.id
+                            );
+                          } else {
+                            handleAddToFavorites(currentUser.id, productById);
+                          }
                         } else {
-                          handleAddToFavorites(currentUser.id, productById);
+                          router.push("/login");
                         }
-                      } else {
-                        router.push("/login");
-                      }
-                    }}
-                    className="productDetailButtons !w-[200px] !h-[50px] !bg-pink-700 !border-pink-700 hover:!bg-white hover:!text-pink-700"
-                  >
-                    {favoriteButtonState ? (
-                      <CircularProgress size={20} className="text-black" />
-                    ) : isLiked ? (
-                      "Remove Like"
-                    ) : (
-                      "Add to Favorites"
-                    )}
-                  </button>
-                  <button
-                    className={`${
-                      cartButtonState.loading
-                        ? "loadingButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
-                        : cartButtonState.added
-                        ? "addedtoCartButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
-                        : "addtoCartButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
-                    }`}
-                    disabled={cartButtonState.loading}
-                    onClick={() => {
-                      if (currentUser?.id && productById) {
-                        handleAddtoCart(currentUser.id, productById);
-                      } else {
-                        router.push("/login");
-                      }
-                    }}
-                  >
-                    {cartButtonState.loading ? (
-                      <CircularProgress size={20} className="text-white" />
-                    ) : cartButtonState.added ? (
-                      "Added to Cart"
-                    ) : (
-                      "Add to Cart"
-                    )}
-                  </button>
+                      }}
+                      className="productDetailButtons !w-[200px] !h-[50px] !bg-pink-700 !border-pink-700 hover:!bg-white hover:!text-pink-700"
+                    >
+                      {favoriteButtonState ? (
+                        <CircularProgress size={20} className="text-black" />
+                      ) : isLiked ? (
+                        "Remove Like"
+                      ) : (
+                        "Add to Favorites"
+                      )}
+                    </button>
+                    <button
+                      className={`${
+                        cartButtonState.loading
+                          ? "loadingButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
+                          : cartButtonState.added
+                          ? "addedtoCartButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
+                          : "addtoCartButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
+                      }`}
+                      disabled={cartButtonState.loading}
+                      onClick={() => {
+                        if (currentUser?.id && productById) {
+                          handleAddtoCart(currentUser.id, productById);
+                        } else {
+                          router.push("/login");
+                        }
+                      }}
+                    >
+                      {cartButtonState.loading ? (
+                        <CircularProgress size={20} className="text-white" />
+                      ) : cartButtonState.added ? (
+                        "Added to Cart"
+                      ) : (
+                        "Add to Cart"
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="bottomContainer flex flex-col gap-3 mt-10">
-            <h2 className="productInfoTitle w-fit font-normal text-[18px] border-b-[1.5px] border-black max-md:text-[16px]">
-              Product Information
-            </h2>
-            <p className="text-[14px] font-light">
-              {productById?.long_description}
-            </p>
-          </div>
-          <div className="commentTopContainer mt-10 ">
-            <h2 className="reviewsTitle w-fit font-normal text-[18px] border-b-[1.5px] border-black max-md:text-[16px]">
-              Reviews
-            </h2>
-            <div className="rating">
-              <div className="ratingTop flex items-center gap-1">
-                <ReactStars
-                  count={5}
-                  value={reviewStats.avgRating}
-                  size={30}
-                  color2={"#ffd700"}
-                  edit={false}
-                />
-                <p className="text-[17px] font-light">
-                  {reviewStats.avgRating}
+          )}
+          {loading ? (
+            <ProductBottomDetailsSkeleton />
+          ) : (
+            <div>
+              <div className="bottomContainer flex flex-col gap-3 mt-10">
+                <h2 className="productInfoTitle w-fit font-normal text-[18px] border-b-[1.5px] border-black max-md:text-[16px]">
+                  Product Information
+                </h2>
+                <p className="text-[14px] font-light">
+                  {productById?.long_description}
                 </p>
               </div>
-              <p className="totalReviewsContainer text-[15px] font-light">
-                Based on {reviewStats.reviewCount} reviews.
-              </p>
-              <div className="reviewContainer mt-2">
-                <button
-                  onClick={() => handleReviewForm()}
-                  className="leaveReviewButton"
-                >
-                  Leave a Review
-                </button>
+              <div className="commentTopContainer mt-10 ">
+                <h2 className="reviewsTitle w-fit font-normal text-[18px] border-b-[1.5px] border-black max-md:text-[16px]">
+                  Reviews
+                </h2>
+                <div className="rating">
+                  <div className="ratingTop flex items-center gap-1">
+                    <ReactStars
+                      count={5}
+                      value={reviewStats.avgRating}
+                      size={30}
+                      color2={"#ffd700"}
+                      edit={false}
+                    />
+                    <p className="text-[17px] font-light">
+                      {reviewStats.avgRating.toFixed(2)}
+                    </p>
+                  </div>
+                  <p className="totalReviewsContainer text-[15px] font-light">
+                    Based on {reviewStats.reviewCount} reviews.
+                  </p>
+                  <div className="reviewContainer mt-2">
+                    <button
+                      onClick={() => handleReviewForm()}
+                      className="leaveReviewButton"
+                    >
+                      Leave a Review
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
           {showReviewForm && (
             <LeaveCommentForm id={id as string} onclose={handleReviewForm} />
           )}
           <div className="commentBottomContainer mt-10">
-            {reviews.length === 0 ? (
+            {loadingReviews ? (
+              <ReviewsSkeleton />
+            ) : reviews.length === 0 ? (
               <EmptyReview />
             ) : (
               <ul className="userReviewsContainer">

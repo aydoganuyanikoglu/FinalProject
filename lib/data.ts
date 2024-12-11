@@ -258,7 +258,7 @@ export const fetchReviews = async (
       SELECT *
       FROM reviews
       WHERE product_id = $1
-      ORDER BY created_at;
+      ORDER BY created_at DESC;
     `;
     const result = await sql.query(query, [productId]);
     return result.rows as ReviewsType[];

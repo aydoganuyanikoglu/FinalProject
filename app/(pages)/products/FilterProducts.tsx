@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useProduct } from "@/context/ProductContext";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-import { getFilteredProducts } from "@/lib/data";
 
 const FilterProducts = () => {
   const filterLinks = [

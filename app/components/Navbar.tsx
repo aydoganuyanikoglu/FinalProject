@@ -12,11 +12,16 @@ import { useState } from "react";
 import { styles } from "../const";
 import { useProduct } from "@/context/ProductContext";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { handleFetchTotalQuantity, totalQuantity } = useProduct();
   const { currentUser } = useAuth();
+  const searchParams = useSearchParams();
+  const currentParams = new URLSearchParams(searchParams.toString());
+  const router = useRouter();
 
   useEffect(() => {
     if (currentUser?.id) {
@@ -29,7 +34,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky z-[100]">
+    <header className="fixed w-full z-[100]">
       <div className="topContainer w-full bg-black text-white text-center py-2 text-[14px] max-md:text-[12px]">
         Free Shipping Over $50 Worldwide
       </div>
@@ -82,13 +87,16 @@ const Navbar = () => {
           }`}
         >
           {navbarLinks.map((item) => (
-            <li
+            <Link
               key={item.id}
-              onClick={() => handleMenu()}
+              href={`/products?category=${encodeURIComponent(item.name)}`}
+              onClick={() => {
+                handleMenu();
+              }}
               className="cursor-pointer text-[14px] border-[#0000] border-b-[1px] hover:border-[#000] max-md:text-[16px]"
             >
               {item.name}
-            </li>
+            </Link>
           ))}
         </ul>
         <div onClick={() => handleMenu()}>

@@ -32,6 +32,8 @@ export type Productstype = {
   discount_end_date?: Date;
   discount_percentage?: string;
   brand?: string;
+  review_count?: number;
+  average_rating?: number;
 };
 
 export type Productstype2 = {

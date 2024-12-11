@@ -2,7 +2,7 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-const shimmer =
+export const shimmer =
   "before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent";
 
 export const CartSkeleton = () => {
@@ -164,5 +164,83 @@ export const BestSellerSkeleton = () => {
         );
       })}
     </Slider>
+  );
+};
+
+export const ReviewsSkeleton = () => {
+  const items = Array.from({ length: 3 });
+  return (
+    <ul className="userReviewsContainer flex flex-col gap-4 py-5">
+      {items.map((item, index) => (
+        <li
+          key={index}
+          className={`${shimmer} relative w-full py-2 px-2 bg-gray-200 rounded-md`}
+        >
+          <div className="reviewerNameContainer w-[150px] h-[17px] rounded-md flex items-center gap-1 bg-gray-600"></div>
+          <div className="starsRating w-[70px] h-[17px] bg-gray-600 rounded-md mt-1"></div>
+          <h2 className="reviewTitle mt-3 w-[120px] h-[25px] bg-gray-600 rounded-md"></h2>
+          <p className="w-full h-[17px] bg-gray-600 rounded-md mt-1"></p>
+          <p className="w-full h-[17px] bg-gray-600 rounded-md mt-1"></p>
+          <p className="w-full h-[17px] bg-gray-600 rounded-md mt-1"></p>
+          <p className="w-full h-[17px] bg-gray-600 rounded-md mt-1"></p>{" "}
+          <p className="w-[70%] h-[17px] bg-gray-600 rounded-md mt-1"></p>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+export const ProductNameSkeleton = () => {
+  return (
+    <div className={`${shimmer} mt-0.5 relative overflow-hidden`}>
+      <div className="bg-gray-600 w-[140px] h-[17px] rounded-md"></div>
+    </div>
+  );
+};
+
+export const ProductDetailSkeleton = () => {
+  return (
+    <div
+      className={`${shimmer} relative mt-10 upperContainer flex gap-5 max-md:flex-col max-md:justify-start`}
+    >
+      <div className="leftContainer">
+        <div className="w-[300px] h-[300px] bg-gray-600 rounded-md max-sm:w-full"></div>
+      </div>
+      <div className="rightContainer flex flex-col justify-between">
+        <div className="rightTopContainer">
+          <h2 className="productName w-[200px] h-[30px] bg-gray-600 rounded-md"></h2>
+          <div className="rating w-[70px] h-[17px] bg-gray-600 rounded-md mt-1"></div>
+        </div>
+        <div className="rightBottomContainer flex flex-col gap-1">
+          <div className="priceContainer mt-1 w-[45px] h-[16px] rounded-md bg-gray-600"></div>
+          <div className="flex gap-1">
+            <div className="!w-[200px] !h-[50px] bg-gray-600 rounded-md"></div>
+            <div className="!w-[200px] !h-[50px] rounded-md bg-gray-600"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const ProductBottomDetailsSkeleton = () => {
+  return (
+    <div className={`${shimmer} relative bg-gray-200 p-2 mt-3 rounded-md`}>
+      <div className={`bottomContainer flex flex-col gap-1 mt-10 rounded-md`}>
+        <h2 className="productInfoTitle w-[120px] h-[23px] bg-gray-600 rounded-md"></h2>
+        <p className="w-full h-[15px] bg-gray-600 rounded-sm"></p>
+        <p className="w-full h-[15px] bg-gray-600 rounded-sm"></p>
+        <p className="w-full h-[15px] bg-gray-600 rounded-sm"></p>
+        <p className="w-[80%] h-[15px] bg-gray-600 rounded-sm"></p>
+      </div>
+      <div className="commentTopContainer mt-10 ">
+        <h2 className="reviewsTitle w-[120px] h-[23px] bg-gray-600 rounded-md"></h2>
+        <div className="rating">
+          <div className="starsRating w-[180px] h-[20px] bg-gray-600 rounded-md mt-1"></div>
+          <p className="totalReviewsContainer w-[140px] h-[17px] bg-gray-600 rounded-md mt-1"></p>
+          <div className="reviewContainer h-[35px] w-[200px] rounded-sm bg-gray-600 mt-1"></div>
+        </div>
+      </div>
+    </div>
   );
 };

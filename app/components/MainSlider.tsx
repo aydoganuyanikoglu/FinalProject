@@ -13,9 +13,11 @@ const MainSlider = () => {
     slidesToScroll: 1,
   };
   return (
-    <div className="relative w-full h-[90vh] text-white">
+    <div className="relative w-full h-[100vh] text-white">
       <Slider {...settings}>
-        <div className="w-full h-[90vh] text-white font-bold">
+        <div className="bg-orange-400 w-full h-[100vh]"></div>
+
+        <div className="w-full h-[100vh] text-white font-bold">
           <div
             className={`innerSlideContainer relative w-full h-full flex flex-col gap-2.5 justify-center px-[200px] max-md:px-[20px] max-md:text-center max-md:items-center`}
           >
@@ -28,9 +30,8 @@ const MainSlider = () => {
             />
           </div>
         </div>
-        <div className="bg-orange-400 w-full h-[90vh]"></div>
       </Slider>
-      <div className="absolute z-1 left-[50px] top-0 h-full flex flex-col justify-center max-md:left-[20px]">
+      <div className="absolute z-1 left-[50px] top-0 h-full flex flex-col justify-center  max-md:left-[20px]">
         <h2 className="bestPrices w-fit h-fit text-[14px] rounded-sm bg-red-600 px-[8px] py-1">
           Best Prices!
         </h2>

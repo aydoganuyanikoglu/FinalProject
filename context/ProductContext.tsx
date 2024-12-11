@@ -40,6 +40,7 @@ import {
 import { useToast } from "./ToastContext";
 
 interface ProductContextType {
+  loadingReviews: boolean;
   reviews: ReviewsType[];
   totalQuantity: number | undefined;
   totalPrice: number | undefined;
@@ -132,6 +133,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
     avgRating: 0,
   });
   const [brands, setBrands] = useState<BrandsType[]>([]);
+  const [loadingReviews, setloadingReviews] = useState(true);
 
   const fetchAllProducts = useCallback(async () => {
     const products = await fetchProducts();
@@ -178,11 +180,14 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const handleFetchReviews = useCallback(async (productId: string) => {
+    setloadingReviews(true);
     try {
       const reviews = await fetchReviews(productId);
       setReviews(reviews);
+      setloadingReviews(false);
     } catch (error: any) {
       console.error("Error while fetching reviews", error);
+      setloadingReviews(false);
     }
   }, []);
 
@@ -243,11 +248,14 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 
   const handleFetchProductbyId = async (productId: string) => {
+    setLoading(true);
     try {
       const product = await fetchProductById(productId);
       setProductById(product);
+      setLoading(false);
     } catch (error) {
       console.error("Error while decreasing..", error);
+      setLoading(false);
     }
   };
 
@@ -411,6 +419,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         handleFetchBrands,
         handleDeleteProduct,
         handleAddProductToDatabase,
+        loadingReviews,
       }}
     >
       {children}

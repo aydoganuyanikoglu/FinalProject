@@ -88,3 +88,23 @@ export const EmptyProducts = () => {
     </div>
   );
 };
+
+export const EmptyFilteredProducts = () => {
+  return (
+    <div className="w-full h-full py-[100px] flex flex-col items-center text-center text-gray-700">
+      <CategoryIcon className="text-[50px] text-orange-600" />
+      <h2 className="mt-5 text-[24px] font-bold max-md:text-[18px]">
+        We couldn't find any products!
+      </h2>
+      <p className="text-[13px]">You can search with different filters!</p>
+      <div className="w-[250px]">
+        <Link
+          href="/products"
+          className="loginRegisterButton mt-3 !text-[14px]"
+        >
+          Search for Products!
+        </Link>
+      </div>
+    </div>
+  );
+};
