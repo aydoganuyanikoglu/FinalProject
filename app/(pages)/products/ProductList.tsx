@@ -168,7 +168,7 @@ const ProductList = () => {
               return (
                 <li key={index} className="relative w-full h-fit flex flex-col">
                   {currentUser && (
-                    <div className="addLikeContainer absolute right-2 top-2 cursor-pointer">
+                    <div className="addLikeContainer absolute z-[101] right-2 top-2 cursor-pointer">
                       <button
                         onClick={() => {
                           if (currentUser?.id) {

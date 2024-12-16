@@ -9,6 +9,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { EmptyFavoriteList } from "@/app/components/EmptyComponents";
 import { FavoritesSkeleton } from "@/app/components/skeletons/Skeletons";
+import Link from "next/link";
 
 const FavoriteList = () => {
   const router = useRouter();
@@ -27,7 +28,7 @@ const FavoriteList = () => {
     if (currentUser?.id) {
       handleFetchFavoriteProducts(currentUser.id);
     }
-  }, [currentUser, favoriteProducts.length]);
+  }, [currentUser, favoriteProducts?.length]);
 
   return (
     <section
@@ -35,6 +36,18 @@ const FavoriteList = () => {
       id="favorites"
     >
       <div className="innerContainer w-[1000px] h-fit rounded-md max-md:w-full">
+        <div className="navigatorContainer flex gap-2 mb-5 max-md:mb-3">
+          <Link
+            className="w-fit text-[15px] text-gray-800 border-b-[1px] border-b-[#0000] hover:border-b-[#000]"
+            href="/"
+          >
+            Home
+          </Link>
+          <span className="gray-400">|</span>
+          <p className="font-normal text-[15px] text-gray-400">
+            Favorite Products
+          </p>
+        </div>
         <div className="w-full flex justify-center">
           <div className="titleContainer w-[100%] flex justify-between border-[2px] border-black rounded-md px-3 py-1 max-md:w-full max-sm:flex-col">
             <h2 className="favoriteListTitle text-[18px] text-black font-bold max-md:text-[16px]">
@@ -42,7 +55,7 @@ const FavoriteList = () => {
             </h2>
             <div className="flex items-center gap-5">
               <p className="productCount text-[14px] text-black font-normal">
-                {favoriteProducts.length} products
+                {favoriteProducts?.length} products
               </p>
               <div className="flex items-center text-gray-400">
                 <HttpsIcon className="text-[13px] text-pink-300" />
@@ -56,11 +69,11 @@ const FavoriteList = () => {
         <div className="productsContainer w-full h-fit mt-4">
           {loading ? (
             <FavoritesSkeleton />
-          ) : favoriteProducts.length === 0 ? (
+          ) : favoriteProducts?.length === 0 ? (
             <EmptyFavoriteList />
           ) : (
             <ul className="w-full h-fit mt-4 grid grid-cols-4 gap-2 max-smp:grid-cols-3 max-sm:grid-cols-2">
-              {favoriteProducts.map((item, index) => {
+              {favoriteProducts?.map((item, index) => {
                 const productState = productStates[item.id] || {};
                 const { loading, added } = productState;
                 const isLiked = favoriteProducts.some(
@@ -107,7 +120,7 @@ const FavoriteList = () => {
                     </div>
                     <div className="image bg-gray-300 w-full h-[225px] max-sm:!h-[150px]"></div>
                     <div className="titleContainer">
-                      <h2 className="productTitle text-[14px] font-medium mt-2 max-md:text-[13px]">
+                      <h2 className="productTitle h-[40px] text-[14px] font-medium mt-2 max-md:text-[13px]">
                         {item.name}
                       </h2>
                     </div>

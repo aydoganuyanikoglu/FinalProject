@@ -31,6 +31,16 @@ const ProfileContainer = () => {
     <div
       className={`w-full h-fit flex flex-col items-center py-[100px] max-md:px-[10px]`}
     >
+      <div className="navigatorContainer flex gap-2 mb-5">
+        <Link
+          className="w-fit text-[15px] text-gray-800 border-b-[1px] border-b-[#0000] hover:border-b-[#000]"
+          href="/"
+        >
+          Home
+        </Link>
+        <span className="gray-400">|</span>
+        <p className="font-normal text-[15px] text-gray-400">Profile</p>
+      </div>
       <div className="w-[500px] h-fit py-[50px] border-[1px] border-gray-200 rounded-md flex flex-col gap-7 items-center px-[40px] max-sm:w-full max-sm:px-[10px]">
         <div className="navigateButtons flex gap-2">
           <Link

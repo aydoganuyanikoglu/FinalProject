@@ -34,7 +34,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed w-full z-[100]">
+    <header className="sticky w-full z-[100]">
       <div className="topContainer w-full bg-black text-white text-center py-2 text-[14px] max-md:text-[12px]">
         Free Shipping Over $50 Worldwide
       </div>

@@ -24,7 +24,7 @@ export const paymentMethods = [
 ];
 
 export const navbarLinks = [
-  { id: "1", name: "All Products" },
+  { id: "0", name: "All Products" },
   { id: "1", name: "Mobile & Wearable Tech" },
   { id: "2", name: "Drones & Cameras" },
   { id: "3", name: "Tablets" },
