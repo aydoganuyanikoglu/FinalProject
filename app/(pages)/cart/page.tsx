@@ -4,7 +4,7 @@ import { Navbar, ShoppingCart, Footer } from "@/app/const";
 const Cart = () => {
   return (
     <>
-      <Navbar />
+      <Navbar isFixed={false} />
       <ShoppingCart />
       <Footer />
     </>

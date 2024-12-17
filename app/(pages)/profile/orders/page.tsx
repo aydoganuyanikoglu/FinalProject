@@ -5,7 +5,7 @@ import Orders from "./Orders";
 const page = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar isFixed={false} />
       <Orders />
       <Footer />
     </div>

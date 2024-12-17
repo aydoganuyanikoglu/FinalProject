@@ -7,7 +7,7 @@ import GoogleMap from "./GoogleMap";
 const page = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar isFixed={false} />
       <Faq />
       <GoogleMap />
       <ContactInformation />

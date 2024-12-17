@@ -5,7 +5,7 @@ import Addresses from "./Addresses";
 const page = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar isFixed={false} />
       <Addresses />
       <Footer />
     </div>

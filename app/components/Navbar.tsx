@@ -13,7 +13,7 @@ import { styles } from "../const";
 import { useProduct } from "@/context/ProductContext";
 import { useAuth } from "@/context/AuthContext";
 
-const Navbar = () => {
+const Navbar = ({ isFixed }: { isFixed: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { handleFetchTotalQuantity, totalQuantity } = useProduct();
   const { currentUser } = useAuth();
@@ -29,7 +29,11 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky w-full z-[100]">
+    <header
+      className={`${
+        isFixed ? "fixed top-0 left-0" : "sticky"
+      } fixed top-0 left-0 w-full z-[100]`}
+    >
       <div className="topContainer w-full bg-black text-white text-center py-2 text-[14px] max-md:text-[12px]">
         Free Shipping Over $50 Worldwide
       </div>

@@ -5,7 +5,7 @@ import ProfileContainer from "./ProfileContainer";
 const Profile = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar isFixed={false} />
       <ProfileContainer />
       <Footer />
     </div>

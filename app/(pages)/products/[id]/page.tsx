@@ -73,7 +73,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar isFixed={false} />
       <div className="w-full flex justify-center">
         <div className="detailContainer w-[700px] py-[100px] max-md:w-[80%] max-smp:w-[100%] max-smp:px-[20px]">
           <div className="navigatorContainer flex gap-2">

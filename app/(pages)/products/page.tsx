@@ -8,7 +8,7 @@ import Link from "next/link";
 const page = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar isFixed={false} />
       <div className={`w-full py-[50px] ${styles.pagePaddingX}`}>
         <div className={`h-fit w-full flex flex-col items-center`}>
           <div className="w-[1100px] max-md:w-full">

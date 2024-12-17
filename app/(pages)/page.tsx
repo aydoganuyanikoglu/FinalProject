@@ -16,7 +16,7 @@ import {
 const HomePage = () => {
   return (
     <div className="w-full min-h-[100vh] h-fit overflow-hidden">
-      <Navbar />
+      <Navbar isFixed={true} />
       <MainSlider />
       <Deals />
       <WhatWeOffer />

@@ -5,7 +5,7 @@ import FavoriteList from "./FavoriteList";
 const page = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar isFixed={false} />
       <FavoriteList />
       <Footer />
     </div>
