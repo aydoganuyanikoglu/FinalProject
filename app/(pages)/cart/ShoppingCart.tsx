@@ -31,7 +31,7 @@ const ShoppingCart = () => {
       handleFetchTotalPrice(currentUser.id);
       handleFetchTotalQuantity(currentUser.id);
     }
-  }, [currentUser, cartProducts.length]);
+  }, [currentUser, cartProducts?.length]);
 
   return (
     <section
@@ -43,18 +43,18 @@ const ShoppingCart = () => {
           className={`containerLeft relative w-[80%] h-fit min-h-[600px] pb-[100px] shadow-md p-2 max-md:min-h-[400px] max-md:bg-[#0000] max-md:w-full max-md:p-1 ${
             loading
               ? ""
-              : cartProducts.length === 0
+              : cartProducts?.length === 0
               ? "bg-white rounded-md"
               : ""
           }`}
         >
           {loading ? (
             <CartSkeleton />
-          ) : cartProducts.length === 0 ? (
+          ) : cartProducts?.length === 0 ? (
             <EmptyCart />
           ) : (
             <ul className="w-full h-fit flex flex-col gap-2">
-              {cartProducts.map((item, index) => {
+              {cartProducts?.map((item, index) => {
                 const isDiscounted = item.price !== item.discount_price;
                 return (
                   <li
@@ -126,7 +126,7 @@ const ShoppingCart = () => {
               })}
             </ul>
           )}
-          {cartProducts.length !== 0 && (
+          {cartProducts?.length !== 0 && (
             <div
               onClick={() => {
                 if (currentUser?.id) {

@@ -12,16 +12,11 @@ import { useState } from "react";
 import { styles } from "../const";
 import { useProduct } from "@/context/ProductContext";
 import { useAuth } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { handleFetchTotalQuantity, totalQuantity } = useProduct();
   const { currentUser } = useAuth();
-  const searchParams = useSearchParams();
-  const currentParams = new URLSearchParams(searchParams.toString());
-  const router = useRouter();
 
   useEffect(() => {
     if (currentUser?.id) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Footer, Navbar } from "@/app/const";
 import ProductList from "./ProductList";
 import FilterProducts from "./FilterProducts";
@@ -22,10 +22,12 @@ const page = () => {
               <span className="gray-400">|</span>
               <p className="font-normal text-[15px] text-gray-400">Products</p>
             </div>
-            <div className="mt-5 flex gap-5 max-sm:flex-col max-md:w-full">
-              <FilterProducts />
-              <ProductList />
-            </div>
+            <Suspense>
+              <div className="mt-5 flex gap-5 max-sm:flex-col max-md:w-full">
+                <FilterProducts />
+                <ProductList />
+              </div>
+            </Suspense>
           </div>
         </div>
       </div>
