@@ -17,6 +17,8 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { handleFetchTotalQuantity, totalQuantity } = useProduct();
   const { currentUser } = useAuth();
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollPos, setLastScrollPos] = useState(0);
 
   useEffect(() => {
     if (currentUser?.id) {
@@ -28,11 +30,32 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
     setIsOpen((prev) => !prev);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      if (currentScrollPos > 120) {
+        if (currentScrollPos > lastScrollPos) {
+          setShowNavbar(false);
+        } else {
+          setShowNavbar(true);
+        }
+      } else {
+        setShowNavbar(true);
+      }
+      setLastScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollPos]);
+
   return (
     <header
       className={`${
         isFixed ? "fixed top-0 left-0" : "sticky"
-      } fixed top-0 left-0 w-full z-[100]`}
+      } fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
+        showNavbar ? "translate-y-0" : "-translate-y-full"
+      }`}
     >
       <div className="topContainer w-full bg-black text-white text-center py-2 text-[14px] max-md:text-[12px]">
         Free Shipping Over $50 Worldwide

@@ -60,7 +60,7 @@ const BestSellers = () => {
   }, [allProducts.length]);
 
   const settings = {
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -107,7 +107,10 @@ const BestSellers = () => {
               );
               const isDiscounted = item.price !== item.discount_price;
               return (
-                <div className="relative bg-gray-300 w-full h-fit p-[5px] flex flex-col">
+                <div
+                  key={index}
+                  className="relative bg-gray-300 w-full h-fit p-[5px] flex flex-col"
+                >
                   {isDiscounted && (
                     <div className="absolute left-1 top-2.5 z-10 flex justify-center items-center -rotate-45">
                       <div className="absolute !w-[50px] !h-[50px] rounded-[50%] bg-red-600"></div>

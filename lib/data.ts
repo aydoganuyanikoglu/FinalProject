@@ -245,7 +245,7 @@ export const fetchFavoriteProducts = async (
     const result = await sql.query(query, [userId]);
     return result.rows as FavoriteProductsType[];
   } catch (error: any) {
-    console.error("Failed to fetch card products:", error.message);
+    console.error("Failed to fetch favorite products:", error.message);
     return [];
   }
 };

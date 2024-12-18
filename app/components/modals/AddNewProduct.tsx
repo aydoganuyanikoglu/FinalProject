@@ -70,7 +70,7 @@ const AddNewProduct: React.FC<AddProductModalProps> = ({ onClose }) => {
     >
       <div
         onClick={(event) => event.stopPropagation()}
-        className="modal-content relative w-[500px] bg-white rounded-md p-2 text-black"
+        className="modal-content relative h-[600px] w-[500px] bg-white rounded-md p-2 text-black max-sm:w-full max-sm:h-[500px] max-md:px-[20px] overflow-y-auto"
       >
         <button className="close-btn absolute right-3 top-1" onClick={onClose}>
           x

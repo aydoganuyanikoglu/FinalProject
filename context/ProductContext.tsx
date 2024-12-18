@@ -225,6 +225,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         await addToFavoriteProducts(userId, product);
         await handleFetchFavoriteProducts(userId);
         setFavoriteButtonState(false);
+        showToast(`${product.name} added to favorites!`);
       } catch (error) {
         console.error("Error while adding to favorite products..", error);
         setFavoriteButtonState(false);

@@ -31,7 +31,7 @@ const MainSlider = () => {
           </div>
         </div>
       </Slider>
-      <div className="absolute z-1 left-[200px]  max-xl:left-[50px] top-0 h-full flex flex-col justify-center max-md:left-[20px]">
+      <div className="absolute z-1 left-[200px] top-[50px] max-xl:left-[50px] h-full flex flex-col justify-center max-md:left-[20px]">
         <h2 className="bestPrices w-fit h-fit text-[14px] rounded-sm bg-red-600 px-[8px] py-1">
           Best Prices!
         </h2>
