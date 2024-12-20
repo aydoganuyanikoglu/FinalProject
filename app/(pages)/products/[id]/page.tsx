@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import { EmptyReview } from "@/app/components/EmptyComponents";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ReviewsSkeleton,
   ProductNameSkeleton,
@@ -112,7 +113,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
                     </p>
                   </div>
                 )}
-                <div className="w-[300px] h-[300px] bg-gray-200 max-xs:w-full"></div>
+                <div className="w-[300px] h-[250px] bg-gray-200 max-xs:w-full">
+                  <Image
+                    className="w-full h-full"
+                    src={productById?.image_url || "/computer.webp"}
+                    alt={productById?.name || "default name"}
+                    width={300}
+                    height={250}
+                  />
+                </div>
               </div>
               <div className="rightContainer flex flex-col justify-between">
                 <div className="rightTopContainer">
@@ -133,7 +142,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
                     </p>
                   </div>
                 </div>
-                <div className="rightBottomContainer flex flex-col gap-1">
+                <div className="rightBottomContainer flex flex-col gap-1 max-xs:mt-5">
                   {isDiscounted ? (
                     <div className="h-[45px]">
                       <p className="text-[12px] line-through font-normal">

@@ -27,6 +27,7 @@ import {
   fetchBrands,
   deleteProduct,
   addProductToDatabase,
+  fetchTotalDiscount,
 } from "@/lib/data";
 import {
   Productstype,
@@ -43,6 +44,7 @@ interface ProductContextType {
   loadingReviews: boolean;
   reviews: ReviewsType[];
   totalQuantity: number | undefined;
+  totalDiscount: number | undefined;
   totalPrice: number | undefined;
   loading: boolean;
   allProducts: Productstype[];
@@ -94,6 +96,7 @@ interface ProductContextType {
   handleFetchBrands: () => Promise<void>;
   handleDeleteProduct: (productId: string) => Promise<void>;
   handleAddProductToDatabase: (values: Productstype2) => Promise<void>;
+  handleFetchTotalDiscount: (userId: string) => Promise<void>;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -102,6 +105,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { showToast } = useToast();
+  const [totalDiscount, setTotalDiscount] = useState<number | undefined>(0);
   const [productById, setProductById] = useState<Productstype>();
   const [allProducts, setAllProducts] = useState<Productstype[]>([]);
   const [cartProducts, setCartProducts] = useState<
@@ -272,6 +276,16 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
+  const handleFetchTotalDiscount = useCallback(async (userId: string) => {
+    try {
+      const result = await fetchTotalDiscount(userId);
+      console.log(result);
+      setTotalDiscount(result);
+    } catch (error) {
+      console.error("Error while fetching total discount..");
+    }
+  }, []);
+
   const handleDecreaseQuantity = async (
     userId: string,
     product: CartProductsType
@@ -282,6 +296,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         await handleFetchCartProducts(userId);
         await handleFetchTotalPrice(userId);
         await handleFetchTotalQuantity(userId);
+        await handleFetchTotalDiscount(userId);
       }
     } catch (error) {
       console.error("Error while decreasing..", error);
@@ -298,6 +313,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         await handleFetchCartProducts(userId);
         await handleFetchTotalPrice(userId);
         await handleFetchTotalQuantity(userId);
+        await handleFetchTotalDiscount(userId);
       }
     } catch (error) {
       console.error("Error while increasing..", error);
@@ -311,6 +327,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         await handleFetchCartProducts(userId);
         await handleFetchTotalPrice(userId);
         await handleFetchTotalQuantity(userId);
+        await handleFetchTotalDiscount(userId);
       }
       showToast("All products deleted!");
     } catch (error) {
@@ -328,6 +345,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         await handleFetchCartProducts(userId);
         await handleFetchTotalPrice(userId);
         await handleFetchTotalQuantity(userId);
+        await handleFetchTotalDiscount(userId);
       }
       showToast(`Selected product deleted!`);
     } catch (error) {
@@ -421,6 +439,8 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         handleDeleteProduct,
         handleAddProductToDatabase,
         loadingReviews,
+        totalDiscount,
+        handleFetchTotalDiscount,
       }}
     >
       {children}

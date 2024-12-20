@@ -74,7 +74,7 @@ const LoginForm = () => {
           </div>
           <Link
             className="text-[12px] text-orange-600 w-fit border-b-[1px] border-orange-600 hover:scale-90"
-            href="#"
+            href="/login/forgotpassword"
           >
             Forgot Password?
           </Link>

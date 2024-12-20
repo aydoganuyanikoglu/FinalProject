@@ -5,6 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteProduct from "@/app/components/modals/DeleteProduct";
 import AddNewProduct from "@/app/components/modals/AddNewProduct";
 import { Productstype } from "@/lib/types";
+import Image from "next/image";
 
 const ProductManagement = () => {
   const { fetchAllProducts, allProducts } = useProduct();
@@ -73,7 +74,15 @@ const ProductManagement = () => {
                 >
                   <DeleteIcon className="text-black hover:text-gray-600 !transition-none" />
                 </div>
-                <div className="image bg-gray-300 w-full h-[160px] max-sm:!h-[150px]"></div>
+                <div className="image bg-gray-300 w-full h-[150px] max-sm:!h-[150px]">
+                  <Image
+                    className="w-full h-full"
+                    src={item.image_url}
+                    alt={item.name}
+                    width={150}
+                    height={100}
+                  />
+                </div>
                 <div className="titleContainer">
                   <h2 className="productTitle text-[14px] font-medium mt-2 max-md:text-[13px]">
                     {item.name}

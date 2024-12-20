@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
@@ -8,8 +8,11 @@ import { useProduct } from "@/context/ProductContext";
 import { useAuth } from "@/context/AuthContext";
 import { EmptyCart } from "@/app/const";
 import { CartSkeleton } from "@/app/components/skeletons/Skeletons";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const ShoppingCart = () => {
+  const router = useRouter();
   const {
     handleFetchCartProducts,
     cartProducts,
@@ -22,16 +25,24 @@ const ShoppingCart = () => {
     handleFetchTotalQuantity,
     totalQuantity,
     loading,
+    totalDiscount,
+    handleFetchTotalDiscount,
   } = useProduct();
   const { currentUser } = useAuth();
+  const [buttonLoading, setButtonLoading] = useState(false);
 
   useEffect(() => {
     if (currentUser?.id) {
       handleFetchCartProducts(currentUser.id);
       handleFetchTotalPrice(currentUser.id);
       handleFetchTotalQuantity(currentUser.id);
+      handleFetchTotalDiscount(currentUser.id);
     }
   }, [currentUser, cartProducts?.length]);
+
+  const handleCompleteShopping = () => {
+    router.push("/cart/selectaddress");
+  };
 
   return (
     <section
@@ -59,14 +70,19 @@ const ShoppingCart = () => {
                 return (
                   <li
                     key={index}
-                    className="relative cartItems w-full h-[170px] p-2 flex gap-2.5 rounded-md text-gray-700 bg-white max-md:h-[130px]"
+                    className="relative w-full h-[170px] p-2 flex gap-2.5 rounded-md text-gray-700 bg-white max-md:h-[130px]"
                   >
-                    <div className="imageContainer w-[170px] h-full bg-gray-500 max-md:!h-[130px] max-md:!w-[130px]"></div>
-                    <div className="infosContainer h-full flex flex-col justify-between">
+                    <Link
+                      className="imageContainer w-[170px] h-full bg-gray-500 max-md:!h-[130px] max-md:!w-[130px]"
+                      href={`/products/${item.id}`}
+                    ></Link>
+                    <div className="infosContainer w-[80%] h-full flex flex-col justify-between">
                       <div className="top">
-                        <h2 className="text-[16px] font-bold max-md:text-[13px]">
-                          {item.name}
-                        </h2>
+                        <Link href={`/products/${item.id}`}>
+                          <h2 className="text-[16px] font-bold max-md:text-[13px]">
+                            {item.name}
+                          </h2>
+                        </Link>
                         <p className="text-[13px] font-normal max-md:text-[11px]">
                           {item.short_description}
                         </p>
@@ -148,10 +164,16 @@ const ShoppingCart = () => {
               Selected Products {totalQuantity}
             </h2>
             <h3 className="containerRightPrice text-[35px] font-bold max-lg:text-[30px]">
-              {totalPrice}$
+              {totalPrice}
             </h3>
             <div className="max-md:w-[300px] max-xs:w-full">
-              <button className="loginRegisterButton">Complete Shopping</button>
+              <button
+                className="loginRegisterButton"
+                disabled={buttonLoading}
+                onClick={handleCompleteShopping}
+              >
+                {buttonLoading ? "Redirecting.." : "Complete Shopping"}
+              </button>
             </div>
             <hr />
             <div className="containerRightBottom flex flex-col gap-3 text-[11.5px]">
@@ -169,7 +191,7 @@ const ShoppingCart = () => {
                   <p>Earnings</p>
                   <EmojiEmotionsIcon className="text-green-800 text-[15px]" />
                 </div>
-                <p>-44$</p>
+                <p>{totalDiscount}$</p>
               </div>
             </div>
           </div>

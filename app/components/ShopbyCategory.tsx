@@ -1,6 +1,7 @@
 import React from "react";
 import { styles, productCategories } from "../const";
 import Image from "next/image";
+import Link from "next/link";
 
 const ShopbyCategory = () => {
   return (
@@ -14,7 +15,11 @@ const ShopbyCategory = () => {
         <div>
           <ul className="gridContainer mt-[50px] w-full h-fit grid grid-cols-5 gap-8 max-md:grid-cols-4 max-sm:grid-cols-2">
             {productCategories.map((item, index) => (
-              <li className="flex flex-col items-center" key={index}>
+              <Link
+                className="flex flex-col items-center"
+                key={index}
+                href={`/products?category=${encodeURIComponent(item.category)}`}
+              >
                 <Image
                   src={item.logo}
                   alt={item.title}
@@ -26,7 +31,7 @@ const ShopbyCategory = () => {
                 <p className="mt-2 text-[15px] max-md:text-[13px] font-bold">
                   {item.title}
                 </p>
-              </li>
+              </Link>
             ))}
           </ul>
         </div>

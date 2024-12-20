@@ -100,14 +100,42 @@ export const contactInfo = [
 ];
 
 export const productCategories = [
-  { logo: "/products/phone.webp", title: "Phones", link: "/products" },
-  { logo: "/products/watch.jpg", title: "Watches", link: "/products" },
-  { logo: "/products/drone.jpg", title: "Drones", link: "/products" },
-  { logo: "/products/camera.webp", title: "Cameras", link: "/products" },
-  { logo: "/products/tablet.webp", title: "Tablets", link: "/products" },
-  { logo: "/products/headphone.jpg", title: "Headphones", link: "/products" },
-  { logo: "/products/speaker.jpg", title: "Speakers", link: "/products" },
-  { logo: "/products/computer.webp", title: "Computers", link: "/products" },
+  {
+    logo: "/products/phone.webp",
+    title: "Phones",
+    category: "Mobile & Wearable Tech",
+  },
+  {
+    logo: "/products/watch.jpg",
+    title: "Watches",
+    category: "Mobile & Wearable Tech",
+  },
+  {
+    logo: "/products/drone.jpg",
+    title: "Drones",
+    category: "Drones & Cameras",
+  },
+  {
+    logo: "/products/camera.webp",
+    title: "Cameras",
+    category: "Drones & Cameras",
+  },
+  { logo: "/products/tablet.webp", title: "Tablets", category: "Tablets" },
+  {
+    logo: "/products/headphone.jpg",
+    title: "Headphones",
+    category: "Headphones & Speakers",
+  },
+  {
+    logo: "/products/speaker.jpg",
+    title: "Speakers",
+    category: "Headphones & Speakers",
+  },
+  {
+    logo: "/products/computer.webp",
+    title: "Computers",
+    category: "Computers",
+  },
 ];
 
 export const BrandsNames = [

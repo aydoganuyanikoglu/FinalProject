@@ -1,5 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import { decrypt } from "@/auth/session";
+import { sql } from "@vercel/postgres";
+
+const clearExpiredTokens = async (): Promise<void> => {
+  try {
+    const query = `
+      UPDATE users
+      SET verifytoken = NULL
+      WHERE resetpasswordexpires < NOW();
+    `;
+    await sql.query(query);
+    console.log("Expired tokens cleared");
+  } catch (error) {
+    console.error("Error clearing expired tokens:", error);
+    throw new Error("Failed to clear expired tokens");
+  }
+};
+
+async () => {
+  await clearExpiredTokens();
+};
 
 const protectedRoutes = [
   "/adminpanel",

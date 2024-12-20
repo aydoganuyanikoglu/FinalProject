@@ -15,7 +15,7 @@ export const CartSkeleton = () => {
           key={index}
           className={`${shimmer} relative overflow-hidden cartItems w-full h-[170px] p-2 flex gap-1 rounded-md bg-gray-200 max-md:h-[130px]`}
         >
-          <div className="imageContainer w-[170px] h-full bg-gray-600 max-md:w-[130px]"></div>
+          <div className="imageContainer w-[170px] h-full bg-gray-600 max-sm:w-full"></div>
           <div className="infosContainer h-full flex flex-col justify-between">
             <div className="top">
               <h2 className="w-[100px] h-[24px] rounded-md bg-gray-600"></h2>
@@ -47,7 +47,7 @@ export const ProductsSkeleton = () => {
             key={index}
             className={`${shimmer} relative overflow-hidden w-full h-fit flex flex-col bg-gray-200 p-1`}
           >
-            <div className="bg-gray-600 w-full h-[190px] max-sm:!h-[120px] max-sm:!w-[120px]"></div>
+            <div className="bg-gray-600 w-full h-[190px] max-sm:!h-[120px]"></div>
             <div className="titleContainer w-[70%] h-[24px] mt-1 rounded-md bg-gray-600"></div>
             <div className="priceContainer w-[40%] h-[16px] mt-1 rounded-md bg-gray-600"></div>
             <div className="buttonContainer addtoCartButton mt-7 !bg-gray-600"></div>
@@ -68,7 +68,7 @@ export const FavoritesSkeleton = () => {
             key={index}
             className={`${shimmer} overflow-hidden relative w-full h-fit flex flex-col bg-gray-200 p-1`}
           >
-            <div className="w-full h-[225px] max-sm:!h-[150px] max-sm:!w-[150px] bg-gray-600"></div>
+            <div className="w-full h-[225px] max-sm:!h-[150px] bg-gray-600"></div>
             <div className="titleContainer w-[70%] h-[24px] mt-1 rounded-md bg-gray-600"></div>
             <div className="priceContainer w-[40%] h-[16px] mt-1 rounded-md bg-gray-600"></div>
             <div className="buttonContainer addtoCartButton mt-7 !bg-gray-600"></div>
@@ -100,7 +100,7 @@ export const BrandsSkeleton = () => {
 export const AddressesSkeleton = () => {
   const items = Array.from({ length: 3 });
   return (
-    <ul className="mt-3 w-full h-fit flex flex-col gap-2">
+    <ul className="overflow-hidden mt-3 w-full h-fit flex flex-col gap-2">
       {items.map((item, index) => {
         return (
           <li

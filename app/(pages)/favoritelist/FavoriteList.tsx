@@ -118,12 +118,18 @@ const FavoriteList = () => {
                         )}
                       </button>
                     </div>
-                    <div className="image bg-gray-300 w-full h-[225px] max-sm:!h-[150px]"></div>
-                    <div className="titleContainer">
+                    <Link
+                      className="image bg-gray-300 w-full h-[225px] max-sm:!h-[150px]"
+                      href={`/products/${item.id}`}
+                    ></Link>
+                    <Link
+                      className="titleContainer"
+                      href={`/products/${item.id}`}
+                    >
                       <h2 className="productTitle h-[40px] text-[14px] font-medium mt-2 max-md:text-[13px]">
                         {item.name}
                       </h2>
-                    </div>
+                    </Link>
                     <div className="priceContainer mt-4 font-bold">
                       {isDiscounted ? (
                         <div className="h-[45px]">

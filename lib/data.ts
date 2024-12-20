@@ -30,12 +30,12 @@ export const getFilteredProducts = async (filters: {
   }
 
   if (filters.minPrice) {
-    query += ` AND price >= $${values.length + 1}`;
+    query += ` AND discount_price >= $${values.length + 1}`;
     values.push(filters.minPrice);
   }
 
   if (filters.maxPrice) {
-    query += ` AND price <= $${values.length + 1}`;
+    query += ` AND discount_price <= $${values.length + 1}`;
     values.push(filters.maxPrice);
   }
 
@@ -46,9 +46,9 @@ export const getFilteredProducts = async (filters: {
 
   if (filters.sortBy) {
     if (filters.sortBy === "priceAsc") {
-      query += ` ORDER BY price ASC`;
+      query += ` ORDER BY discount_price ASC`;
     } else if (filters.sortBy === "priceDesc") {
-      query += ` ORDER BY price DESC`;
+      query += ` ORDER BY discount_price DESC`;
     } else if (filters.sortBy === "nameAsc") {
       query += ` ORDER BY name ASC`;
     } else if (filters.sortBy === "nameDesc") {
@@ -687,3 +687,49 @@ export async function addToCart(
     console.error("Failed to add product to cart:", error.message);
   }
 }
+
+export const fetchTotalDiscount = async (
+  userId: string
+): Promise<number | undefined> => {
+  try {
+    const query = `
+      SELECT 
+        SUM((price - discount_price) * quantity) AS total_discount
+      FROM 
+        cart
+      WHERE 
+        user_id = $1
+    `;
+    const result = await sql.query(query, [userId]);
+    return result.rows[0].total_discount || 0;
+  } catch (error: any) {
+    console.error("Failed to fetch total discount:", error.message);
+    return 0;
+  }
+};
+
+export const selectDefaultAddress = async (
+  addressId: string,
+  userId: string
+): Promise<void> => {
+  try {
+    const resetQuery = `
+      UPDATE addresses
+      SET "default" = FALSE
+      WHERE user_id = $1
+    `;
+    await sql.query(resetQuery, [userId]);
+
+    const updateQuery = `
+      UPDATE addresses
+      SET "default" = TRUE
+      WHERE id = $1 AND user_id = $2
+    `;
+    await sql.query(updateQuery, [addressId, userId]);
+
+    console.log("Default address updated successfully!");
+  } catch (error: any) {
+    console.error("Failed to update default address:", error.message);
+    throw new Error("Could not update default address");
+  }
+};

@@ -93,8 +93,8 @@ const BestSellers = () => {
     >
       <div className="innerContainer w-full h-[800px] flex flex-col items-center gap-10 p-[50px] bg-white max-md:gap-2 max-md:px-[10px]">
         <div className="topTitle">
-          <h2 className="w-full text-center text-[24px] font-bold max-md:text-[20px]">
-            Favorite Products
+          <h2 className="w-full text-center text-[28px] font-bold max-md:text-[20px]">
+            Best Sellers
           </h2>
         </div>
         <div className="innerMiddle w-full h-fit py-[40px]">

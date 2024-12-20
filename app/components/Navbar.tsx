@@ -54,7 +54,11 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
       className={`${
         isFixed ? "fixed top-0 left-0" : "sticky"
       } fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
-        showNavbar ? "translate-y-0" : "-translate-y-full"
+        showNavbar
+          ? "translate-y-0"
+          : isOpen
+          ? "translate-y-0"
+          : "-translate-y-full"
       }`}
     >
       <div className="topContainer w-full bg-black text-white text-center py-2 text-[14px] max-md:text-[12px]">

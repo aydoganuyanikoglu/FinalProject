@@ -17,6 +17,9 @@ export type typeUsers = {
   isAdmin?: boolean;
   expiresAt?: Date;
   created_at?: Date;
+  verifytoken?: string;
+  updated_at?: Date;
+  resetpasswordexpires?: Date;
 };
 
 export type Productstype = {

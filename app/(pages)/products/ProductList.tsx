@@ -14,6 +14,7 @@ import { useSearchParams } from "next/navigation";
 import { getFilteredProducts } from "@/lib/data";
 import ReactStars from "react-stars";
 import { EmptyFilteredProducts } from "@/app/components/EmptyComponents";
+import Link from "next/link";
 
 const ProductList = () => {
   const router = useRouter();
@@ -101,7 +102,7 @@ const ProductList = () => {
         Our Products
       </h2>
       <hr />
-      <div className="relative mt-3 z-[101]">
+      <div className="relative mt-3 z-50">
         <div
           onClick={() => setisVisible((prev) => !prev)}
           className="w-fit cursor-pointer flex items-center text-[12px]"
@@ -112,7 +113,7 @@ const ProductList = () => {
         <ul
           className={`absolute ${
             isVisible ? "flex" : "hidden"
-          } z-[10] left-0 top-[20px] flex flex-col text-[11px] bg-gray-600`}
+          } z-[20] left-0 top-[20px] flex flex-col text-[11px] bg-gray-600`}
         >
           {orderItems.map((item, index) => (
             <li
@@ -168,7 +169,7 @@ const ProductList = () => {
               return (
                 <li key={index} className="relative w-full h-fit flex flex-col">
                   {currentUser && (
-                    <div className="addLikeContainer absolute z-[101] right-2 top-2 cursor-pointer">
+                    <div className="addLikeContainer absolute z-[50] right-2 top-2 cursor-pointer">
                       <button
                         onClick={() => {
                           if (currentUser?.id) {
@@ -201,7 +202,17 @@ const ProductList = () => {
                       </p>
                     </div>
                   )}
-                  <div className="relative imageContainer bg-gray-300 w-full h-[190px] max-sm:!h-[170px]">
+                  <Link
+                    className="relative imageContainer bg-gray-300 w-full h-[160px] max-sm:!h-[145px]"
+                    href={`/products/${item.id}`}
+                  >
+                    <Image
+                      className="w-full h-full brightness-50"
+                      src={item.image_url}
+                      alt={item.name}
+                      width={150}
+                      height={100}
+                    />
                     <div className="absolute left-1 bottom-1 z-19 rating flex gap-1 items-center">
                       <ReactStars
                         count={5}
@@ -215,12 +226,15 @@ const ProductList = () => {
                         )
                       </p>
                     </div>
-                  </div>
-                  <div className="titleContainer">
+                  </Link>
+                  <Link
+                    className="titleContainer"
+                    href={`/products/${item.id}`}
+                  >
                     <h2 className="productTitle h-[30px] text-[14px] font-medium mt-2 max-md:text-[13px]">
                       {item.name}
                     </h2>
-                  </div>
+                  </Link>
                   <div className="priceContainer mt-4 font-bold">
                     {isDiscounted ? (
                       <div className="h-[45px]">
