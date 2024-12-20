@@ -77,6 +77,28 @@ export const EmptyAddresses = () => {
   );
 };
 
+export const EmptyOrders = () => {
+  return (
+    <div className="w-full h-full py-[100px] flex flex-col items-center text-center text-black">
+      <CategoryIcon className="text-[50px] text-pink-600" />
+      <h2 className="mt-5 text-[28px] font-bold max-md:text-[20px]">
+        No orders yet..
+      </h2>
+      <p className="text-[13px]">
+        You can check our products via button down below!
+      </p>
+      <div className="w-[250px]">
+        <Link
+          href="/products"
+          className="loginRegisterButton mt-3 !text-[14px]"
+        >
+          Check Out!
+        </Link>
+      </div>
+    </div>
+  );
+};
+
 export const EmptyAddressesBeforeCheckout = () => {
   return (
     <div className="w-full h-full py-[100px] flex flex-col items-center text-center text-black">

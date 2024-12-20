@@ -133,3 +133,25 @@ export type typeLogin = {
   email: string;
   password: string;
 };
+
+export type OrdersType = {
+  id: number;
+  user_id: string;
+  order_id: string;
+  created_at: string;
+  order_status: "pending" | "shipped";
+  payment_method: string;
+  address: string;
+  country: string;
+  city: string;
+  line1: string;
+  line2?: string;
+  postal_code: string;
+  state?: string;
+  product_name: string;
+  product_image?: string;
+  product_description?: string;
+  product_price: number;
+  product_quantity: number;
+  shipping: number;
+};

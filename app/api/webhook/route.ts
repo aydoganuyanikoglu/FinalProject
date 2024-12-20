@@ -1,12 +1,10 @@
 import Stripe from "stripe";
 import { NextRequest, NextResponse } from "next/server";
+import { fetchCartProducts, addOrder } from "@/lib/data";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+
+export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
   const sig = req.headers.get("stripe-signature");
@@ -33,20 +31,15 @@ export async function POST(req: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
-    console.log("Payment succeeded:", session);
+    const userId = session.metadata?.user_id;
 
-    await saveOrderToDatabase(session);
+    if (!userId) {
+      throw new Error("User ID is missing in the session metadata.");
+    }
+    const cart_items = await fetchCartProducts(userId);
+    const orderId = `order_${Date.now()}`;
+    await addOrder(userId, orderId, cart_items, session);
   }
 
   return new NextResponse("Webhook received successfully", { status: 200 });
-}
-
-async function saveOrderToDatabase(session: any) {
-  const { id, amount_total, customer_details } = session;
-
-  console.log("Saving order to database:", {
-    id,
-    amount_total,
-    customer_details,
-  });
 }

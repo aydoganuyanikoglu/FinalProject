@@ -118,6 +118,108 @@ export const AddressesSkeleton = () => {
   );
 };
 
+export const OrdersSkeleton = () => {
+  const items = Array.from({ length: 3 });
+
+  return (
+    <ul className="overflow-hidden mt-3 w-full h-fit flex flex-col gap-2">
+      {items.map((item, index) => {
+        return (
+          <li
+            key={index}
+            className={`addressClass ${shimmer} relative w-full h-[55px] min-h-fit flex justify-between items-center p-2 shadow-md rounded-md border-gray-200 border-[2px] cursor-pointer bg-gray-200`}
+          >
+            <div className="imageContainer h-full w-[40px] bg-gray-600 rounded-md"></div>
+            <div className="w-[70px] h-[16px] rounded-md bg-gray-600"></div>
+            <div className="orderStatusContainer w-[40px] h-[20px] rounded-md"></div>
+            <div className="createdAt-PriceContainer flex flex-col gap-1 items-end">
+              <p className="w-[60px] h-[13px] bg-gray-600 rounded-md"></p>
+              <p className="w-[40px] h-[13px] bg-gray-600 rounded-md"></p>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+export const OrderDetailsSkeleton = () => {
+  const items = Array.from({ length: 3 });
+  return (
+    <div className="innerContainer relative w-[800px] h-[650px] p-5 gap-5 bg-white shadow-md rounded-xl overflow-hidden max-md:w-full">
+      <div
+        className={`${shimmer} relative orderNumberContainer text-gray-500 font-light text-[14px] max-md:hidden bg-gray-200 rounded-lg`}
+      >
+        <div className="ordernodetail w-[150px] h-[16px] bg-gray-600 rounded-md"></div>
+        <p className="mt-1 w-[60px] h-[15px] rounded-md bg-gray-600"></p>
+      </div>
+      <div className="mt-3 productsContainer w-full h-fit p-2 border-[1px] border-gray-200 rounded-[10px]">
+        <h2 className="w-[60px] h-[20px] rounded-md bg-gray-600"></h2>
+        <ul className="mt-2 w-full h-fit flex flex-col gap-1.5">
+          {items.map((item, index) => {
+            return (
+              <li
+                key={index}
+                className={`addressClass relative w-full h-[75px] min-h-fit flex gap-1 p-2 shadow-md rounded-md border-gray-200 border-[2px] cursor-pointer bg-gray-200`}
+              >
+                <div className="imageContainer h-full !w-[65px] flex items-center rounded-sm max-md:!w-[75px] bg-gray-600"></div>
+                <div className="productTitlePrice w-[80%] flex flex-col justify-between">
+                  <div>
+                    <p className="w-[40px] h-[20px] rounded-md bg-gray-600"></p>
+                    <p className="w-[100%] h-[16px] mt-1 rounded-md bg-gray-600"></p>
+                    <p className="w-[80%] h-[16px] mt-1 rounded-md bg-gray-600"></p>
+                  </div>
+                  <p className="w-[40px] h-[14px] mt-1 rounded-md bg-gray-600"></p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <div className="bottomContainer mt-3 grid grid-cols-2 gap-3 max-md:grid-cols-1">
+        <div className="bottomAddress w-full min-h-fit p-2 border-[1px] border-gray-200 rounded-[10px]">
+          <h2 className="w-[50px] h-[16px] mt-1 rounded-md bg-gray-600"></h2>
+          <div className="mt-2 relative w-full min-h-fit h-[190px] p-2 shadow-md border-gray-200 border-[2px] bg-gray-200 rounded-lg">
+            <div className="addressTitle w-[90px] h-[23px] rounded-md bg-gray-600"></div>
+            <p className="mt-1 w-[100%] h-[17px] rounded-md bg-gray-600"></p>
+            <p className="mt-1 w-[80%] h-[17px] rounded-md bg-gray-600"></p>
+          </div>
+        </div>
+        <div
+          className={`bottomPayment w-full h-fit p-2 border-[1px] border-gray-200 rounded-[10px]`}
+        >
+          <h2 className="mt-1 w-[60px] h-[17px] rounded-md bg-gray-600"></h2>
+          <div className="mt-2 relative w-full min-h-fit h-[190px] p-2 shadow-md rounded-md border-gray-200 border-[2px]">
+            <div className="flex gap-2 pb-2 bg-gray-200">
+              <div className="mt-1 w-[45px] h-[45px] rounded-md bg-gray-600"></div>
+              <div>
+                <p className="mt-1 w-[90px] h-[17px] rounded-md bg-gray-600"></p>
+                <p className="mt-1 w-[60px] h-[17px] rounded-md bg-gray-600"></p>
+              </div>
+            </div>
+            <hr />
+            <div className="pt-2 pb-2 flex flex-col gap-1 bg-gray-200">
+              <div className="flex justify-between">
+                <p className="w-[40px] h-[17px] rounded-md bg-gray-600"></p>
+                <p className="w-[60px] h-[20px] rounded-md bg-gray-600"></p>
+              </div>
+              <div className="flex justify-between">
+                <p className="w-[40px] h-[17px] rounded-md bg-gray-600"></p>
+                <p className="w-[60px] h-[20px] rounded-md bg-gray-600"></p>
+              </div>
+            </div>
+            <hr />
+            <div className="pt-2 pb-2 flex justify-between">
+              <p className="mt-1 w-[50px] h-[20px] rounded-md bg-gray-600"></p>
+              <p className="mt-1 w-[70px] h-[17px] rounded-md bg-gray-600"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const BestSellerSkeleton = () => {
   const items = Array.from({ length: 4 });
   const settings = {

@@ -18,7 +18,6 @@ export async function POST(request: Request) {
     }
 
     const cartItems = await fetchCartProducts(user?.id);
-    console.log("cart Items server", cartItems);
 
     const lineItems = cartItems?.map((item: CartProductsType) => {
       const discountPrice = parseFloat(item.discount_price || "0");
@@ -41,6 +40,9 @@ export async function POST(request: Request) {
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/success`,
       cancel_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/cancel`,
+      metadata: {
+        user_id: user?.id,
+      },
       shipping_address_collection: {
         allowed_countries: ["US", "CA"],
       },

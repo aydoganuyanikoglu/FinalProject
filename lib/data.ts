@@ -10,6 +10,7 @@ import {
   BrandsType,
   Productstype2,
   addressesType,
+  OrdersType,
 } from "./types";
 import { verifySession } from "@/auth/session";
 
@@ -475,11 +476,6 @@ export async function fetchProductsByCategory(
 export const fetchCartProducts = async (
   userId: String
 ): Promise<CartProductsType[] | undefined> => {
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
     const query = `
       SELECT id, quantity, name, category, short_description, price, image_url,discount_price, discount_percentage, brand
@@ -644,11 +640,6 @@ export async function addToCart(
   userId: string,
   product: Productstype
 ): Promise<void> {
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
     const query = `
       INSERT INTO cart (
@@ -733,3 +724,119 @@ export const selectDefaultAddress = async (
     throw new Error("Could not update default address");
   }
 };
+
+export async function addOrder(
+  userId: string,
+  orderId: string,
+  cartItems: CartProductsType[] | undefined,
+  session: any
+): Promise<void> {
+  try {
+    if (!cartItems || cartItems.length === 0) {
+      throw new Error("No items found in the cart.");
+    }
+    for (const item of cartItems) {
+      const query = `
+        INSERT INTO orders (
+          user_id,
+          order_id,
+          created_at,
+          order_status,
+          payment_method,
+          address,
+          country,
+          city,
+          line1,
+          line2,
+          postal_code,
+          state,
+          product_name,
+          product_image,
+          product_description,
+          product_price,
+          product_quantity,
+          shipping
+        )
+        VALUES (
+          $1, $2, NOW(), $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, 30
+        )
+      `;
+      await sql.query(query, [
+        userId,
+        orderId,
+        "pending",
+        session.payment_method_types?.[0] || "unknown",
+        session.customer_details?.address?.line1 || "N/A",
+        session.customer_details?.address?.country || "N/A",
+        session.customer_details?.address?.city || "N/A",
+        session.customer_details?.address?.line1 || "N/A",
+        session.customer_details?.address?.line2 || "N/A",
+        session.customer_details?.address?.postal_code || "N/A",
+        session.customer_details?.address?.state || "N/A",
+        item.name,
+        item.image_url,
+        item.short_description,
+        item.price,
+        item.quantity,
+      ]);
+    }
+
+    const deleteQuery = `
+      DELETE FROM cart
+      WHERE user_id = $1
+    `;
+    await sql.query(deleteQuery, [userId]);
+
+    console.log("Order successfully added and cart cleared for user:", userId);
+  } catch (error: any) {
+    console.error("Failed to add order or clear cart:", error.message);
+    throw new Error("Failed to process the order.");
+  }
+}
+
+export async function fetchOrdersByUserId(
+  userId: string | undefined | null
+): Promise<any[]> {
+  try {
+    const query = `
+      SELECT 
+        order_id,
+        MIN(created_at) AS order_date,
+        SUM(product_price * product_quantity) + 30 AS total_price,
+        SUM(product_price * product_quantity) AS product_total_price,
+        COUNT(order_id) AS total_items,
+        order_status
+      FROM 
+        orders
+      WHERE 
+        user_id = $1
+      GROUP BY 
+        order_id, order_status
+      ORDER BY 
+        order_date DESC
+    `;
+    const result = await sql.query(query, [userId]);
+    return result.rows;
+  } catch (error: any) {
+    console.error("Error fetching orders:", error.message);
+    throw new Error("Failed to fetch orders.");
+  }
+}
+
+export async function fetchOrdersByUserAndOrderId(
+  userId: string,
+  orderId: string
+): Promise<OrdersType[]> {
+  try {
+    const query = `
+      SELECT * 
+      FROM orders
+      WHERE user_id = $1 AND order_id = $2;
+    `;
+    const result = await sql.query(query, [userId, orderId]);
+    return result.rows as OrdersType[];
+  } catch (error: any) {
+    console.error("Error while fetching orders:", error.message);
+    throw new Error("Failed to fetch orders.");
+  }
+}
