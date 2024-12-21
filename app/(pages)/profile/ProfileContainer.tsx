@@ -45,13 +45,13 @@ const ProfileContainer = () => {
         <div className="navigateButtons flex gap-2">
           <Link
             href="/profile/addresses"
-            className="productDetailButtons flex items-center justify-center !w-[200px] !h-[50px] !bg-orange-600 !border-orange-600 hover:!bg-white hover:!text-orange-600 max-md:!w-[140px]"
+            className="productDetailButtons flex items-center justify-center !w-[200px] !h-[50px] !bg-white !text-orange-600 !border-orange-600 hover:!bg-orange-600 hover:!text-white max-md:!w-[140px]"
           >
             Addresses
           </Link>
           <Link
             href="/profile/orders"
-            className="productDetailButtons flex items-center justify-center !w-[200px] !h-[50px] !bg-orange-600 !border-orange-600 hover:!bg-white hover:!text-orange-600 max-md:!w-[140px]"
+            className="productDetailButtons flex items-center justify-center !w-[200px] !h-[50px] !bg-white !text-orange-600 !border-orange-600 hover:!bg-orange-600 hover:!text-white max-md:!w-[140px]"
           >
             Orders
           </Link>
@@ -80,8 +80,8 @@ const ProfileContainer = () => {
         </div>
         {loginRegister ? <ChangePassword /> : <ProfileInfo />}
         <button
-          className="h-[45px] w-[100px] py-2 font-bold bg-red-600 rounded-md text-white text-[14px]
-          hover:brightness-75"
+          className="h-[60px] w-full py-2 border-[1px] border-red-600 bg-red-600 rounded-md font-bold text-white text-[14px]
+          hover:bg-white hover:text-red-600"
           onClick={() => handleLogout()}
         >
           {isButtonLoading ? (

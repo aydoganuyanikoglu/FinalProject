@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FavoriteProductsType, Productstype } from "@/lib/types";
-import { fetchProductsByCategory } from "@/lib/data";
+import { fetchProductsByCategoryAndExcludeId } from "@/lib/data";
 import { useProduct } from "@/context/ProductContext";
 import Link from "next/link";
 import Image from "next/image";
@@ -54,11 +54,8 @@ const YouMightLike: React.FC<propsYouMight> = ({
 
   const handleFetchByBrand = async () => {
     try {
-      const results = await fetchProductsByCategory(category);
-      const filteredResults = results.filter(
-        (product: any) => product.id !== id
-      );
-      setProducts(filteredResults);
+      const results = await fetchProductsByCategoryAndExcludeId(category, id);
+      setProducts(results);
     } catch (error) {
       console.error("error while fetchin by brand", error);
     }
@@ -114,7 +111,7 @@ const YouMightLike: React.FC<propsYouMight> = ({
                 <div className="absolute left-1 top-[18px] z-20 flex justify-center items-center -rotate-45">
                   <div className="absolute !w-[50px] !h-[50px] rounded-[50%] bg-red-600"></div>
                   <p className="relative z-1 text-white font-bold text-[12px]">
-                    {item.discount_percentage}%
+                    -{item.discount_percentage}%
                   </p>
                 </div>
               )}

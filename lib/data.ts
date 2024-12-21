@@ -490,13 +490,16 @@ export const removeFromFavoriteProducts = async (
   }
 };
 
-export async function fetchProductsByCategory(
-  category: String | undefined
+export async function fetchProductsByCategoryAndExcludeId(
+  category: string | undefined,
+  id: string | undefined
 ): Promise<Productstype[]> {
   try {
-    const query = `SELECT * FROM products
-    WHERE category = $1`;
-    const result = await sql.query(query, [category]);
+    const query = `
+      SELECT * FROM products
+      WHERE category = $1 AND id != $2
+    `;
+    const result = await sql.query(query, [category, id]);
     return result.rows as Productstype[];
   } catch (error) {
     console.error("Database Error:", error);

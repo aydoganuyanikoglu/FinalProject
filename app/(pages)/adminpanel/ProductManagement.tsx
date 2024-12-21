@@ -40,7 +40,7 @@ const ProductManagement = () => {
   };
 
   return (
-    <div>
+    <div className="w-full h-fit">
       {showDeleteModal && (
         <DeleteProduct
           product={selectedProduct}
@@ -66,7 +66,7 @@ const ProductManagement = () => {
             return (
               <li
                 key={index}
-                className="relative w-full h-[300px] flex flex-col border-[2px] border-white p-2"
+                className="relative w-full h-[260px] flex flex-col border-[2px] border-gray-600 p-2 bg-white text-black rounded-md"
               >
                 <div
                   className="deleteItemContainer absolute right-3 top-3 cursor-pointer"
@@ -74,9 +74,9 @@ const ProductManagement = () => {
                 >
                   <DeleteIcon className="text-black hover:text-gray-600 !transition-none" />
                 </div>
-                <div className="image bg-gray-300 w-full h-[150px] max-sm:!h-[150px]">
+                <div className="image w-full h-[150px] flex justify-center items-center max-sm:!h-[150px]">
                   <Image
-                    className="w-full h-full"
+                    className="w-[90%] h-[70%]"
                     src={item.image_url}
                     alt={item.name}
                     width={150}

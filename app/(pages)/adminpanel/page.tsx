@@ -6,7 +6,7 @@ const page = () => {
   return (
     <div className="w-full min-h-[100vh] h-fit">
       <AdminNavbar />
-      <div className="adminContainer w-full">
+      <div className="adminContainer w-full h-fit">
         <SelectedComponent />
       </div>
     </div>

@@ -11,19 +11,24 @@ import {
   fetchWeeklyOrderCount,
 } from "@/lib/data";
 import SalesChart from "./SalesChart";
+import { typeUsers } from "@/lib/types";
+import { fetchUsers } from "@/lib/data";
 
 const Overview = () => {
   const [ordercount, setOrdercount] = useState<number>(0);
   const [totalOrderPrice, setTotalOrderPrice] = useState<number>(0);
   const [weeklyOrderCount, setWeeklyOrderCount] = useState<number>(0);
+  const [usersCounter, setUsersCounter] = useState<number>(0);
 
   const handleFetchStatus = async () => {
     const ordercounts = await fetchAllOrderNumbers();
     const totalOrderPrice = await fetchTotalRevenue();
     const weeklyorder = await fetchWeeklyOrderCount();
+    const users = await fetchUsers();
     setOrdercount(ordercounts);
     setTotalOrderPrice(totalOrderPrice);
     setWeeklyOrderCount(weeklyorder);
+    setUsersCounter(users.length);
   };
 
   useEffect(() => {
@@ -33,8 +38,8 @@ const Overview = () => {
   const overviewItems = [
     {
       logo: <PeopleIcon className="text-[40px] text-[#130a3e]" />,
-      title: "Total Number of Visiters",
-      value: "251",
+      title: "Total Number of Users",
+      value: usersCounter,
     },
     {
       logo: <CategoryIcon className="text-[40px] text-[#130a3e]" />,

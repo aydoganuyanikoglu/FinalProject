@@ -27,7 +27,7 @@ const ProfileInfo = () => {
         <div className="block text-[13px] font-medium text-gray-700">
           First Name
         </div>
-        <p className="loginRegisterInputs flex flex-col justify-center !border-orange-600">
+        <p className="loginRegisterInputs flex flex-col justify-center !border-gray-300">
           {currentUser?.firstname}
         </p>
       </div>
@@ -35,7 +35,7 @@ const ProfileInfo = () => {
         <div className="block text-[13px] font-medium text-gray-700">
           Last Name
         </div>
-        <p className="loginRegisterInputs flex flex-col justify-center !border-orange-600">
+        <p className="loginRegisterInputs flex flex-col justify-center !border-gray-300">
           {currentUser?.lastname}
         </p>
       </div>
@@ -43,7 +43,7 @@ const ProfileInfo = () => {
         <div className="block text-[13px] font-medium text-gray-700">
           Email Address
         </div>
-        <p className="loginRegisterInputs flex flex-col justify-center !border-orange-600">
+        <p className="loginRegisterInputs flex flex-col justify-center !border-gray-300">
           {currentUser?.email}
         </p>
       </div>

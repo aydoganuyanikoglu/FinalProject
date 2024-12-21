@@ -23,7 +23,7 @@ const OrderManagement = () => {
   }, []);
 
   return (
-    <div className="w-full h-full min-h-fit bg-[#4048b9] rounded-md">
+    <div className="w-full h-fit min-h-[90vh] bg-[#4048b9] rounded-md">
       <div className="innerContainer w-full h-fit p-5">
         <h2 className="w-fit text-[16px] font-bold border-b-white border-b-[1.5px]">
           Ordered Products

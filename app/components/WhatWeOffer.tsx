@@ -16,9 +16,9 @@ const WhatWeOffer = () => {
         <div className=" w-full flex gap-5 items-center justify-center max-md:justify-start max-md:flex-col max-md:text-center">
           <Image src="/order.svg" alt="order" width={50} height={50} />
           <h2 className="text-[18px] font-bold max-md:text-[14px]">
-            Free shipping on
+            Worldwide shipping
             <br className="max-md:hidden" />
-            orders over $50
+            only for 30$!
           </h2>
         </div>
         <div className=" w-full flex gap-5 items-center justify-center max-md:justify-start max-md:flex-col max-md:text-center">

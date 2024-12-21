@@ -198,16 +198,16 @@ const ProductList = () => {
                     <div className="absolute left-1 top-2.5 z-20 flex justify-center items-center -rotate-45">
                       <div className="absolute !w-[50px] !h-[50px] rounded-[50%] bg-red-600"></div>
                       <p className="relative z-1 text-white font-bold text-[12px]">
-                        {item.discount_percentage}%
+                        -{item.discount_percentage}%
                       </p>
                     </div>
                   )}
                   <Link
-                    className="relative imageContainer bg-gray-300 w-full h-[160px] max-sm:!h-[145px]"
+                    className="relative imageContainer bg-gray-300 w-full h-[150px] max-sm:!h-[145px]"
                     href={`/products/${item.id}`}
                   >
                     <Image
-                      className="w-full h-full brightness-50"
+                      className="w-full h-full brightness-75"
                       src={item.image_url}
                       alt={item.name}
                       width={150}

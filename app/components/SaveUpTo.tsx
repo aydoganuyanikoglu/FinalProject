@@ -5,7 +5,7 @@ const SaveUpTo = () => {
   return (
     <section className={`w-full h-fit flex max-md:flex-col bg-white`}>
       <div className="left relative bg-white w-[55%] h-[500px] max-md:w-full">
-        <div className="absolute z-[100] right-[-120px] top-[50px] rotate-12 max-md:top-auto max-md:right-[20px] max-md:bottom-[-75px]">
+        <div className="absolute z-10 right-[-120px] top-[50px] rotate-12 max-md:top-auto max-md:right-[20px] max-md:bottom-[-75px]">
           <BestPriceTag />
         </div>
       </div>

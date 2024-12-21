@@ -33,7 +33,7 @@ const ActiveComponent: React.FC<ActiveComponentProps> = ({ activeItem }) => {
         <br />
         <span className="text-[16px] font-light">{activeItem}</span>
       </p>
-      <div className="mt-5 h-[calc(100vh-220px)] min-h-fit p-[20px] w-full bg-[#130a3e] rounded-[10px]">
+      <div className="mt-5 min-h-[calc(100vh-220px)] h-fit p-[20px] w-full bg-[#130a3e] rounded-[10px]">
         {renderComponent()}
       </div>
     </div>

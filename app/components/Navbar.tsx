@@ -53,7 +53,7 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
     <header
       className={`${
         isFixed ? "fixed top-0 left-0" : "sticky"
-      } fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
+      } w-full z-[100] transition-all duration-300 ${
         showNavbar
           ? "translate-y-0"
           : isOpen

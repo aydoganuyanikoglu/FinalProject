@@ -1,8 +1,26 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import CelebrationIcon from "@mui/icons-material/Celebration";
+import confetti from "canvas-confetti";
 
 const page = () => {
+  useEffect(() => {
+    confetti({
+      particleCount: 100,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 },
+    });
+
+    confetti({
+      particleCount: 100,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 },
+    });
+  }, []);
+
   return (
     <div className="w-full h-[100vh] flex flex-col items-center justify-center text-center text-gray-700">
       <CelebrationIcon className="text-[50px] text-orange-500" />

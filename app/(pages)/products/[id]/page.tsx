@@ -109,13 +109,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
                   <div className="absolute left-1 top-2.5 z-1 flex justify-center items-center -rotate-45">
                     <div className="absolute !w-[70px] !h-[70px] rounded-[50%] bg-red-600"></div>
                     <p className="relative z-1 text-white font-bold text-[15px]">
-                      {productById?.discount_percentage}%
+                      -{productById?.discount_percentage}%
                     </p>
                   </div>
                 )}
-                <div className="w-[300px] h-[250px] bg-gray-200 max-xs:w-full max-xs:h-[210px]">
+                <div className="w-[300px] h-[240px] flex justify-center items-center max-xs:w-full max-xs:h-[210px]">
                   <Image
-                    className="w-full h-full"
+                    className="w-[90%] h-[65%]"
                     src={productById?.image_url || "/computer.webp"}
                     alt={productById?.name || "default name"}
                     width={300}

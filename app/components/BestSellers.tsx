@@ -14,6 +14,7 @@ import { CircularProgress } from "@mui/material";
 import { EmptyProducts } from "./EmptyComponents";
 import { BestSellerSkeleton } from "./skeletons/Skeletons";
 import Image from "next/image";
+import Link from "next/link";
 
 const BestSellers = () => {
   const {
@@ -117,7 +118,7 @@ const BestSellers = () => {
                     <div className="absolute left-[25.5px] top-[28px] z-10 flex justify-center items-center">
                       <div className="absolute !w-[65px] !h-[65px] bg-red-600"></div>
                       <p className="relative z-1 text-white font-bold text-[12px]">
-                        {item.discount_percentage}%
+                        -{item.discount_percentage}%
                       </p>
                     </div>
                   )}
@@ -147,7 +148,10 @@ const BestSellers = () => {
                       </button>
                     </div>
                   )}
-                  <div className="image w-full h-[300px] flex items-center justify-center">
+                  <Link
+                    href={`/products/${item.id}`}
+                    className="image w-full h-[300px] flex items-center justify-center"
+                  >
                     <Image
                       className="w-90% max-xs:w-full"
                       src={item.image_url}
@@ -155,12 +159,15 @@ const BestSellers = () => {
                       width={300}
                       height={300}
                     />
-                  </div>
-                  <div className="titleContainer">
+                  </Link>
+                  <Link
+                    href={`/products/${item.id}`}
+                    className="titleContainer"
+                  >
                     <h2 className="productTitle text-[14px] font-medium mt-2 max-md:text-[13px]">
                       {item.name}
                     </h2>
-                  </div>
+                  </Link>
                   <div className="priceContainer mt-4 font-bold">
                     {isDiscounted ? (
                       <div className="h-[45px]">

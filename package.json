@@ -19,6 +19,7 @@
     "@vercel/postgres": "^0.10.0",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
+    "canvas-confetti": "^1.9.3",
     "formik": "^2.4.6",
     "ioredis": "^5.4.2",
     "jose": "^5.9.6",
@@ -42,6 +43,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^20",
     "@types/node-cron": "^3.0.11",
     "@types/nodemailer": "^6.4.17",

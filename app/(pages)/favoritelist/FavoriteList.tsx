@@ -10,6 +10,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { EmptyFavoriteList } from "@/app/components/EmptyComponents";
 import { FavoritesSkeleton } from "@/app/components/skeletons/Skeletons";
 import Link from "next/link";
+import Image from "next/image";
 
 const FavoriteList = () => {
   const router = useRouter();
@@ -84,13 +85,13 @@ const FavoriteList = () => {
                 return (
                   <li
                     key={index}
-                    className="relative w-full h-fit p-[5px] flex flex-col"
+                    className="relative w-full h-fit p-[5px] flex flex-col border-[1.5px] border-gray-300 rounded-md"
                   >
                     {isDiscounted && (
                       <div className="absolute left-1 top-2.5 z-1 flex justify-center items-center -rotate-45">
                         <div className="absolute !w-[50px] !h-[50px] rounded-[50%] bg-red-600"></div>
                         <p className="relative z-1 text-white font-bold text-[12px]">
-                          {item.discount_percentage}%
+                          -{item.discount_percentage}%
                         </p>
                       </div>
                     )}
@@ -119,9 +120,17 @@ const FavoriteList = () => {
                       </button>
                     </div>
                     <Link
-                      className="image bg-gray-300 w-full h-[225px] max-sm:!h-[150px]"
+                      className="image w-full h-[180px] flex justify-center items-center max-sm:!h-[150px]"
                       href={`/products/${item.id}`}
-                    ></Link>
+                    >
+                      <Image
+                        className="h-[65%] w-[90%]"
+                        alt={item.name}
+                        src={item.image_url}
+                        width={150}
+                        height={150}
+                      />
+                    </Link>
                     <Link
                       className="titleContainer"
                       href={`/products/${item.id}`}

@@ -53,7 +53,7 @@ const UserManagement = () => {
   ];
 
   return (
-    <div className="userManagementContainer w-full h-full p-5 bg-[#4048b9] rounded-md">
+    <div className="userManagementContainer w-full h-fit p-5 bg-[#4048b9] rounded-md">
       {showUserModal && (
         <DeleteUserModal user={selectedUser} onClose={handleCloseDeleteModal} />
       )}

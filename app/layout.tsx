@@ -12,6 +12,13 @@ import theme from "./theme";
 export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <title>Flemman.</title>
+        <meta
+          name="description"
+          content="Welcome to Flemman, your go-to e-commerce platform!"
+        />
+      </head>
       <body>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ToastProvider>
