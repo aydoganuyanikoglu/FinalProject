@@ -66,7 +66,7 @@ const YouMightLike: React.FC<propsYouMight> = ({
 
   useEffect(() => {
     handleFetchByBrand();
-  }, [currentUser]);
+  }, [currentUser, category]);
 
   return (
     <div className="mt-10">
