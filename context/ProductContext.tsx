@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import {
   fetchProducts,
-  fetchProductsByCategory,
   fetchCartTotalPrice,
   addToCart,
   fetchCartProducts,
