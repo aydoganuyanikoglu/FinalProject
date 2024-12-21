@@ -2,14 +2,13 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import OrderDetailsModal from "@/app/components/modals/OrderDetailsModal";
 import { fetchOrdersByUserId } from "@/lib/data";
 import { useAuth } from "@/context/AuthContext";
-import { OrdersType } from "@/lib/types";
 import { OrdersSkeleton } from "@/app/components/skeletons/Skeletons";
 import { EmptyOrders } from "@/app/components/EmptyComponents";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
 const Orders = () => {
   const [showModal, setShowModal] = useState(false);
@@ -93,20 +92,31 @@ const Orders = () => {
                   <li
                     onClick={() => handleShowModal(item)}
                     key={index}
-                    className="addressClass relative w-full h-[55px] min-h-fit flex justify-between items-center p-2 shadow-md rounded-md border-gray-200 border-[2px] cursor-pointer"
+                    className="addressClass relative w-full h-[55px] min-h-fit grid grid-cols-3 p-2 shadow-md rounded-md border-gray-200 border-[2px] cursor-pointer max-sm:grid-cols-2"
                   >
-                    <div className="imageContainer h-full w-[40px] bg-black rounded-sm"></div>
-                    <div className="orderNumberContainer text-gray-500 font-light text-[14px] max-md:hidden">
-                      <span>Order No: </span>
-                      <span className="text-black">{item.order_id}</span>
+                    <div className="orderNumberContainer w-full flex items-center text-gray-500 font-light text-[14px] max-md:hidden">
+                      <span>Order No:</span>
+                      <span className="ml-2 text-black text-[12px]">
+                        {item.order_id}
+                      </span>
                     </div>
-                    <div className="orderStatusContainer flex items-center gap-1">
-                      <HourglassEmptyIcon className="text-[16px] text-gray-500" />
-                      <p className="text-[12px] text-black max-md:text-[10px]">
+                    <div className="orderStatusContainer w-full flex justify-center items-center gap-1 max-sm:justify-start">
+                      {item.order_status === "shipped" ? (
+                        <LocalShippingIcon className="text-[19px] text-green-500" />
+                      ) : (
+                        <HourglassEmptyIcon className="text-[19px] text-gray-500" />
+                      )}
+                      <p
+                        className={`text-[12px] max-md:text-[10px] ${
+                          item.order_status === "shipped"
+                            ? "text-green-500"
+                            : "text-black"
+                        }`}
+                      >
                         {item.order_status}
                       </p>
                     </div>
-                    <div className="createdAt-PriceContainer flex flex-col items-end">
+                    <div className="createdAt-PriceContainer w-full flex flex-col items-end justify-center">
                       <p className="text-[12px] text-gray-400 font-light max-md:text-[10px]">
                         {item.order_date &&
                         !isNaN(new Date(item.order_date).getTime())

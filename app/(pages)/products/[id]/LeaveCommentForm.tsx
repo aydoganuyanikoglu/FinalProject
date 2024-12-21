@@ -1,25 +1,45 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import dynamic from "next/dynamic";
 import { useAuth } from "@/context/AuthContext";
 import { useProduct } from "@/context/ProductContext";
 import { toast } from "react-toastify";
+import { isProductInOrder } from "@/lib/data";
 
 const ReactStars = dynamic(() => import("react-stars"), { ssr: false });
 
 interface LeaveCommentFormProps {
   id: string;
+  productname: string | undefined;
   onclose: () => void;
 }
 
-const LeaveCommentForm: React.FC<LeaveCommentFormProps> = ({ id, onclose }) => {
+const LeaveCommentForm: React.FC<LeaveCommentFormProps> = ({
+  id,
+  onclose,
+  productname,
+}) => {
+  const [isPurchased, setisPurchased] = useState<boolean>(false);
   const { currentUser } = useAuth();
   const { handleAddReview, reviews } = useProduct();
   const isReviewed = reviews.some(
     (review) => review.user_id === currentUser?.id
   );
+
+  const checkIsPurchased = async () => {
+    try {
+      const result = await isProductInOrder(currentUser?.id, productname);
+      setisPurchased(result);
+    } catch (error) {
+      console.error("error while checkin..", error);
+    }
+  };
+
+  useEffect(() => {
+    checkIsPurchased();
+  }, [currentUser, productname]);
 
   return (
     <Formik
@@ -40,12 +60,26 @@ const LeaveCommentForm: React.FC<LeaveCommentFormProps> = ({ id, onclose }) => {
           .required("Review is required."),
       })}
       onSubmit={(values) => {
-        if (currentUser?.id && !isReviewed) {
-          handleAddReview(values, currentUser.id, currentUser.firstname, id);
+        if (!isPurchased) {
+          toast.error("You need to order the product to leave a comment!");
+          onclose();
+        } else if (isReviewed) {
+          toast.error(
+            "You can not leave more than one comment to same product!"
+          );
           onclose();
         } else {
-          toast.error("You can not rate more than one to same product!");
-          onclose();
+          if (currentUser?.id) {
+            handleAddReview(
+              values,
+              currentUser.id,
+              currentUser.firstname,
+              id,
+              productname
+            );
+            toast.success("Your have submitted your comment successfully!");
+            onclose();
+          }
         }
       }}
     >

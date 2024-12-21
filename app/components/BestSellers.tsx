@@ -13,6 +13,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { CircularProgress } from "@mui/material";
 import { EmptyProducts } from "./EmptyComponents";
 import { BestSellerSkeleton } from "./skeletons/Skeletons";
+import Image from "next/image";
 
 const BestSellers = () => {
   const {
@@ -97,7 +98,7 @@ const BestSellers = () => {
             Best Sellers
           </h2>
         </div>
-        <div className="innerMiddle w-full h-fit py-[40px]">
+        <div className="innerMiddle w-full h-fit pb-[40px]">
           <Slider className="sliderContainer" {...settings}>
             {randomProducts.map((item, index) => {
               const productState = productStates[item.id] || {};
@@ -109,11 +110,12 @@ const BestSellers = () => {
               return (
                 <div
                   key={index}
-                  className="relative bg-gray-300 w-full h-fit p-[5px] flex flex-col"
+                  className="relative bg-white w-full h-fit p-[5px] flex flex-col border-[1.5px]
+                  rounded-md border-gray-400"
                 >
                   {isDiscounted && (
-                    <div className="absolute left-1 top-2.5 z-10 flex justify-center items-center -rotate-45">
-                      <div className="absolute !w-[50px] !h-[50px] rounded-[50%] bg-red-600"></div>
+                    <div className="absolute left-[25.5px] top-[28px] z-10 flex justify-center items-center">
+                      <div className="absolute !w-[65px] !h-[65px] bg-red-600"></div>
                       <p className="relative z-1 text-white font-bold text-[12px]">
                         {item.discount_percentage}%
                       </p>
@@ -145,7 +147,15 @@ const BestSellers = () => {
                       </button>
                     </div>
                   )}
-                  <div className="image bg-white w-full h-[300px]"></div>
+                  <div className="image w-full h-[300px] flex items-center justify-center">
+                    <Image
+                      className="w-90% max-xs:w-full"
+                      src={item.image_url}
+                      alt={item.name}
+                      width={300}
+                      height={300}
+                    />
+                  </div>
                   <div className="titleContainer">
                     <h2 className="productTitle text-[14px] font-medium mt-2 max-md:text-[13px]">
                       {item.name}

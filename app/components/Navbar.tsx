@@ -62,7 +62,8 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
       }`}
     >
       <div className="topContainer w-full bg-black text-white text-center py-2 text-[14px] max-md:text-[12px]">
-        Free Shipping Over $50 Worldwide
+        Flemman: Redefining Shopping Quality, Value, and Convenience at Your
+        Fingertips!
       </div>
       <div
         className={`middleContainer w-full h-[80px] flex justify-between items-center bg-gray-200 ${styles.pagePaddingX}`}
@@ -127,7 +128,7 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
         </ul>
         <div onClick={() => handleMenu()}>
           {isOpen ? (
-            <CloseIcon className="appearClass fixed right-[20px] top-[20px] cursor-pointer text-white" />
+            <CloseIcon className="appearClass fixed right-[20px] top-[20px] cursor-pointer text-white hidden max-md:block" />
           ) : (
             <MenuIcon className="appearClass absolute right-[20px] top-[20px] cursor-pointer hidden max-md:block text-white" />
           )}

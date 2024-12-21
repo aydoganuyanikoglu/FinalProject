@@ -218,10 +218,11 @@ const ProductList = () => {
                         count={5}
                         value={item.average_rating}
                         size={24}
+                        color1={"#fff"}
                         color2={"#ffd700"}
                         edit={false}
                       />
-                      <p className="text-[11px] text-gray-500">
+                      <p className="text-[11px] text-gray-200">
                         {item.average_rating?.toFixed(2)}/5 ({item.review_count}
                         )
                       </p>

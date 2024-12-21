@@ -90,7 +90,8 @@ interface ProductContextType {
     values: CommentType,
     userId: string,
     userName: string,
-    productId: string
+    productId: string,
+    productName: string | undefined
   ) => Promise<void>;
   handleFetchReviewCount: (productId: string) => Promise<void>;
   handleFetchBrands: () => Promise<void>;
@@ -208,10 +209,11 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
       values: CommentType,
       userId: string,
       userName: string,
-      productId: string
+      productId: string,
+      productName: string | undefined
     ) => {
       try {
-        await addReview(values, userId, userName, productId);
+        await addReview(values, userId, userName, productId, productName);
         await handleFetchReviews(productId);
         await handleFetchReviewCount(productId);
         showToast(`Comment added successfuly`);

@@ -7,6 +7,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useAuth } from "@/context/AuthContext";
+import { toast } from "react-toastify";
+import { profileUpdatePassword } from "@/auth/auth";
 
 const ChangePassword = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -23,10 +25,6 @@ const ChangePassword = () => {
       .required("Current password is required"),
     newPassword: Yup.string()
       .min(8, "Password must be at least 8 characters")
-      .matches(
-        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        "Password must contain at least one letter, one number, and one special character"
-      )
       .required("New password is required"),
   });
 
@@ -37,7 +35,21 @@ const ChangePassword = () => {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log("Password updated:", values);
+      if (!currentUser) {
+        toast.error("You need to be logged in to update your password.");
+        return;
+      }
+      const response = await profileUpdatePassword(
+        currentUser.id,
+        values.currentPassword,
+        values.newPassword
+      );
+      if (response.success) {
+        toast.success(response.message);
+        formik.resetForm();
+      } else {
+        toast.error(response.message);
+      }
     },
   });
 
@@ -113,7 +125,7 @@ const ChangePassword = () => {
       </p>
       <button className="loginRegisterButton" disabled={formik.isSubmitting}>
         {formik.isSubmitting ? (
-          <CircularProgress size={20} className="!text-white" />
+          <CircularProgress size={20} className="!text-black" />
         ) : (
           "Update"
         )}

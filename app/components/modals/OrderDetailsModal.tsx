@@ -46,14 +46,14 @@ const OrderDetailsModal: React.FC<OrderProps> = ({
   return (
     <div
       onClick={onClose}
-      className="fixed z-[100] left-0 top-0 w-[100vw] h-[100vh] flex justify-center items-center backdrop-blur-md"
+      className="fixed z-[100] left-0 top-0 w-[100vw] h-[100vh] flex justify-center items-center backdrop-blur-md max-sm:px-[20px]"
     >
       {loadingDetails ? (
         <OrderDetailsSkeleton />
       ) : (
         <div
           onClick={(event) => event.stopPropagation()}
-          className="innerContainer relative w-[800px] h-[650px] p-5 gap-5 bg-white shadow-md rounded-xl overflow-y-auto max-md:w-full "
+          className="innerContainer relative w-[800px] h-[650px] p-5 gap-5 bg-white shadow-md rounded-xl overflow-y-auto max-md:w-full max-sm:h-[500px]"
         >
           <div onClick={onClose} className="absolute right-2 top-2">
             <CancelIcon className="text-[18px] text-orange-600 cursor-pointer" />

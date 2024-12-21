@@ -357,19 +357,31 @@ export const addReview = async (
   values: CommentType,
   userId: string,
   userName: string,
-  productId: string
+  productId: string,
+  productName: string | undefined
 ): Promise<void> => {
-  const reviews = await fetchReviews(productId);
-  const isReviewedBefore = reviews?.some((review) => review.user_id === userId);
-  if (isReviewedBefore) {
-    return;
-  }
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
+    const hasPurchased = await isProductInOrder(userId, productName || "");
+    if (!hasPurchased) {
+      console.log("You can only review products you have purchased.");
+      return;
+    }
+
+    const reviews = await fetchReviews(productId);
+    const isReviewedBefore = reviews?.some(
+      (review) => review.user_id === userId
+    );
+    if (isReviewedBefore) {
+      console.log("You have already reviewed this product.");
+      return;
+    }
+
+    const id = await fetchCookie();
+    if (id !== userId) {
+      console.log("You don't have permission to add a review.");
+      return;
+    }
+
     const query = `
       INSERT INTO reviews (
         user_id, 
@@ -379,7 +391,7 @@ export const addReview = async (
         review_title, 
         review
       )
-      VALUES ($1,$2,$3,$4,$5,$6)
+      VALUES ($1, $2, $3, $4, $5, $6)
     `;
     await sql.query(query, [
       userId,
@@ -389,11 +401,30 @@ export const addReview = async (
       values.title,
       values.review,
     ]);
-    console.log("Comment added successfully!");
+
+    console.log("Review added successfully!");
   } catch (error: any) {
     console.error("Failed to add comment:", error.message);
   }
 };
+
+export async function isProductInOrder(
+  userId: string | undefined,
+  productName: string | undefined
+): Promise<boolean> {
+  try {
+    const query = `
+      SELECT *
+      FROM orders
+      WHERE user_id = $1 AND product_name = $2
+    `;
+    const result = await sql.query(query, [userId, productName]);
+    return result.rows.length > 0;
+  } catch (error: any) {
+    console.error("Error while checking product in orders:", error.message);
+    throw new Error("Failed to check product in orders.");
+  }
+}
 
 export const addToFavoriteProducts = async (
   userId: string,
@@ -460,7 +491,7 @@ export const removeFromFavoriteProducts = async (
 };
 
 export async function fetchProductsByCategory(
-  category: String
+  category: String | undefined
 ): Promise<Productstype[]> {
   try {
     const query = `SELECT * FROM products
@@ -776,7 +807,7 @@ export async function addOrder(
         item.name,
         item.image_url,
         item.short_description,
-        item.price,
+        item.discount_price,
         item.quantity,
       ]);
     }
@@ -838,5 +869,106 @@ export async function fetchOrdersByUserAndOrderId(
   } catch (error: any) {
     console.error("Error while fetching orders:", error.message);
     throw new Error("Failed to fetch orders.");
+  }
+}
+
+export async function fetchAllOrderNumbers(): Promise<number> {
+  try {
+    const query = `
+      SELECT COUNT(DISTINCT order_id) AS total_orders
+      FROM orders;
+    `;
+    const result = await sql.query(query);
+    return result.rows[0].total_orders || 0;
+  } catch (error: any) {
+    console.error("Error while fetching orders:", error.message);
+    throw new Error("Failed to fetch orders.");
+  }
+}
+
+export async function fetchTotalRevenue(): Promise<number> {
+  try {
+    const query = `
+      SELECT SUM(product_price * product_quantity) AS total_revenue
+      FROM orders;
+    `;
+    const result = await sql.query(query);
+    return result.rows[0].total_revenue || 0;
+  } catch (error: any) {
+    console.error("Error while calculating total revenue:", error.message);
+    throw new Error("Failed to fetch total revenue.");
+  }
+}
+
+export async function fetchWeeklyOrderCount(): Promise<number> {
+  try {
+    const query = `
+      SELECT COUNT(DISTINCT order_id) AS weekly_order_count
+      FROM orders
+      WHERE created_at >= (NOW() AT TIME ZONE 'UTC') - INTERVAL '7 days';
+    `;
+    const result = await sql.query(query);
+    return result.rows[0].weekly_order_count;
+  } catch (error: any) {
+    console.error("Error while fetching weekly order count:", error.message);
+    throw new Error("Failed to fetch weekly order count.");
+  }
+}
+
+export async function fetchMonthlySales(): Promise<
+  { sales_month: string; total_sales: number }[]
+> {
+  try {
+    const query = `
+      SELECT 
+          TO_CHAR(DATE_TRUNC('month', created_at), 'YYYY-MM') AS sales_month, 
+          SUM(product_price * product_quantity) AS total_sales
+      FROM 
+          orders
+      GROUP BY 
+          DATE_TRUNC('month', created_at)
+      ORDER BY 
+          sales_month ASC;
+    `;
+    const result = await sql.query(query);
+    return result.rows;
+  } catch (error: any) {
+    console.error("Error while fetching monthly sales:", error.message);
+    throw new Error("Failed to fetch monthly sales data.");
+  }
+}
+
+export async function fetchAllOrders(): Promise<OrdersType[]> {
+  try {
+    const query = `
+      SELECT *
+      FROM orders
+      ORDER BY created_at DESC;
+`;
+    const result = await sql.query(query);
+    return result.rows as OrdersType[];
+  } catch (error: any) {
+    console.error("Error while fetching orders:", error.message);
+    throw new Error("Failed to fetch orders.");
+  }
+}
+
+export async function updateOrderStatus(
+  userId: string,
+  orderId: string,
+  productName: string,
+  newStatus: string
+): Promise<void> {
+  try {
+    const query = `
+      UPDATE orders
+      SET order_status = $1
+      WHERE user_id = $2 AND order_id = $3 AND product_name = $4
+    `;
+    await sql.query(query, [newStatus, userId, orderId, productName]);
+    console.log("Order status updated successfully");
+  } catch (error: any) {
+    console.error("Error while updating order status:", error.message);
+    throw new Error("Failed to update order status.");
   }
 }

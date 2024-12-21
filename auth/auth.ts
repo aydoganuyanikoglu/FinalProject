@@ -153,3 +153,51 @@ export const updatePassword = async ({
     throw error;
   }
 };
+
+export async function profileUpdatePassword(
+  userId: string | undefined,
+  currentPassword: string,
+  newPassword: string
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const query = `SELECT password FROM users WHERE id = $1`;
+    const result = await sql.query(query, [userId]);
+    const user = result.rows[0];
+
+    if (!user) {
+      return { success: false, message: "User not found." };
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+
+    if (!isPasswordValid) {
+      return { success: false, message: "Current password is incorrect." };
+    }
+
+    const isNewPasswordSameAsOld = await bcrypt.compare(
+      newPassword,
+      user.password
+    );
+
+    if (isNewPasswordSameAsOld) {
+      return {
+        success: false,
+        message: "New password cannot be the same as the current password.",
+      };
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const updateQuery = `UPDATE users SET password = $1 WHERE id = $2`;
+    await sql.query(updateQuery, [hashedPassword, userId]);
+
+    return { success: true, message: "Password updated successfully." };
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Failed to update password.",
+    };
+  }
+}

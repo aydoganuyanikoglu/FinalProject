@@ -73,20 +73,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
   }, [currentUser, favoriteProducts?.length]);
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <Navbar isFixed={false} />
       <div className="w-full flex justify-center">
         <div className="detailContainer w-[700px] py-[100px] max-md:w-[80%] max-smp:w-[100%] max-smp:px-[20px]">
-          <div className="navigatorContainer flex gap-2">
+          <div className="navigatorContainer flex gap-2 max-md:justify-center">
             <Link
-              className="w-fit text-[15px] text-gray-800 border-b-[1px] border-b-[#0000] hover:border-b-[#000]"
+              className="w-fit text-[15px] text-gray-800 border-b-[1px] border-b-[#0000] hover:border-b-[#000] max-md:text-[13px]"
               href="/"
             >
               Home
             </Link>
             <span className="gray-400">|</span>
             <Link
-              className="w-fit text-[15px] text-gray-800 border-b-[1px] border-b-[#0000] hover:border-b-[#000]"
+              className="w-fit text-[15px] text-gray-800 border-b-[1px] border-b-[#0000] hover:border-b-[#000] max-md:text-[13px]"
               href="/products"
             >
               Products
@@ -95,7 +95,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
             {loading ? (
               <ProductNameSkeleton />
             ) : (
-              <p className="font-normal text-[15px] text-gray-400">
+              <p className="font-normal text-[15px] text-gray-400 max-md:text-[13px]">
                 {productById?.name}
               </p>
             )}
@@ -113,7 +113,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
                     </p>
                   </div>
                 )}
-                <div className="w-[300px] h-[250px] bg-gray-200 max-xs:w-full">
+                <div className="w-[300px] h-[250px] bg-gray-200 max-xs:w-full max-xs:h-[210px]">
                   <Image
                     className="w-full h-full"
                     src={productById?.image_url || "/computer.webp"}
@@ -260,7 +260,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
             </div>
           )}
           {showReviewForm && (
-            <LeaveCommentForm id={id as string} onclose={handleReviewForm} />
+            <LeaveCommentForm
+              id={id as string}
+              onclose={handleReviewForm}
+              productname={productById?.name}
+            />
           )}
           <div className="commentBottomContainer mt-10">
             {loadingReviews ? (
@@ -303,7 +307,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
               </ul>
             )}
           </div>
-          <YouMightLike />
+          <YouMightLike
+            id={productById?.id}
+            category={productById?.category}
+            favoriteProducts={favoriteProducts}
+          />
         </div>
       </div>
       <NeedHelp />

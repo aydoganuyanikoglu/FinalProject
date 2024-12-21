@@ -10,6 +10,7 @@ import { EmptyCart } from "@/app/const";
 import { CartSkeleton } from "@/app/components/skeletons/Skeletons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const ShoppingCart = () => {
   const router = useRouter();
@@ -73,9 +74,17 @@ const ShoppingCart = () => {
                     className="relative w-full h-[170px] p-2 flex gap-2.5 rounded-md text-gray-700 bg-white max-md:h-[130px]"
                   >
                     <Link
-                      className="imageContainer w-[170px] h-full bg-gray-500 max-md:!h-[130px] max-md:!w-[130px]"
+                      className="imageContainer w-[170px] h-full flex items-center max-md:!h-[130px] max-md:!w-[130px]"
                       href={`/products/${item.id}`}
-                    ></Link>
+                    >
+                      <Image
+                        className="w-full h-[80%]"
+                        alt={item.name}
+                        src={item.image_url}
+                        width={160}
+                        height={140}
+                      />
+                    </Link>
                     <div className="infosContainer w-[80%] h-full flex flex-col justify-between">
                       <div className="top">
                         <Link href={`/products/${item.id}`}>
@@ -164,7 +173,7 @@ const ShoppingCart = () => {
               Selected Products {totalQuantity}
             </h2>
             <h3 className="containerRightPrice text-[35px] font-bold max-lg:text-[30px]">
-              {totalPrice}
+              {totalPrice}$
             </h3>
             <div className="max-md:w-[300px] max-xs:w-full">
               <button
