@@ -215,7 +215,6 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         await addReview(values, userId, userName, productId, productName);
         await handleFetchReviews(productId);
         await handleFetchReviewCount(productId);
-        showToast(`Comment added successfuly`);
       } catch (error) {
         console.error("Error while adding to reviews..", error);
       }
@@ -246,6 +245,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         await removeFromFavoriteProducts(userId, productId);
         await handleFetchFavoriteProducts(userId);
         setFavoriteButtonState(false);
+        showToast("Removed from favorite list!");
       } catch (error) {
         console.error("Error while removing from favorite products..", error);
       }

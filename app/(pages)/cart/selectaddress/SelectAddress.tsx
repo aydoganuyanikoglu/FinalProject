@@ -9,6 +9,7 @@ import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import { AddressesSkeleton } from "@/app/components/skeletons/Skeletons";
 import HomeIcon from "@mui/icons-material/Home";
 import { selectDefaultAddress } from "@/lib/data";
+import { toast } from "react-toastify";
 
 const SelectAddress = () => {
   const [addresses, setAddresses] = useState<addressesType[] | undefined>([]);
@@ -79,11 +80,11 @@ const SelectAddress = () => {
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert("Failed to create checkout session");
+        toast.error("Failed to create checkout session");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred while processing your payment.");
+      toast.error("An error occurred while processing your payment.");
     } finally {
       setButtonLoading(false);
     }

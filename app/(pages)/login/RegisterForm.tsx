@@ -6,6 +6,7 @@ import { typeUsers } from "@/lib/types";
 import { signup } from "@/auth/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useToast } from "@/context/ToastContext";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
@@ -31,7 +32,7 @@ const RegisterForm = () => {
     const formState = await signup(values);
     if (formState?.message) {
       setIsButtonLoading(false);
-      alert(formState.message);
+      toast.error(formState.message);
     } else {
       setIsButtonLoading(false);
       showToast("Registration is successfull!");

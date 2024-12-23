@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { fetchAllOrders, updateOrderStatus } from "@/lib/data";
 import Image from "next/image";
 import { useToast } from "@/context/ToastContext";
+import { toast } from "react-toastify";
 
 const OrderManagement = () => {
   const [orders, setOrders] = useState<OrdersType[]>([]);
@@ -42,7 +43,7 @@ const OrderManagement = () => {
                 showToast("Order status updated successfully");
               } catch (error) {
                 console.error("Failed to update order status:", error);
-                alert("Failed to update order status");
+                toast.error("Failed to update order status");
               }
             };
             return (

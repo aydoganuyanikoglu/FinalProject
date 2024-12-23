@@ -9,6 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { CircularProgress } from "@mui/material";
 import { EmptyReview } from "@/app/components/EmptyComponents";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -17,6 +18,9 @@ import {
   ProductDetailSkeleton,
   ProductBottomDetailsSkeleton,
 } from "@/app/components/skeletons/Skeletons";
+import { ReviewsType } from "@/lib/types";
+import { toast } from "react-toastify";
+import { removeReview } from "@/lib/data";
 
 interface ProductDetailsProps {
   params: {
@@ -273,37 +277,70 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
               <EmptyReview />
             ) : (
               <ul className="userReviewsContainer">
-                {reviews.map((item, index) => (
-                  <li
-                    key={index}
-                    className="w-full py-5 border-t-[1px] border-gray-600"
-                  >
-                    <div className="reviewerNameContainer flex items-center gap-1 text-[14px] font-light">
-                      <p>{item.user_name} -</p>
-                      <p>
-                        {item.created_at &&
-                          new Intl.DateTimeFormat("en-US", {
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                          }).format(new Date(item.created_at))}
+                {reviews.map((item, index) => {
+                  const isHisReview = reviews.some(
+                    (review) => review.user_id === currentUser?.id
+                  );
+                  const handleRemoveReview = async (review: ReviewsType) => {
+                    try {
+                      await removeReview(
+                        currentUser?.id,
+                        review.id,
+                        review.product_id
+                      );
+                      toast.success(
+                        `"${review.review_title}" removed successfully!`
+                      );
+                      handleFetchReviews(id);
+                      handleFetchReviewCount(id);
+                    } catch (error) {
+                      console.error("Error while removing product!", error);
+                    }
+                  };
+
+                  return (
+                    <li
+                      key={index}
+                      className="relative w-full py-5 border-t-[1px] border-gray-600"
+                    >
+                      <div
+                        onClick={() => handleRemoveReview(item)}
+                        className={`removeReviewContainer absolute right-2 top-3 w-fit h-fit flex items-center gap-1 p-2 rounded-md bg-red-500 cursor-pointer ${
+                          isHisReview ? "block" : "hidden"
+                        }`}
+                      >
+                        <DeleteIcon className="text-white text-[20px]" />
+                        <p className="text-[13px] text-white">Remove</p>
+                      </div>
+                      <div className="reviewerNameContainer flex items-center gap-1 text-[14px] font-light">
+                        <p>{item.user_name} -</p>
+                        <p>
+                          {item.created_at &&
+                            new Intl.DateTimeFormat("en-US", {
+                              day: "2-digit",
+                              month: "short",
+                              year: "numeric",
+                            }).format(new Date(item.created_at))}
+                        </p>
+                      </div>
+                      <div className="starsRating">
+                        <ReactStars
+                          count={5}
+                          value={5}
+                          size={24}
+                          color2={"#ffd700"}
+                          edit={false}
+                        />
+                      </div>
+                      <h2 className="reviewTitle mt-3 text-[20px] max-md:text-[17px] font-bold">
+                        {item.review_title}
+                      </h2>
+                      <p className="mt-2 text-[14px] font-light">
+                        {item.review}
                       </p>
-                    </div>
-                    <div className="starsRating">
-                      <ReactStars
-                        count={5}
-                        value={5}
-                        size={24}
-                        color2={"#ffd700"}
-                        edit={false}
-                      />
-                    </div>
-                    <h2 className="reviewTitle mt-3 text-[20px] max-md:text-[17px] font-bold">
-                      {item.review_title}
-                    </h2>
-                    <p className="mt-2 text-[14px] font-light">{item.review}</p>
-                  </li>
-                ))}
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </div>

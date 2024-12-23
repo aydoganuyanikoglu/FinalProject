@@ -46,9 +46,6 @@ export const createSession = async (user: typeUsers) => {
     expiresAt,
   });
 
-  console.log("user before session:", user);
-  console.log("session:", session);
-
   cookies().set("session", session, {
     httpOnly: true,
     secure: true,

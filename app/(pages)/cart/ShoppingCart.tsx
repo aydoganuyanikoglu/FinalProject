@@ -71,7 +71,7 @@ const ShoppingCart = () => {
                 return (
                   <li
                     key={index}
-                    className="relative w-full h-[170px] p-2 flex gap-2.5 rounded-md text-gray-700 bg-white max-md:h-[130px]"
+                    className="cartItems relative w-full h-[170px] p-2 flex gap-2.5 rounded-md text-gray-700 bg-white max-md:h-[130px]"
                   >
                     <Link
                       className="imageContainer w-[170px] h-full flex items-center max-md:!h-[130px] max-md:!w-[130px]"
@@ -142,9 +142,9 @@ const ShoppingCart = () => {
                           handleDeleteSelectedProducts(currentUser.id, item);
                         }
                       }}
-                      className="deleteItemContainer hidden absolute top-2 right-2"
+                      className="deleteItemContainer absolute top-2 right-2 opacity-0"
                     >
-                      <CloseIcon className="decreaseIncreaseIcons" />
+                      <CloseIcon className="decreaseIncreaseIcons !text-black" />
                     </div>
                   </li>
                 );

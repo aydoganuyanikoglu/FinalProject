@@ -859,15 +859,16 @@ export async function fetchOrdersByUserId(
 
 export async function fetchOrdersByUserAndOrderId(
   userId: string,
-  orderId: string
+  orderId: string,
+  orderStatus: string
 ): Promise<OrdersType[]> {
   try {
     const query = `
       SELECT * 
       FROM orders
-      WHERE user_id = $1 AND order_id = $2;
+      WHERE user_id = $1 AND order_id = $2 AND order_status = $3;
     `;
-    const result = await sql.query(query, [userId, orderId]);
+    const result = await sql.query(query, [userId, orderId, orderStatus]);
     return result.rows as OrdersType[];
   } catch (error: any) {
     console.error("Error while fetching orders:", error.message);
@@ -973,5 +974,28 @@ export async function updateOrderStatus(
   } catch (error: any) {
     console.error("Error while updating order status:", error.message);
     throw new Error("Failed to update order status.");
+  }
+}
+
+export async function removeReview(
+  userId: string | undefined,
+  reviewId: string | undefined,
+  productId: string | undefined
+): Promise<void> {
+  const id = await fetchCookie();
+  if (id !== userId) {
+    console.log("You don't have permission!");
+    return;
+  }
+  try {
+    const query = `
+      DELETE FROM reviews
+      WHERE user_id = $1 AND id = $2 AND product_id = $3
+    `;
+    await sql.query(query, [userId, reviewId, productId]);
+    console.log("Review removed successfully");
+  } catch (error: any) {
+    console.error("Error while removing review:", error.message);
+    throw new Error("Failed to remove review");
   }
 }

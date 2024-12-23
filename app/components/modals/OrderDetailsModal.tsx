@@ -28,7 +28,8 @@ const OrderDetailsModal: React.FC<OrderProps> = ({
       if (user_id) {
         const results = await fetchOrdersByUserAndOrderId(
           user_id,
-          order.order_id
+          order.order_id,
+          order.order_status
         );
         setOrderDetails(results);
         setLoadingDetails(false);

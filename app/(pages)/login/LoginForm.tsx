@@ -7,6 +7,7 @@ import { useAuth } from "@/context/AuthContext";
 import { typeLogin } from "@/lib/types";
 import { loginServer } from "@/auth/auth";
 import { useToast } from "@/context/ToastContext";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
@@ -27,7 +28,7 @@ const LoginForm = () => {
 
     if (formState?.message) {
       setIsButtonLoading(false);
-      alert(formState.message);
+      toast.error(formState.message);
     } else if (formState?.user) {
       setIsButtonLoading(false);
       loginClient();
