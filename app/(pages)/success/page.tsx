@@ -1,12 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { validateOrderSession } from "@/lib/checkout";
 import SuccessfullPayment from "./SuccessfullPayment";
 import Link from "next/link";
 import Image from "next/image";
+import { SuccessPageSkeleton } from "@/app/components/skeletons/Skeletons";
 
-const page = () => {
+const PageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isValid, setIsValid] = useState(false);
@@ -30,8 +31,16 @@ const page = () => {
     validateSession();
   }, [searchParams]);
 
-  {
+  if (!isValid) {
+    return (
+      <div className="text-black text-[14px] font-bold">Redirecting...</div>
+    );
   }
+
+  return <SuccessfullPayment />;
+};
+
+const Page = () => {
   return (
     <div className="w-full h-fit py-[100px] relative flex flex-col items-center justify-center text-gray-700">
       <Link href="/" className="fixed z-10 left-[20px] top-[20px]">
@@ -40,13 +49,11 @@ const page = () => {
           <span className="text-[11px] font-medium">Homepage</span>
         </button>
       </Link>
-      {!isValid ? (
-        <div className="text-black text-[14px] font-bold">Redirecting...</div>
-      ) : (
-        <SuccessfullPayment />
-      )}
+      <Suspense fallback={<SuccessPageSkeleton />}>
+        <PageContent />
+      </Suspense>
     </div>
   );
 };
 
-export default page;
+export default Page;

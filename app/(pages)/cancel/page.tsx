@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { validateOrderSession } from "@/lib/checkout";
 import Cancellation from "./Cancellation";
 
-const page = () => {
+const PageContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isValid, setIsValid] = useState(false);
@@ -28,11 +28,25 @@ const page = () => {
     validateSession();
   }, [searchParams]);
 
+  if (!isValid) {
+    return <div>Redirecting..</div>;
+  }
+
+  return <Cancellation />;
+};
+
+const Page = () => {
   return (
     <div className="w-full h-[100vh] flex flex-col items-center justify-center text-center text-gray-700">
-      {!isValid ? <div>Loading...</div> : <Cancellation />}
+      <Suspense
+        fallback={
+          <div className="text-[14px] font-bold text-black">Loading...</div>
+        }
+      >
+        <PageContent />
+      </Suspense>
     </div>
   );
 };
 
-export default page;
+export default Page;
