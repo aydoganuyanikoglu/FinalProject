@@ -38,11 +38,7 @@ const PageContent = () => {
 const Page = () => {
   return (
     <div className="w-full h-[100vh] flex flex-col items-center justify-center text-center text-gray-700">
-      <Suspense
-        fallback={
-          <div className="text-[14px] font-bold text-black">Loading...</div>
-        }
-      >
+      <Suspense>
         <PageContent />
       </Suspense>
     </div>
