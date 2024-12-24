@@ -54,6 +54,11 @@ export type Productstype2 = {
   brand?: string;
 };
 
+export type ProductNameId = {
+  id: string;
+  name: string;
+};
+
 export type addressesType = {
   id?: string;
   user_id?: string;
@@ -65,6 +70,7 @@ export type addressesType = {
   postalcode: string;
   addresstitle: string;
   address: string;
+  default?: boolean;
 };
 
 export type FavoriteProductsType = {

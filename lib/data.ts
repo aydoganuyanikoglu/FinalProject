@@ -11,6 +11,7 @@ import {
   Productstype2,
   addressesType,
   OrdersType,
+  ProductNameId,
 } from "./types";
 import { verifySession } from "@/auth/session";
 
@@ -95,7 +96,8 @@ export async function fetchAddresses(
   }
   try {
     const query = `SELECT * FROM addresses
-    WHERE user_id = $1`;
+    WHERE user_id = $1
+    ORDER BY created_at`;
     const result = await sql.query(query, [userId]);
     return result.rows;
   } catch (error) {
@@ -761,7 +763,7 @@ export const selectDefaultAddress = async (
 
 export async function addOrder(
   userId: string,
-  orderId: string,
+  orderId: string | undefined,
   cartItems: CartProductsType[] | undefined,
   session: any
 ): Promise<void> {
@@ -858,8 +860,8 @@ export async function fetchOrdersByUserId(
 }
 
 export async function fetchOrdersByUserAndOrderId(
-  userId: string,
-  orderId: string,
+  userId: string | undefined,
+  orderId: string | null,
   orderStatus: string
 ): Promise<OrdersType[]> {
   try {
@@ -999,3 +1001,67 @@ export async function removeReview(
     throw new Error("Failed to remove review");
   }
 }
+
+export const fetchAllProductsReviews = async (): Promise<ReviewsType[]> => {
+  try {
+    const query = `
+      SELECT *
+      FROM reviews
+    `;
+    const result = await sql.query(query);
+    return result.rows as ReviewsType[];
+  } catch (error: any) {
+    console.error("Failed to fetch reviews:", error.message);
+    return [];
+  }
+};
+
+export const fetchProductNamesandId = async (): Promise<ProductNameId[]> => {
+  try {
+    const query = `
+    SELECT id, name
+    FROM products
+    `;
+    const result = await sql.query(query);
+    return result.rows as ProductNameId[];
+  } catch (error: any) {
+    console.error("Failed to fetch reviews:", error.message);
+    return [];
+  }
+};
+
+export async function removeReviewviaAdmin(review: ReviewsType): Promise<void> {
+  const id = await fetchCookie();
+  if (id !== "5672046636") {
+    console.log("You don't have permission!");
+    return;
+  }
+  try {
+    const query = `
+      DELETE FROM reviews
+      WHERE user_id = $1 AND id = $2 AND product_id = $3
+    `;
+    await sql.query(query, [review.user_id, review.id, review.product_id]);
+    console.log("Review removed successfully");
+  } catch (error: any) {
+    console.error("Error while removing review:", error.message);
+    throw new Error("Failed to remove review");
+  }
+}
+
+export const checkDefaultAddress = async (
+  userId: string | undefined
+): Promise<addressesType | null> => {
+  try {
+    const query = `
+      SELECT *
+      FROM addresses
+      WHERE user_id = $1 AND "default" = true
+    `;
+    const result = await sql.query(query, [userId]);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Error while checking default address:", error);
+    return null;
+  }
+};

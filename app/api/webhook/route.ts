@@ -32,12 +32,12 @@ export async function POST(req: NextRequest) {
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
     const userId = session.metadata?.user_id;
+    const orderId = session.metadata?.order_id;
 
     if (!userId) {
       throw new Error("User ID is missing in the session metadata.");
     }
     const cart_items = await fetchCartProducts(userId);
-    const orderId = `order_${Date.now()}`;
     await addOrder(userId, orderId, cart_items, session);
   }
 

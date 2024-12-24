@@ -11,6 +11,7 @@ import { CartSkeleton } from "@/app/components/skeletons/Skeletons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 const ShoppingCart = () => {
   const router = useRouter();
@@ -42,7 +43,12 @@ const ShoppingCart = () => {
   }, [currentUser, cartProducts?.length]);
 
   const handleCompleteShopping = () => {
-    router.push("/cart/selectaddress");
+    if (cartProducts?.length === 0) {
+      toast.error("Your cart is empty!");
+      return;
+    } else {
+      router.push("/cart/selectaddress");
+    }
   };
 
   return (

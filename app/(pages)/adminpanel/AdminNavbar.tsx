@@ -4,7 +4,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const AdminNavbar = () => {
   return (
     <div className="adminNavbarContainer h-[100px] flex justify-between items-center py-5 px-10 bg-[#130a3e] text-white">
-      <div className="navbarLeft font-semibold text-[24px]">e-commerce.</div>
+      <div className="navbarLeft font-semibold text-[24px]">Flemman.</div>
       <div className="navbarMiddle text-[14px] font-light tracking-[4px]">
         Welcome to admin dashboard, Aydogan Uyanıkoglu!
       </div>

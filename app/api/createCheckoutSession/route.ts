@@ -3,6 +3,7 @@ import Stripe from "stripe";
 import { CartProductsType } from "@/lib/types";
 import { fetchCartProducts } from "@/lib/data";
 import { verifySession } from "@/auth/session";
+import { setOrderTokenCookie } from "@/lib/checkout";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
@@ -34,14 +35,18 @@ export async function POST(request: Request) {
       };
     });
 
+    const orderId = `order_${Date.now()}`;
+    await setOrderTokenCookie(orderId);
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/cancel`,
+      success_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/success?session=${orderId}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/cancel?session=${orderId}`,
       metadata: {
         user_id: user?.id,
+        order_id: orderId,
       },
       shipping_address_collection: {
         allowed_countries: ["US", "CA"],

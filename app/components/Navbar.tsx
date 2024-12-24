@@ -71,7 +71,7 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
         <div className="leftMiddleContainer">
           <Link href="/">
             <h2 className="w-fit font-bold text-[25px] max-md:text-[22px]">
-              e-commerce.
+              Flemman.
             </h2>
           </Link>
         </div>

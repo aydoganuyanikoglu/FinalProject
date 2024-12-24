@@ -28,6 +28,7 @@ const protectedRoutes = [
   "/cart",
   "/profile/addresses",
   "/profile/orders",
+  "/cart/selectaddress",
 ];
 const adminRoute = ["/adminpanel"];
 const loginRoutes = ["/login"];
@@ -63,6 +64,7 @@ export const config = {
     "/profile",
     "/favoritelist",
     "/cart",
+    "/cart/selectaddress",
     "/profile/addresses",
     "/profile/orders",
   ],

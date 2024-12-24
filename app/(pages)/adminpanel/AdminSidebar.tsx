@@ -24,6 +24,7 @@ const AdminSidebar: React.FC<SidebarProps> = ({ isActive, setIsActive }) => {
     {
       name: "Product Management",
     },
+    { name: "Review Management" },
     {
       name: "User Management",
     },

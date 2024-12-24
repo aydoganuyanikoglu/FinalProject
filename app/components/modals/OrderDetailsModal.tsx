@@ -54,7 +54,7 @@ const OrderDetailsModal: React.FC<OrderProps> = ({
       ) : (
         <div
           onClick={(event) => event.stopPropagation()}
-          className="innerContainer relative w-[800px] h-[650px] p-5 gap-5 bg-white shadow-md rounded-xl overflow-y-auto max-md:w-full max-sm:h-[500px]"
+          className="innerContainer relative w-[800px] h-fit p-5 gap-5 bg-white shadow-md rounded-xl overflow-y-auto max-md:w-full max-sm:h-[500px]"
         >
           <div onClick={onClose} className="absolute right-2 top-2">
             <CancelIcon className="text-[18px] text-orange-600 cursor-pointer" />
@@ -81,18 +81,18 @@ const OrderDetailsModal: React.FC<OrderProps> = ({
                 return (
                   <li
                     key={index}
-                    className="addressClass relative w-full h-[75px] min-h-fit flex gap-1 p-2 shadow-md rounded-md border-gray-200 border-[2px] cursor-pointer"
+                    className="addressClass relative w-full h-fit min-h-[80px] flex gap-1 p-2 shadow-md rounded-md border-gray-200 border-[2px] cursor-pointer"
                   >
                     <div className="imageContainer h-full !w-[65px] flex items-center rounded-sm max-md:!w-[75px]">
                       <Image
-                        className="w-full !h-[50px]"
+                        className="w-full !h-[50px] mt-2.5"
                         src={item.product_image || "/camera.webp"}
                         alt={item.product_name}
                         width={60}
                         height={50}
                       />
                     </div>
-                    <div className="productTitlePrice w-[80%] flex flex-col justify-between">
+                    <div className="productTitlePrice w-[80%] flex flex-col justify-between ml-2">
                       <div>
                         <p className="text-[13px] text-black max-md:text-[10px]">
                           {item.product_name}
@@ -101,7 +101,7 @@ const OrderDetailsModal: React.FC<OrderProps> = ({
                           {item.product_description}
                         </p>
                       </div>
-                      <p className="text-[12px] text-green-600 max-md:text-[10px] font-medium">
+                      <p className="mt-2 text-[12px] text-green-600 max-md:text-[10px] font-medium">
                         {item.product_price}${" "}
                         <span className="text-gray-700 ml-2">
                           x{item.product_quantity}

@@ -153,7 +153,9 @@ export const OrderDetailsSkeleton = () => {
         <div className="ordernodetail w-[150px] h-[16px] bg-gray-600 rounded-md"></div>
         <p className="mt-1 w-[60px] h-[15px] rounded-md bg-gray-600"></p>
       </div>
-      <div className="mt-3 productsContainer w-full h-fit p-2 border-[1px] border-gray-200 rounded-[10px]">
+      <div
+        className={`${shimmer} mt-3 productsContainer w-full h-fit p-2 border-[1px] border-gray-200 rounded-[10px]`}
+      >
         <h2 className="w-[60px] h-[20px] rounded-md bg-gray-600"></h2>
         <ul className="mt-2 w-full h-fit flex flex-col gap-1.5">
           {items.map((item, index) => {
@@ -176,7 +178,9 @@ export const OrderDetailsSkeleton = () => {
           })}
         </ul>
       </div>
-      <div className="bottomContainer mt-3 grid grid-cols-2 gap-3 max-md:grid-cols-1">
+      <div
+        className={`${shimmer} bottomContainer mt-3 grid grid-cols-2 gap-3 max-md:grid-cols-1`}
+      >
         <div className="bottomAddress w-full min-h-fit p-2 border-[1px] border-gray-200 rounded-[10px]">
           <h2 className="w-[50px] h-[16px] mt-1 rounded-md bg-gray-600"></h2>
           <div className="mt-2 relative w-full min-h-fit h-[190px] p-2 shadow-md border-gray-200 border-[2px] bg-gray-200 rounded-lg">
@@ -343,6 +347,63 @@ export const ProductBottomDetailsSkeleton = () => {
           <div className="reviewContainer h-[35px] w-[200px] rounded-sm bg-gray-600 mt-1"></div>
         </div>
       </div>
+    </div>
+  );
+};
+
+export const SuccessPageSkeleton = () => {
+  const items = Array.from({ length: 3 });
+
+  return (
+    <div
+      className={`${shimmer} relative overflow-hidden flex flex-col items-center justify-center px-[20px] py-5`}
+    >
+      <h2 className="mt-1 w-[150px] h-[25px] rounded-md bg-gray-600"></h2>
+      <p className="mt-2 w-[120px] h-[21px] rounded-md bg-gray-600"></p>
+      <div className="orderDetails mt-10 w-[800px] max-md:w-full text-left">
+        <h2 className="mt-1 w-[90px] h-[18px] rounded-md bg-gray-600"></h2>
+        <p className="mt-1 w-[60px] h-[16px] rounded-md bg-gray-600"></p>
+        <ul className={`orderedProducts w-full mt-3`}>
+          {items.map((item, index) => {
+            return (
+              <li
+                key={index}
+                className={`${shimmer} mt-2 addressClass relative w-full h-fit min-h-[80px] flex gap-1 p-2 shadow-md rounded-md border-gray-200 border-[2px] cursor-pointer bg-gray-200`}
+              >
+                <div className="imageContainer h-[70px] !w-[65px] bg-gray-700 max-md:!w-[75px] rounded-md"></div>
+                <div className="productTitlePrice w-[80%] flex flex-col justify-between ml-2 text-left">
+                  <div>
+                    <p className="w-[70px] h-[16px] rounded-md bg-gray-700"></p>
+                    <p className="mt-1 h-[15px] w-[100%] rounded-md bg-gray-700"></p>
+                    <p className="mt-1 h-[15px] w-[80%] rounded-md bg-gray-700"></p>
+                  </div>
+                  <p className="mt-1 h-[18px] w-[60px] rounded-md bg-gray-700"></p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <div className="addressesContainer mt-3 w-full h-fit flex gap-3 max-sm:flex-col">
+          <div className="orderedToAddress w-1/2 h-fit p-2 border-[1px] border-gray-200 rounded-[10px] max-md:w-full bg-gray-200">
+            <h2 className="w-[70px] h-[16px] bg-gray-700 rounded-md"></h2>
+            <div className="mt-2 relative w-full min-h-fit h-[170px] p-2 shadow-md rounded-md border-gray-200 border-[2px]">
+              <div className="mt-1 w-[90px] h-[20px] rounded-md bg-gray-700"></div>
+              <p className="mt-1 w-[100%] h-[17px] rounded-md bg-gray-700"></p>
+              <p className="mt-1 w-[100%] h-[17px] rounded-md bg-gray-700"></p>
+              <p className="mt-1 w-[70%] h-[17px] rounded-md bg-gray-700"></p>
+            </div>
+          </div>
+          <div className="billingAddress w-1/2 h-fit p-2 border-[1px] border-gray-200 rounded-[10px] max-md:w-full bg-gray-200">
+            <h2 className="w-[70px] h-[16px] bg-gray-700 rounded-md"></h2>
+            <div className="mt-2 relative w-full min-h-fit h-[170px] p-2 shadow-md rounded-md border-gray-200 border-[2px]">
+              <div className="w-[90px] h-[18px] bg-gray-700 rounded-md"></div>
+              <p className="mt-1 w-[100%] h-[17px] rounded-md bg-gray-700"></p>
+              <p className="mt-1 w-[70%] h-[17px] rounded-md bg-gray-700"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="mt-2 w-[250px] h-[55px] rounded-md bg-gray-700"></div>
     </div>
   );
 };

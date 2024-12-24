@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AreYouSure } from "@/app/const";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { fetchUsers } from "@/lib/data";
 import { typeUsers } from "@/lib/types";

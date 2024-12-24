@@ -77,6 +77,28 @@ export const EmptyAddresses = () => {
   );
 };
 
+export const EmptySelectAddresses = () => {
+  return (
+    <div className="w-full h-full py-[100px] flex flex-col items-center text-center text-black">
+      <HomeIcon className="text-[50px] text-orange-600" />
+      <h2 className="mt-5 text-[28px] font-bold max-md:text-[20px]">
+        No addresses yet.
+      </h2>
+      <p className="text-[13px]">
+        You can add your current billing address via this button!
+      </p>
+      <div className="w-[250px]">
+        <Link
+          href="/profile/addresses"
+          className="loginRegisterButton mt-3 !text-[14px]"
+        >
+          Add New Address
+        </Link>
+      </div>
+    </div>
+  );
+};
+
 export const EmptyOrders = () => {
   return (
     <div className="w-full h-full py-[100px] flex flex-col items-center text-center text-black">
@@ -92,7 +114,7 @@ export const EmptyOrders = () => {
           href="/products"
           className="loginRegisterButton mt-3 !text-[14px]"
         >
-          Check Out!
+          Shop More Products!
         </Link>
       </div>
     </div>

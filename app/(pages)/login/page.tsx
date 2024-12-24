@@ -16,7 +16,7 @@ const LoginScreen = () => {
         </button>
       </Link>
       <h2 className="text-[24px] text-orange-600 max-md:text-[20px] font-extrabold">
-        e-commerce.
+        Flemman.
       </h2>
       <SignIn />
       <div className="bottomAbsolute absolute bottom-[20px] flex flex-col items-center gap-1">

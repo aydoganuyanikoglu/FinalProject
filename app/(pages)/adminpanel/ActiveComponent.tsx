@@ -4,6 +4,7 @@ import Overview from "./Overview";
 import ProductManagement from "./ProductManagement";
 import UserManagement from "./UserManagement";
 import OrderManagement from "./OrderManagement";
+import ReviewManagement from "./ReviewManagement";
 
 type ActiveComponentProps = {
   activeItem: string;
@@ -20,6 +21,8 @@ const ActiveComponent: React.FC<ActiveComponentProps> = ({ activeItem }) => {
         return <UserManagement />;
       case "Order Management":
         return <OrderManagement />;
+      case "Review Management":
+        return <ReviewManagement />;
       default:
         return <div>Not Found</div>;
     }
