@@ -33,7 +33,7 @@ const Brands = () => {
             {brands.map((item, index) => (
               <li
                 key={index}
-                className="w-full h-[100px] flex items-center justify-center bg-[#007f8d] font-semibold rounded-sm text-[14px] text-white cursor-pointer hover:-mt-2"
+                className="w-full h-[100px] flex items-center justify-center bg-[#0c494f] font-semibold rounded-sm text-[14px] text-white cursor-pointer border-[1.5px] border-[#0c494f] hover:-mt-2 hover:bg-white hover:text-[#0c494f]"
               >
                 {item.brand}
               </li>

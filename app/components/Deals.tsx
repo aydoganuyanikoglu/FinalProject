@@ -10,7 +10,7 @@ const Deals = () => {
       >
         <div
           className="relative bg-white w-full h-[500px] p-[50px] flex flex-col gap-1
-        max-md:px-[20px] max-md:h-fit max-md:py-[50px] max-md:min-h-[400px]
+        max-md:px-[20px] max-md:h-[300px]
          max-md:text-center max-md:items-center max-md:justify-center"
         >
           <Image
@@ -35,7 +35,7 @@ const Deals = () => {
         </div>
         <div
           className="relative bg-white w-full h-[500px] p-[50px] flex flex-col gap-1 
-        max-md:px-[20px] max-md:h-fit max-md:py-[50px] max-md:min-h-[400px]
+        max-md:px-[20px] max-md:h-[300px]
          max-md:text-center max-md:items-center max-md:justify-center"
         >
           <Image

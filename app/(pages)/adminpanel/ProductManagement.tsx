@@ -52,7 +52,7 @@ const ProductManagement = () => {
       )}
       <div className="addNewItemContainer w-[200px]">
         <button
-          className="addtoCartButton !bg-blue-600"
+          className="addtoCartButton !bg-blue-600 !border-blue-600 hover:!text-blue-600"
           onClick={handleAddProductClick}
         >
           Add New Product

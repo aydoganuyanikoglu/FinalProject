@@ -61,7 +61,7 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
           : "-translate-y-full"
       }`}
     >
-      <div className="topContainer w-full bg-black text-white text-center py-2 text-[14px] max-md:text-[12px]">
+      <div className="topContainer w-full bg-black text-white text-center py-2 text-[14px] max-md:text-[12px] px-[20px]">
         Flemman: Redefining Shopping Quality, Value, and Convenience at Your
         Fingertips!
       </div>

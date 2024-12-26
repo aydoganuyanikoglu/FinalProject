@@ -43,25 +43,21 @@ export const footerLeftLeft = {
 export const footerLeftRight = {
   title: "Shop",
   links: [
-    { id: "1", name: "Shop All" },
-    { id: "2", name: "Computers" },
-    { id: "3", name: "Tablets" },
-    { id: "4", name: "Drones & Cameras" },
-    { id: "5", name: "Audio" },
-    { id: "6", name: "Mobile" },
-    { id: "7", name: "T.V & Home Cinema" },
-    { id: "8", name: "Wearable Tech" },
-    { id: "9", name: "Sale" },
+    { id: "1", name: "Shop All", category: "All Products" },
+    { id: "2", name: "Computers", category: "Computers" },
+    { id: "3", name: "Tablets", category: "Tablets" },
+    { id: "4", name: "Drones & Cameras", category: "Drones & Cameras" },
+    { id: "5", name: "Audio", category: "Headphones & Speakers" },
+    { id: "6", name: "Mobile", category: "Mobile & Wearable Tech" },
+    { id: "8", name: "Wearable Tech", category: "Mobile & Wearable Tech" },
   ],
 };
 
 export const footerRightLeft = {
   title: "Customer Support",
   links: [
-    { id: "1", name: "Contact Us" },
-    { id: "2", name: "Help Center" },
-    { id: "3", name: "About Us" },
-    { id: "4", name: "Careers" },
+    { id: "1", name: "Contact Us", link: "/contact" },
+    { id: "2", name: "Help Center", link: "/contact" },
   ],
 };
 

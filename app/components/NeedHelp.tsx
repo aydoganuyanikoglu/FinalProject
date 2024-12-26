@@ -15,7 +15,9 @@ const NeedHelp = () => {
           need.
         </p>
         <Link href="/contact">
-          <button className="myButton1">Go to Help Center</button>
+          <button className="myButton1 !bg-white !text-black !border-white hover:!text-white hover:!bg-black hover:before:!opacity-0">
+            Go to Help Center
+          </button>
         </Link>
       </div>
       <div className="right bg-white w-[45%] h-[400px] max-md:w-full"></div>

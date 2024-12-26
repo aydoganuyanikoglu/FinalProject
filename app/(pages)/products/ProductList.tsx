@@ -157,7 +157,7 @@ const ProductList = () => {
         ) : filteredProducts.length === 0 ? (
           <EmptyFilteredProducts />
         ) : (
-          <ul className="w-full h-fit grid grid-cols-4 gap-2 max-md:grid-cols-2">
+          <ul className="w-full h-fit grid grid-cols-4 gap-4 max-md:grid-cols-2">
             {filteredProducts.map((item, index) => {
               const productState = productStates[item.id] || {};
               const { loading, added } = productState;
@@ -203,11 +203,11 @@ const ProductList = () => {
                     </div>
                   )}
                   <Link
-                    className="relative imageContainer bg-gray-300 w-full h-[150px] max-sm:!h-[145px]"
+                    className="relative imageContainer w-full h-[150px] flex justify-center items-center max-sm:!h-[145px]"
                     href={`/products/${item.id}`}
                   >
                     <Image
-                      className="w-full h-full brightness-75"
+                      className="w-[75%] h-[75%] hover:scale-110"
                       src={item.image_url}
                       alt={item.name}
                       width={150}
@@ -218,11 +218,11 @@ const ProductList = () => {
                         count={5}
                         value={item.average_rating}
                         size={24}
-                        color1={"#fff"}
-                        color2={"#ffd700"}
+                        color1={"#666666"}
+                        color2={"#eb7e09"}
                         edit={false}
                       />
-                      <p className="text-[11px] text-gray-200">
+                      <p className="text-[12px] text-gray-500">
                         {item.average_rating?.toFixed(2)}/5 ({item.review_count}
                         )
                       </p>

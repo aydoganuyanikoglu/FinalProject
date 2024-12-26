@@ -49,7 +49,7 @@ const OrderManagement = () => {
             return (
               <li
                 key={index}
-                className="addressClass relative w-full h-[55px] min-h-fit grid grid-cols-6 py-1.5 px-2 shadow-md rounded-md border-gray-200 border-[2px] hover:bg-black cursor-pointer"
+                className="addressClass relative w-full h-[55px] min-h-fit grid grid-cols-6 py-1.5 px-2 shadow-md rounded-md border-gray-200 border-[3px] cursor-pointer bg-white text-black hover:text-white hover:bg-blue-900"
               >
                 <div className="imageContainer w-[45px] h-full rounded-sm">
                   <Image
@@ -60,16 +60,16 @@ const OrderManagement = () => {
                     height={40}
                   />
                 </div>
-                <p className="userid w-full flex items-center text-white font-light text-[14px]">
+                <p className="userid w-full flex items-center font-light text-[14px]">
                   user:{item.user_id}
                 </p>
-                <p className="orderid w-full flex items-center text-white font-light text-[14px]">
+                <p className="orderid w-full flex items-center font-light text-[14px]">
                   {item.order_id}
                 </p>
-                <p className="productname w-full flex items-center text-white font-light text-[14px]">
+                <p className="productname w-full flex items-center font-light text-[14px]">
                   {item.product_name}
                 </p>
-                <p className="status w-full flex justify-center items-center text-white font-light text-[14px]">
+                <p className="status w-full flex justify-center items-center font-light text-[14px]">
                   <select
                     className="bg-blue-500 text-white rounded px-2 py-1 cursor-pointer"
                     value={item.order_status}
@@ -92,7 +92,7 @@ const OrderManagement = () => {
                   </select>
                 </p>
                 <div className="createdAt-PriceContainer w-full flex flex-col justify-center items-end">
-                  <p className="text-[12px] text-white font-light max-md:text-[10px]">
+                  <p className="text-[12px] font-light max-md:text-[10px]">
                     {item.created_at &&
                     !isNaN(new Date(item.created_at).getTime())
                       ? new Intl.DateTimeFormat("en-US", {
@@ -103,7 +103,7 @@ const OrderManagement = () => {
                       : "Invalid date"}
                   </p>
                   <p className="text-[12px] text-green-600 max-md:text-[10px] font-medium">
-                    {item.product_price}$
+                    {item.product_price}$ x{item.product_quantity}
                   </p>
                 </div>
               </li>
@@ -116,5 +116,3 @@ const OrderManagement = () => {
 };
 
 export default OrderManagement;
-
-//userid orderid productname

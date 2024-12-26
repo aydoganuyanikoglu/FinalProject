@@ -64,7 +64,7 @@ const ReviewManagement = () => {
               <li
                 onClick={() => handleClickModal(item, productName)}
                 key={index}
-                className="relative w-full h-[200px] max-h-[200px] px-2 py-1 border-[2px] border-white rounded-md overflow-y-auto"
+                className="relative w-full h-[200px] max-h-[200px] px-2 py-1 border-[2px] border-white rounded-md overflow-y-auto bg-white text-black"
               >
                 <div
                   className={`removeReviewContainer absolute right-2 top-3 w-fit h-fit flex items-center gap-1 p-2 rounded-md bg-red-500 cursor-pointer`}
@@ -76,7 +76,7 @@ const ReviewManagement = () => {
                 <p className="text-[12px] font-light italic">
                   by {item.user_name}
                 </p>
-                <p className="mt-2 text-[15px] font-semibold">
+                <p className="mt-6 text-[15px] font-semibold">
                   {item.review_title}
                 </p>
                 <p className="text-[13px]">{item.review}</p>

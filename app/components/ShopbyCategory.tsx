@@ -13,7 +13,7 @@ const ShopbyCategory = () => {
           Shop by Category
         </h2>
         <div>
-          <ul className="gridContainer mt-[50px] w-full h-fit grid grid-cols-5 gap-8 max-md:grid-cols-4 max-sm:grid-cols-2">
+          <ul className="gridContainer mt-[50px] w-full h-fit grid grid-cols-5 gap-8 max-md:grid-cols-4 max-sm:grid-cols-2 max-sm:gap-12">
             {productCategories.map((item, index) => (
               <Link
                 className="flex flex-col items-center"

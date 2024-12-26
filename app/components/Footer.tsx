@@ -8,6 +8,7 @@ import {
 import { styles } from "../const";
 import Image from "next/image";
 import { paymentMethods } from "../const";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -26,14 +27,15 @@ const Footer = () => {
         <h2 className="text-[22px] max-md:text-[18px] font-bold">
           {footerLeftRight.title}
         </h2>
-        <ul className="max-md:text-center max-md:w-full max-md:flex max-md:flex-col max-md:items-center">
+        <ul className="flex flex-col max-md:text-center max-md:w-full max-md:flex max-md:flex-col max-md:items-center">
           {footerLeftRight.links.map((item) => (
-            <li
+            <Link
+              href={`/products?category=${encodeURIComponent(item.category)}`}
               key={item.id}
-              className="footerLinks mt-3 text-[14px] max-md:text-[13px] font-normal"
+              className="footerLinks mt-3 text-[14px] max-md:text-[13px] font-normal border-b-[#fff0] hover:border-b-black"
             >
               {item.name}
-            </li>
+            </Link>
           ))}
         </ul>
       </div>
@@ -41,14 +43,15 @@ const Footer = () => {
         <h2 className="text-[22px] max-md:text-[18px] font-bold">
           {footerRightLeft.title}
         </h2>
-        <ul className="max-md:text-center max-md:w-full max-md:flex max-md:flex-col max-md:items-center">
+        <ul className="flex flex-col max-md:text-center max-md:w-full max-md:items-center">
           {footerRightLeft.links.map((item) => (
-            <li
+            <Link
+              href={item.link}
               key={item.id}
-              className="footerLinks mt-3 text-[14px] max-md:text-[13px] font-normal"
+              className="footerLinks mt-3 text-[14px] max-md:text-[13px] font-normal border-b-[#fff0] hover:border-b-black"
             >
               {item.name}
-            </li>
+            </Link>
           ))}
         </ul>
       </div>
@@ -60,7 +63,7 @@ const Footer = () => {
           {footerRightRight.links.map((item) => (
             <li
               key={item.id}
-              className="footerLinks mt-3 text-[14px] max-md:text-[13px] font-normal"
+              className="footerLinks mt-3 text-[14px] max-md:text-[13px] font-normal border-b-[#fff0] hover:border-b-black"
             >
               {item.name}
             </li>

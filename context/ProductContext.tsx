@@ -40,6 +40,7 @@ import {
 import { useToast } from "./ToastContext";
 
 interface ProductContextType {
+  isMobile: boolean;
   loadingReviews: boolean;
   reviews: ReviewsType[];
   totalQuantity: number | undefined;
@@ -138,6 +139,18 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   });
   const [brands, setBrands] = useState<BrandsType[]>([]);
   const [loadingReviews, setloadingReviews] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1060);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const fetchAllProducts = useCallback(async () => {
     const products = await fetchProducts();
@@ -442,6 +455,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
         loadingReviews,
         totalDiscount,
         handleFetchTotalDiscount,
+        isMobile,
       }}
     >
       {children}

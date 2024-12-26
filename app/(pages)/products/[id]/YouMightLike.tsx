@@ -116,11 +116,11 @@ const YouMightLike: React.FC<propsYouMight> = ({
                 </div>
               )}
               <Link
-                className="relative imageContainer w-full h-fit max-sm:!h-[145px]"
+                className="relative imageContainer w-full h-[150px] flex justify-center items-center max-sm:!h-[145px]"
                 href={`/products/${item.id}`}
               >
                 <Image
-                  className="w-full h-[150px] brightness-50 max-sm:!h-[130px]"
+                  className="w-[75%] h-[75%] hover:scale-110"
                   src={item.image_url}
                   alt={item.name}
                   width={150}
@@ -131,8 +131,8 @@ const YouMightLike: React.FC<propsYouMight> = ({
                     count={5}
                     value={item.average_rating}
                     size={24}
-                    color1={"#fff"}
-                    color2={"#ffd700"}
+                    color1={"#666666"}
+                    color2={"#eb7e09"}
                     edit={false}
                   />
                   <p className="text-[11px] text-white">
@@ -166,7 +166,7 @@ const YouMightLike: React.FC<propsYouMight> = ({
                       ? "loadingButton"
                       : added
                       ? "addedtoCartButton"
-                      : "addtoCartButton"
+                      : "addtoCartButton !bg-[#003c6e] !border-[#003c6e] hover:!text-[#003c6e]"
                   }`}
                   disabled={loading}
                   onClick={() => {

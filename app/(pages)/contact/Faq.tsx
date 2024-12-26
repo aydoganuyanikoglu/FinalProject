@@ -42,7 +42,7 @@ const Faq = () => {
   ];
 
   return (
-    <section className="w-full h-fit flex justify-center py-[100px]">
+    <section className="w-full h-fit flex justify-center py-[100px] px-[20px]">
       <div className="innerContainer w-[1000px] h-fit bg-white">
         <h2 className="w-full text-center text-[24px] font-bold max-md:text-[21px]">
           Frequently Asked Questions
@@ -60,7 +60,9 @@ const Faq = () => {
                   onClick={() => toggleAccordion(index)}
                   className="w-full flex justify-between cursor-pointer"
                 >
-                  <p className="text-[16px] font-semibold">{item.question}</p>
+                  <p className="text-[16px] font-semibold max-md:text-[14px]">
+                    {item.question}
+                  </p>
                   <ArrowForwardIosIcon
                     className={`text-black text-[13px] ${
                       openIndex === index ? "-rotate-90" : "rotate-90"
@@ -72,7 +74,7 @@ const Faq = () => {
                     openIndex === index
                       ? "opacity-1 openInfos"
                       : "opacity-0 hiddenInfos"
-                  } pl-6 text-[13px] font-normal pr-1.5 w-fit shadow-md`}
+                  } pl-6 text-[13px] font-normal pr-1.5 w-fit shadow-md max-md:text-[12px]`}
                 >
                   {item.paragraph}
                 </p>

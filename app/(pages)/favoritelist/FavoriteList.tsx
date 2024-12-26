@@ -88,7 +88,7 @@ const FavoriteList = () => {
                     className="relative w-full h-fit p-[5px] flex flex-col border-[1.5px] border-gray-300 rounded-md"
                   >
                     {isDiscounted && (
-                      <div className="absolute left-1 top-2.5 z-1 flex justify-center items-center -rotate-45">
+                      <div className="absolute left-1 top-2.5 z-10 flex justify-center items-center -rotate-45">
                         <div className="absolute !w-[50px] !h-[50px] rounded-[50%] bg-red-600"></div>
                         <p className="relative z-1 text-white font-bold text-[12px]">
                           -{item.discount_percentage}%
@@ -124,7 +124,7 @@ const FavoriteList = () => {
                       href={`/products/${item.id}`}
                     >
                       <Image
-                        className="h-[65%] w-[90%]"
+                        className="h-[65%] w-[90%] hover:scale-110"
                         alt={item.name}
                         src={item.image_url}
                         width={150}

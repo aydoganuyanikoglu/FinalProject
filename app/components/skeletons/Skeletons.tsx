@@ -50,7 +50,7 @@ export const ProductsSkeleton = () => {
             <div className="bg-gray-600 w-full h-[190px] max-sm:!h-[120px]"></div>
             <div className="titleContainer w-[70%] h-[24px] mt-1 rounded-md bg-gray-600"></div>
             <div className="priceContainer w-[40%] h-[16px] mt-1 rounded-md bg-gray-600"></div>
-            <div className="buttonContainer addtoCartButton mt-7 !bg-gray-600"></div>
+            <div className="buttonContainer addtoCartButton mt-7 !border-gray-600 !bg-gray-600"></div>
           </li>
         );
       })}
@@ -71,7 +71,7 @@ export const FavoritesSkeleton = () => {
             <div className="w-full h-[225px] max-sm:!h-[150px] bg-gray-600"></div>
             <div className="titleContainer w-[70%] h-[24px] mt-1 rounded-md bg-gray-600"></div>
             <div className="priceContainer w-[40%] h-[16px] mt-1 rounded-md bg-gray-600"></div>
-            <div className="buttonContainer addtoCartButton mt-7 !bg-gray-600"></div>
+            <div className="buttonContainer addtoCartButton mt-7 !border-gray-600 !bg-gray-600"></div>
           </li>
         );
       })}
@@ -265,7 +265,7 @@ export const BestSellerSkeleton = () => {
             <div className="bg-gray-600 w-full h-[190px] max-sm:!h-[120px] max-sm:!w-[120px]"></div>
             <div className="titleContainer w-[70%] h-[24px] mt-1 rounded-md bg-gray-600"></div>
             <div className="priceContainer w-[40%] h-[16px] mt-1 rounded-md bg-gray-600"></div>
-            <div className="buttonContainer addtoCartButton mt-7 !bg-gray-600"></div>
+            <div className="buttonContainer addtoCartButton mt-7 !border-gray-600 !bg-gray-600"></div>
           </div>
         );
       })}

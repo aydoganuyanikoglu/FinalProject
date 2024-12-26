@@ -91,9 +91,9 @@ const BestSellers = () => {
   };
   return (
     <section
-      className={`w-full h-fit py-[100px] bg-gray-400 max-md:py-[20px] ${styles.pagePaddingX}`}
+      className={`w-full h-fit py-[100px] bg-gray-400 max-md:py-[20px] ${styles.pagePaddingX} `}
     >
-      <div className="innerContainer w-full h-[800px] flex flex-col items-center gap-10 p-[50px] bg-white max-md:gap-2 max-md:px-[10px]">
+      <div className="innerContainer w-full h-[800px] flex flex-col items-center gap-10 p-[50px] bg-white max-md:gap-2 max-md:px-[10px] max-md:py-[100px]">
         <div className="topTitle">
           <h2 className="w-full text-center text-[28px] font-bold max-md:text-[20px]">
             Best Sellers
@@ -116,7 +116,7 @@ const BestSellers = () => {
                 >
                   {isDiscounted && (
                     <div className="absolute left-[25.5px] top-[28px] z-10 flex justify-center items-center">
-                      <div className="absolute !w-[65px] !h-[65px] bg-red-600"></div>
+                      <div className="absolute !w-[65px] !h-[65px] bg-red-600 rounded-md shadow-lg shadow-black"></div>
                       <p className="relative z-1 text-white font-bold text-[12px]">
                         -{item.discount_percentage}%
                       </p>
@@ -150,10 +150,10 @@ const BestSellers = () => {
                   )}
                   <Link
                     href={`/products/${item.id}`}
-                    className="image w-full h-[300px] flex items-center justify-center"
+                    className="image w-full h-[300px] flex items-center justify-center shadow-md shadow-black"
                   >
                     <Image
-                      className="w-90% max-xs:w-full"
+                      className="w-[75%] h-[60%] hover:scale-110"
                       src={item.image_url}
                       alt={item.name}
                       width={300}
@@ -214,8 +214,10 @@ const BestSellers = () => {
             })}
           </Slider>
         </div>
-        <div className="buttonContainer">
-          <button className="myButton1">View All</button>
+        <div className="buttonContainer max-md:mt-10">
+          <Link href="/products" className="myButton1 hover:!bg-white">
+            View All
+          </Link>
         </div>
       </div>
     </section>

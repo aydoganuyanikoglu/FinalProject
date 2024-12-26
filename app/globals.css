@@ -77,13 +77,13 @@ input[type="number"] {
   width: fit-content;
   height: fit-content;
   padding: 10px 30px;
-  background-color: #003c6e;
+  background-color: #f1571f;
   color: white;
   font-weight: 700;
   border-radius: 10px;
   cursor: pointer;
   position: relative;
-  border: 2px solid rgba(255, 255, 255, 0);
+  border: 2px solid #f1571f;
   z-index: 0;
   overflow: hidden;
 }
@@ -104,8 +104,8 @@ input[type="number"] {
 }
 
 .myButton1:hover {
-  color: #003c6e;
-  border: 2px solid #003c6e;
+  color: #f1571f;
+  border: 2px solid #f1571f;
 }
 
 .addtoCartButton {
@@ -115,13 +115,13 @@ input[type="number"] {
   justify-content: center;
   align-items: center;
   padding: 3px 15px;
-  background-color: #007f8d;
+  background-color: #f1571f;
   color: white;
   font-weight: 700;
   border-radius: 3px;
   cursor: pointer;
   position: relative;
-  border: 2px solid rgba(100, 100, 100, 0);
+  border: 2px solid #f1571f;
   z-index: 0;
   overflow: hidden;
   font-size: 12px;
@@ -143,8 +143,8 @@ input[type="number"] {
 }
 
 .addtoCartButton:hover {
-  color: #007f8d;
-  border: 2px solid #007f8d;
+  color: #f1571f;
+  border: 2px solid #f1571f;
 }
 
 .sliderContainer .slick-track {
