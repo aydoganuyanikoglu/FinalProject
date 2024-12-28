@@ -77,14 +77,14 @@ const ShoppingCart = () => {
                 return (
                   <li
                     key={index}
-                    className="cartItems relative w-full h-[170px] p-2 flex gap-2.5 rounded-md text-gray-700 bg-white max-md:h-[130px]"
+                    className="cartItems relative w-full h-[170px] p-2 flex gap-2.5 rounded-md text-gray-700 bg-white"
                   >
                     <Link
-                      className="imageContainer w-[170px] h-full flex items-center max-md:!h-[130px] max-md:!w-[130px]"
+                      className="imageContainer w-[170px] h-full flex items-center justify-center"
                       href={`/products/${item.id}`}
                     >
                       <Image
-                        className="w-full h-[80%]"
+                        className="w-[75%] h-[60%]"
                         alt={item.name}
                         src={item.image_url}
                         width={160}

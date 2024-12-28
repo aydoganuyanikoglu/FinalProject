@@ -37,24 +37,25 @@ const SuccessfullPayment = () => {
       console.error("Error while fetching addresses..", error);
     } finally {
       setLoading(false);
+      handleConfetti();
     }
   };
 
-  useEffect(() => {
+  const handleConfetti = () => {
     confetti({
       particleCount: 100,
       angle: 60,
-      spread: 55,
+      spread: 100,
       origin: { x: 0 },
     });
 
     confetti({
       particleCount: 100,
-      angle: 120,
-      spread: 55,
+      angle: 130,
+      spread: 100,
       origin: { x: 1 },
     });
-  }, []);
+  };
 
   useEffect(() => {
     handleFetchOrders();

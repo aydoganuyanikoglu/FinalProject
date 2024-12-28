@@ -116,7 +116,7 @@ export const updatePassword = async ({
 }: {
   password: string;
   token: string;
-}): Promise<void> => {
+}): Promise<{ message: string; case: string }> => {
   try {
     const queryGetUser = `
       SELECT password FROM users
@@ -125,13 +125,17 @@ export const updatePassword = async ({
     const result = await sql.query(queryGetUser, [token]);
 
     if (result.rowCount === 0) {
-      throw new Error("Invalid or expired token");
+      return { message: "Invalid or expired token", case: "invalidtoken" };
     }
 
     const existingPassword = result.rows[0].password;
     const isSamePassword = await bcrypt.compare(password, existingPassword);
+
     if (isSamePassword) {
-      throw new Error("New password cannot be the same as the old password");
+      return {
+        message: "New password cannot be the same as the old password",
+        case: "samepassword",
+      };
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -146,8 +150,13 @@ export const updatePassword = async ({
     ]);
 
     if (updateResult.rowCount === 0) {
-      throw new Error("Invalid or expired token");
+      return { message: "Invalid or expired token", case: "invalidtoken" };
     }
+
+    return {
+      message: "Changing password is successfull! Redirecting..",
+      case: "success",
+    };
   } catch (error) {
     console.error("Error updating password:", error);
     throw error;

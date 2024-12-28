@@ -25,25 +25,17 @@ const ResetPasswordForm = ({ token }: { token: string }) => {
   const onSubmit = async ({ password }: { password: string }) => {
     setIsButtonLoading(true);
     try {
-      await updatePassword({ password, token });
-      showToast("Password has been changed successfully");
-      router.push("/login");
+      const response = await updatePassword({ password, token });
+      if (response.case === "invalidtoken") {
+        toast.error(response.message);
+      } else if (response.case === "samepassword") {
+        toast.error(response.message);
+      } else if ((response.case = "success")) {
+        showToast("Password has been changed successfully");
+        router.push("/login");
+      }
     } catch (error) {
       console.error("Error while updating your password!", error);
-      if (error instanceof Error) {
-        if (
-          error.message ===
-          "New password cannot be the same as the old password"
-        ) {
-          toast.error(
-            "Your new password must be different from your current password."
-          );
-        } else {
-          toast.error(error.message);
-        }
-      } else {
-        toast.error("An unexpected error occurred. Please try again.");
-      }
     } finally {
       setIsButtonLoading(false);
     }

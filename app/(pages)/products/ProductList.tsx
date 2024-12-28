@@ -41,6 +41,7 @@ const ProductList = () => {
     handleFetchFavoriteProducts,
     handleAddToFavorites,
     handleRemoveFromFavorites,
+    isMobile,
   } = useProduct();
   const orderItems = [
     { name: "Recommended", value: "" },
@@ -217,7 +218,7 @@ const ProductList = () => {
                       <ReactStars
                         count={5}
                         value={item.average_rating}
-                        size={24}
+                        size={isMobile ? 17 : 24}
                         color1={"#666666"}
                         color2={"#eb7e09"}
                         edit={false}

@@ -118,8 +118,8 @@ const SelectAddress = () => {
                   <li
                     key={index}
                     onClick={() => handleAddressSelect(item)}
-                    className={`addressClass relative w-full min-h-fit h-[170px] p-2 shadow-md rounded-md border-[3px] bg-gray-200 cursor-pointer ${
-                      item.default ? "border-orange-500" : "border-gray-200"
+                    className={`addressClass relative w-full min-h-fit h-[170px] p-2 shadow-md rounded-md border-[3px] bg-white cursor-pointer ${
+                      item.default ? "border-orange-500" : "border-gray-300"
                     }`}
                   >
                     <div className="topContainer flex items-center gap-1 ">
