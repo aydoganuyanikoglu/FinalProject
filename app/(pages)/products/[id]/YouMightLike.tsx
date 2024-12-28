@@ -49,6 +49,7 @@ const YouMightLike: React.FC<propsYouMight> = ({
     handleRemoveFromFavorites,
     handleAddToFavorites,
     handleAddtoCart,
+    isMobile,
   } = useProduct();
   const [products, setProducts] = useState<Productstype[]>([]);
 
@@ -130,12 +131,12 @@ const YouMightLike: React.FC<propsYouMight> = ({
                   <ReactStars
                     count={5}
                     value={item.average_rating}
-                    size={24}
+                    size={isMobile ? 17 : 24}
                     color1={"#666666"}
                     color2={"#eb7e09"}
                     edit={false}
                   />
-                  <p className="text-[11px] text-white">
+                  <p className="text-[11px] text-black max-md:text-[9px]">
                     {item.average_rating?.toFixed(2)}/5 ({item.review_count})
                   </p>
                 </div>
@@ -159,14 +160,14 @@ const YouMightLike: React.FC<propsYouMight> = ({
                   </div>
                 )}
               </div>
-              <div className="buttonContainer">
+              <div className="buttonContainer mt-1">
                 <button
                   className={`${
                     loading
                       ? "loadingButton"
                       : added
                       ? "addedtoCartButton"
-                      : "addtoCartButton !bg-[#003c6e] !border-[#003c6e] hover:!text-[#003c6e]"
+                      : "addtoCartButton !bg-[#1a9379] !border-[#1a9379] hover:!text-[#1a9379]"
                   }`}
                   disabled={loading}
                   onClick={() => {

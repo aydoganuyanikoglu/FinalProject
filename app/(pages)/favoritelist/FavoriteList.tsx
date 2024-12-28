@@ -160,7 +160,7 @@ const FavoriteList = () => {
                             ? "loadingButton"
                             : added
                             ? "addedtoCartButton"
-                            : "addtoCartButton !bg-pink-600 hover:!border-pink-600 hover:!text-pink-600"
+                            : "addtoCartButton !bg-[#3e1d5d] !border-[#3e1d5d] hover:!text-[#3e1d5d]"
                         }`}
                         disabled={loading}
                         onClick={() => {

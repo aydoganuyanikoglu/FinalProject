@@ -195,7 +195,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
                           ? "loadingButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
                           : cartButtonState.added
                           ? "addedtoCartButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px]"
-                          : "addtoCartButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px] !bg-[#003c6e] !border-[#003c6e] hover:!text-[#003c6e]"
+                          : "addtoCartButton !rounded-[10px] !font-normal !text-[15px] !w-[200px] !h-[50px] !bg-[#1a9379] !border-[#1a9379] hover:!text-[#1a9379]"
                       }`}
                       disabled={cartButtonState.loading}
                       onClick={() => {

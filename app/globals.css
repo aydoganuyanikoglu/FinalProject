@@ -49,6 +49,42 @@ input[type="number"] {
   }
 }
 
+.slick-slider ul.slick-dots .slick-active,
+.modalSlider ul.slick-dots .slick-active {
+  margin-right: 20px;
+}
+
+.slick-slider ul.slick-dots li:first-child.slick-active,
+.modalSlider ul.slick-dots li:first-child.slick-active {
+  margin-right: 14px;
+}
+
+.slick-slider ul.slick-dots li button::before,
+.modalSlider ul.slick-dots li button::before {
+  content: "";
+  border: 1px solid rgb(0, 0, 0);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  transition: all ease-in-out 0.4s;
+  top: 0;
+  left: 0;
+}
+
+.slick-slider ul.slick-dots .slick-active button::before,
+.modalSlider ul.slick-dots .slick-active button::before {
+  content: "";
+  top: 0;
+  left: 0;
+  border: 1px solid black;
+  width: 25px;
+  background-color: #3e1d5d;
+  border-radius: 30px;
+  height: 10px;
+  transition: all ease-in-out 0.4s;
+}
+
 .addressClass:hover .deleteAddressContainer {
   opacity: 1;
   z-index: 10;

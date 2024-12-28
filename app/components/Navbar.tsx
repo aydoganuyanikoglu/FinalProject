@@ -33,7 +33,7 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.pageYOffset;
-      if (currentScrollPos > 120) {
+      if (currentScrollPos > 10) {
         if (currentScrollPos > lastScrollPos) {
           setShowNavbar(false);
         } else {
@@ -51,7 +51,7 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
 
   return (
     <header
-      className={`${
+      className={`appearClass ${
         isFixed ? "fixed top-0 left-0" : "sticky"
       } w-full z-[100] transition-all duration-300 ${
         showNavbar
@@ -61,9 +61,8 @@ const Navbar = ({ isFixed }: { isFixed: boolean }) => {
           : "-translate-y-full"
       }`}
     >
-      <div className="topContainer w-full bg-black text-white text-center py-2 text-[14px] max-md:text-[12px] px-[20px]">
-        Flemman: Redefining Shopping Quality, Value, and Convenience at Your
-        Fingertips!
+      <div className="topContainer w-full bg-black text-white text-center py-2 text-[14px] max-md:text-[12px] px-[20px] max-md:hidden">
+        Quality, Value, and Convenience in Shopping!
       </div>
       <div
         className={`middleContainer w-full h-[80px] flex justify-between items-center bg-gray-200 ${styles.pagePaddingX}`}

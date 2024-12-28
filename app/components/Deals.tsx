@@ -1,6 +1,7 @@
 import React from "react";
 import { styles } from "../const";
 import Image from "next/image";
+import Link from "next/link";
 
 const Deals = () => {
   return (
@@ -30,7 +31,15 @@ const Deals = () => {
             <p className="smallTitle text-[18px] font-normal max-md:text-[16px] mt-3">
               Selected Smartphone Brands
             </p>
-            <button className="myButton1 mt-3">Shop Now!</button>
+            <Link
+              href={`/products?category=${encodeURIComponent(
+                "Mobile & Wearable Tech"
+              )}`}
+            >
+              <button className="myButton1 mt-3 !bg-[#3e1d5d] !border-[#3e1d5d] hover:!text-[#3e1d5d]">
+                Shop Now!
+              </button>
+            </Link>
           </div>
         </div>
         <div
@@ -55,7 +64,15 @@ const Deals = () => {
             <p className="smallTitle text-[18px] font-normal max-md:text-[16px] mt-3">
               Top Headphone Brands
             </p>
-            <button className="myButton1 mt-3">Shop Now!</button>
+            <Link
+              href={`/products?category=${encodeURIComponent(
+                "Headphones & Speakers"
+              )}`}
+            >
+              <button className="myButton1 mt-3 !bg-[#3e1d5d] !border-[#3e1d5d] hover:!text-[#3e1d5d]">
+                Shop Now!
+              </button>
+            </Link>
           </div>
         </div>
       </div>

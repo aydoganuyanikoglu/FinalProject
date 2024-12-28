@@ -189,7 +189,7 @@ const BestSellers = () => {
                           ? "loadingButton"
                           : added
                           ? "addedtoCartButton"
-                          : "addtoCartButton"
+                          : "addtoCartButton !bg-[#3e1d5d] !border-[#3e1d5d] hover:!text-[#3e1d5d]"
                       }`}
                       disabled={loading}
                       onClick={() => {
@@ -215,7 +215,10 @@ const BestSellers = () => {
           </Slider>
         </div>
         <div className="buttonContainer max-md:mt-10">
-          <Link href="/products" className="myButton1 hover:!bg-white">
+          <Link
+            href="/products"
+            className="myButton1 !bg-[#3e1d5d] !border-[#3e1d5d] hover:!text-[#3e1d5d] hover:!bg-white"
+          >
             View All
           </Link>
         </div>
