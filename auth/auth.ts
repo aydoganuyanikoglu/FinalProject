@@ -120,7 +120,7 @@ export const updatePassword = async ({
   try {
     const queryGetUser = `
       SELECT password FROM users
-      WHERE verifytoken = $1
+      WHERE verifytoken = $1 AND resetpasswordexpires > NOW()
     `;
     const result = await sql.query(queryGetUser, [token]);
 
