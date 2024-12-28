@@ -167,7 +167,7 @@ const YouMightLike: React.FC<propsYouMight> = ({
                       ? "loadingButton"
                       : added
                       ? "addedtoCartButton"
-                      : "addtoCartButton !bg-[#1a9379] !border-[#1a9379] hover:!text-[#1a9379]"
+                      : "addtoCartButton !bg-[#3e1d5d] !border-[#3e1d5d] hover:!text-[#3e1d5d]"
                   }`}
                   disabled={loading}
                   onClick={() => {

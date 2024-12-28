@@ -58,7 +58,7 @@ const ShoppingCart = () => {
     >
       <div className="cartContainer w-full h-fit flex gap-[10px] text-black max-md:flex-col max-md:p-0 max-md:gap-[40px]">
         <div
-          className={`containerLeft relative w-[80%] h-fit min-h-[600px] pb-[100px] shadow-md p-2 max-md:min-h-[400px] max-md:bg-[#0000] max-md:w-full max-md:p-1 ${
+          className={`containerLeft relative w-[80%] h-fit min-h-[600px] pb-[100px] shadow-md p-2 max-md:min-h-[400px] max-md:bg-[#0000] max-md:w-full max-md:p-1 max-md:pb-[100px] ${
             loading
               ? ""
               : cartProducts?.length === 0
@@ -77,7 +77,7 @@ const ShoppingCart = () => {
                 return (
                   <li
                     key={index}
-                    className="cartItems relative w-full h-[170px] p-2 flex gap-2.5 rounded-md text-gray-700 bg-white"
+                    className="cartItems relative w-full h-[170px] p-2 flex gap-2.5 rounded-md text-gray-700 bg-white max-md:h-fit"
                   >
                     <Link
                       className="imageContainer w-[170px] h-full flex items-center justify-center"
