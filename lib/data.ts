@@ -72,7 +72,7 @@ export const fetchCookie = async (): Promise<string | undefined> => {
     const sessionData = await verifySession();
     return sessionData?.id;
   } catch (error) {
-    console.error("Fetcing cookie error:", error);
+    console.error("Fetching cookie error:", error);
   }
 };
 

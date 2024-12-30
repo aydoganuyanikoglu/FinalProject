@@ -3,7 +3,6 @@ import "server-only";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { typeUsers } from "@/lib/types";
-import { fetchUserById } from "@/lib/data";
 
 const secretKey = process.env.JWT_SECRET;
 const key = new TextEncoder().encode(secretKey);

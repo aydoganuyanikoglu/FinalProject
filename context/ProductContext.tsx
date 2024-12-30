@@ -117,13 +117,9 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({
   >([]);
   const [filteredProducts, setFilteredProducts] =
     useState<Productstype[]>(allProducts);
-  const [selectedOrderBy, setSelectedOrderBy] = useState("Recommended");
   const [totalPrice, setTotalPrice] = useState<number | undefined>(0);
   const [totalQuantity, setTotalQuantity] = useState<number | undefined>(0);
   const [productStates, setProductStates] = useState<{
-    [key: number]: { loading: boolean; added: boolean };
-  }>({});
-  const [favoriteStates, setFavoriteStates] = useState<{
     [key: number]: { loading: boolean; added: boolean };
   }>({});
   const [loading, setLoading] = useState<boolean>(true);
