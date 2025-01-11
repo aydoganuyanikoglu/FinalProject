@@ -68,7 +68,7 @@ const SalesChart = () => {
       <ResponsiveContainer width="100%" height={500}>
         <LineChart
           data={salesData}
-          margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+          margin={{ top: 40, right: 100, bottom: 20, left: 20 }}
         >
           <CartesianGrid stroke="rgba(255, 255, 255, 0.2)" />
           <XAxis
@@ -77,7 +77,7 @@ const SalesChart = () => {
             tick={{ fill: "#fff" }}
             interval={0}
           />
-          <YAxis stroke="#fff" tick={{ fill: "#fff" }} />
+          <YAxis stroke="#fff" tick={{ fill: "#fff" }} domain={[0, 30000]} />
           <Tooltip
             contentStyle={{
               backgroundColor: "#333",
