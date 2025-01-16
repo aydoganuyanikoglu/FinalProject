@@ -278,9 +278,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ params }) => {
             ) : (
               <ul className="userReviewsContainer">
                 {reviews.map((item, index) => {
-                  const isHisReview = reviews.some(
-                    (review) => review.user_id === currentUser?.id
-                  );
+                  const isHisReview = item.user_id === currentUser?.id;
                   const handleRemoveReview = async (review: ReviewsType) => {
                     try {
                       await removeReview(
