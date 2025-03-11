@@ -10,14 +10,17 @@ const protectedRoutes = [
   "/profile/orders",
   "/cart/selectaddress",
 ];
+const nativeRoutes = ["/api/users"];
 const adminRoute = ["/adminpanel"];
 const loginRoutes = ["/login"];
 
 export default async function middleware(req: NextRequest) {
+  const secretNativeKey = process.env.NEXT_PUBLIC_DB_SECRET_KEY;
   const path = req.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.includes(path);
   const isLoginRoute = loginRoutes.includes(path);
   const isAdminRoute = adminRoute.includes(path);
+  const isNativeRoute = nativeRoutes.includes(path);
   const cookie = req.cookies.get("session");
   const session = await decrypt(cookie?.value);
 
@@ -31,6 +34,21 @@ export default async function middleware(req: NextRequest) {
 
   if (isLoginRoute && session?.id) {
     return NextResponse.redirect(new URL("/", req.nextUrl));
+  }
+
+  if (isNativeRoute) {
+    const authHeader = req.headers.get("authorization");
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return NextResponse.json(
+        { error: "Unauthorized - No Token Provided" },
+        { status: 401 }
+      );
+    }
+    const token = authHeader.split(" ")[1];
+    if (token !== secretNativeKey) {
+      return NextResponse.json({ error: "Unauthorized!" }, { status: 401 });
+    }
   }
 
   return NextResponse.next();
@@ -47,5 +65,6 @@ export const config = {
     "/cart/selectaddress",
     "/profile/addresses",
     "/profile/orders",
+    "/api/users",
   ],
 };
