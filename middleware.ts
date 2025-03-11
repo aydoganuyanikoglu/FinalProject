@@ -14,6 +14,12 @@ const nativeRoutes = ["/api/users"];
 const adminRoute = ["/adminpanel"];
 const loginRoutes = ["/login"];
 
+const corsOptions = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
 export default async function middleware(req: NextRequest) {
   const secretNativeKey = process.env.NEXT_PUBLIC_DB_SECRET_KEY;
   const path = req.nextUrl.pathname;
@@ -23,19 +29,16 @@ export default async function middleware(req: NextRequest) {
   const isNativeRoute = nativeRoutes.includes(path);
   const cookie = req.cookies.get("session");
   const session = await decrypt(cookie?.value);
+
+  if (req.method === "OPTIONS") {
+    return NextResponse.json({}, { headers: corsOptions });
+  }
+
   const response = NextResponse.next();
 
-  if (req.nextUrl.pathname.startsWith("/api")) {
-    response.headers.set("Access-Control-Allow-Origin", "*");
-    response.headers.set(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT, DELETE, OPTIONS"
-    );
-    response.headers.set(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization"
-    );
-  }
+  Object.entries(corsOptions).forEach(([key, value]) => {
+    response.headers.set(key, value);
+  });
 
   if (isProtectedRoute && !session?.id) {
     return NextResponse.redirect(new URL("/", req.nextUrl));
