@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     if (result.rows.length > 0) {
       return NextResponse.json(
         { case: "existondb", message: "User already exists via this email!" },
-        { status: 409 }
+        { status: 409, headers: { "Access-Control-Allow-Origin": "*" } }
       );
     }
 
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       { case: "success", message: "Successfully Registered!" },
-      { status: 201 }
+      { status: 201, headers: { "Access-Control-Allow-Origin": "*" } }
     );
   } catch (error: any) {
     return NextResponse.json(
@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
         message: "Internal Server Error!",
         error: error.message,
       },
-      { status: 500 }
+      { status: 500, headers: { "Access-Control-Allow-Origin": "*" } }
     );
   }
 }
