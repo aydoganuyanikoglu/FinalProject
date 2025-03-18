@@ -1,5 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
-import { addToCart, deleteProductsFromCard } from "@/lib/data";
+import {
+  addToCart,
+  deleteProductsFromCard,
+  fetchCartProducts,
+} from "@/lib/data";
 
 export async function POST(req: NextRequest) {
   try {
@@ -40,6 +44,32 @@ export async function DELETE(req: NextRequest) {
       {
         case: "success",
         message: "Cart cleared successfully!",
+      },
+      { status: 200, headers: { "Access-Control-Allow-Origin": "*" } }
+    );
+  } catch (error: any) {
+    return NextResponse.json(
+      { case: "error", message: error.message },
+      { status: 500, headers: { "Access-Control-Allow-Origin": "*" } }
+    );
+  }
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    const { userId } = await req.json();
+    if (!userId) {
+      return NextResponse.json(
+        { message: "User ID is required" },
+        { status: 400, headers: { "Access-Control-Allow-Origin": "*" } }
+      );
+    }
+    const products = await fetchCartProducts(userId);
+    return NextResponse.json(
+      {
+        case: "success",
+        message: "Cart products fetched successfully!",
+        products: products,
       },
       { status: 200, headers: { "Access-Control-Allow-Origin": "*" } }
     );
