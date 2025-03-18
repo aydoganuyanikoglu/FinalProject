@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { decreaseProductQuantity } from "@/lib/data";
 
-export default async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest) {
   try {
     const { userId, product } = await req.json();
     if (!userId || !product) {
