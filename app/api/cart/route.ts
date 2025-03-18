@@ -57,7 +57,8 @@ export async function DELETE(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
-    const { userId } = await req.json();
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
     if (!userId) {
       return NextResponse.json(
         { message: "User ID is required" },
