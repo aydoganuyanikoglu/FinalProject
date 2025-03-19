@@ -531,11 +531,6 @@ export const decreaseProductQuantity = async (
   userId: string,
   product: CartProductsType
 ): Promise<void> => {
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
     const result = await sql.query(
       "SELECT quantity FROM cart WHERE user_id = $1 AND name = $2",
@@ -566,11 +561,6 @@ export const increaseProductQuantity = async (
   userId: string,
   product: CartProductsType
 ): Promise<void> => {
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
     await sql.query(
       "UPDATE cart SET quantity = quantity + 1 WHERE user_id = $1 AND name = $2",
@@ -583,11 +573,6 @@ export const increaseProductQuantity = async (
 };
 
 export const deleteProductsFromCard = async (userId: string): Promise<void> => {
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
     const query = `
       DELETE FROM cart
@@ -604,11 +589,6 @@ export const deleteSelectedProductsFromCard = async (
   userId: string,
   product: CartProductsType
 ): Promise<void> => {
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
     const query = `
       DELETE FROM cart
