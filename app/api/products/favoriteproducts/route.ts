@@ -5,13 +5,6 @@ export async function POST(req: NextRequest) {
   try {
     const { userId } = await req.json();
 
-    if (!userId) {
-      return NextResponse.json(
-        { case: "error", message: "Missing userId in request body" },
-        { status: 400, headers: { "Access-Control-Allow-Origin": "*" } }
-      );
-    }
-
     const query = `
       SELECT *
       FROM favoriteproducts
