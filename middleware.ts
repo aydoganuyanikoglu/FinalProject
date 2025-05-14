@@ -36,11 +36,7 @@ export default async function middleware(req: NextRequest) {
   const session = await decrypt(cookie?.value);
 
   if (req.method === "OPTIONS") {
-    const res = new NextResponse(null, { status: 204 });
-    Object.entries(corsOptions).forEach(([key, value]) => {
-      res.headers.set(key, value);
-    });
-    return res;
+    return NextResponse.json({}, { headers: corsOptions });
   }
 
   const response = NextResponse.next();
