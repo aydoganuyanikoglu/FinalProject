@@ -12,8 +12,7 @@ const protectedRoutes = [
 ];
 const nativeRoutes = [
   "/api/users",
-  "/api/products",
-  "/api/products/filter",
+  "/api/products/:path*",
   "/api/auth/:path*",
   "/api/cart/:path*",
 ];
@@ -37,7 +36,11 @@ export default async function middleware(req: NextRequest) {
   const session = await decrypt(cookie?.value);
 
   if (req.method === "OPTIONS") {
-    return NextResponse.json({}, { headers: corsOptions });
+    const res = new NextResponse(null, { status: 204 });
+    Object.entries(corsOptions).forEach(([key, value]) => {
+      res.headers.set(key, value);
+    });
+    return res;
   }
 
   const response = NextResponse.next();
