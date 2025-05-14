@@ -110,11 +110,6 @@ export const addAddressToDatabase = async (
   values: addressesType,
   userId: string
 ): Promise<void> => {
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
     const query = `
       INSERT INTO addresses (
@@ -233,11 +228,6 @@ export async function fetchBrands(): Promise<BrandsType[]> {
 export const fetchFavoriteProducts = async (
   userId: String
 ): Promise<FavoriteProductsType[] | undefined> => {
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
     const query = `
       SELECT *
@@ -378,12 +368,6 @@ export const addReview = async (
       return;
     }
 
-    const id = await fetchCookie();
-    if (id !== userId) {
-      console.log("You don't have permission to add a review.");
-      return;
-    }
-
     const query = `
       INSERT INTO reviews (
         user_id, 
@@ -432,11 +416,6 @@ export const addToFavoriteProducts = async (
   userId: string,
   product: Productstype
 ): Promise<void> => {
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
     const query = `
       INSERT INTO favoriteproducts (
@@ -475,11 +454,6 @@ export const removeFromFavoriteProducts = async (
   userId: string,
   productId: string
 ): Promise<void> => {
-  const id = await fetchCookie();
-  if (id !== userId) {
-    console.log("You dont have a permission!");
-    return;
-  }
   try {
     const query = `
       DELETE FROM favoriteproducts
