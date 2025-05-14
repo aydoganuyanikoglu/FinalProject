@@ -12,9 +12,15 @@ const protectedRoutes = [
 ];
 const nativeRoutes = [
   "/api/users",
-  "/api/products/:path*",
-  "/api/auth/:path*",
-  "/api/cart/:path*",
+  "/api/users/[email]",
+  "/api/products",
+  "/api/products/filter",
+  "/api/auth/login",
+  "/api/auth/register",
+  "/api/cart",
+  "/api/cart/decrease",
+  "/api/cart/increase",
+  "/api/cart/remove",
 ];
 const adminRoute = ["/adminpanel"];
 const loginRoutes = ["/login"];
