@@ -12,7 +12,8 @@ const protectedRoutes = [
 ];
 const nativeRoutes = [
   "/api/users",
-  "/api/products/:path*",
+  "/api/products",
+  "/api/products/filter",
   "/api/auth/:path*",
   "/api/cart/:path*",
 ];
