@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     const result = await sql.query(query, [userId]);
 
     return NextResponse.json(
-      { case: "success", favoriteProductIds: result.rows.map((row) => row.id) },
+      { case: "success", ids: result.rows.map((row) => row.id) },
       { status: 200, headers: { "Access-Control-Allow-Origin": "*" } }
     );
   } catch (error: any) {
