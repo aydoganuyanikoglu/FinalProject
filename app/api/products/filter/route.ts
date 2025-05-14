@@ -49,7 +49,7 @@ export async function GET(req: NextRequest) {
     const result = await sql.query(query, values);
     return NextResponse.json(
       { case: "success", products: result.rows },
-      { status: 200 }
+      { status: 200, headers: { "Access-Control-Allow-Origin": "*" } }
     );
   } catch (error: any) {
     console.error("Error fetching filtered products:", error);
@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
         message: "Internal Server Error",
         details: error.message,
       },
-      { status: 500 }
+      { status: 500, headers: { "Access-Control-Allow-Origin": "*" } }
     );
   }
 }
