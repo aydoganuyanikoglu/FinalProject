@@ -32,6 +32,7 @@ const nativeRoutes = [
   "/api/products/favoriteproducts/ids",
   "/api/auth/login",
   "/api/auth/register",
+  "/api/auth/changepassword",
   "/api/cart",
   "/api/cart/decrease",
   "/api/cart/increase",
