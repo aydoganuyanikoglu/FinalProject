@@ -27,6 +27,7 @@ const nativeRoutes = [
   "/api/users/[email]",
   "/api/products",
   "/api/products/id",
+  "/api/products/brands",
   "/api/products/filter",
   "/api/products/favoriteproducts",
   "/api/products/favoriteproducts/add",
