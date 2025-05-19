@@ -18,6 +18,7 @@ const nativeRoutes = [
   "/api/reviews",
   "/api/reviews/add",
   "/api/reviews/remove",
+  "/api/reviews/stats",
   "/api/orders",
   "/api/orders/user-orderid",
   "/api/orders/userid",
