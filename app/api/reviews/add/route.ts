@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
-import { isProductInOrder } from "@/lib/data";
 import { fetchReviews } from "@/lib/data";
 
 export async function POST(req: NextRequest) {
@@ -22,14 +21,6 @@ export async function POST(req: NextRequest) {
       productId: string;
       productName?: string;
     } = await req.json();
-
-    const hasPurchased = await isProductInOrder(userId, productName || "");
-    if (!hasPurchased) {
-      return NextResponse.json(
-        { case: "error", message: "Only purchased products can be reviewed." },
-        { status: 403, headers: { "Access-Control-Allow-Origin": "*" } }
-      );
-    }
 
     const reviews = await fetchReviews(productId);
     const isReviewedBefore = reviews?.some(
