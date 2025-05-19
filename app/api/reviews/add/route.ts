@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
-import { fetchReviews } from "@/lib/data";
 
 export async function POST(req: NextRequest) {
   try {
@@ -21,17 +20,6 @@ export async function POST(req: NextRequest) {
       productId: string;
       productName?: string;
     } = await req.json();
-
-    const reviews = await fetchReviews(productId);
-    const isReviewedBefore = reviews?.some(
-      (review) => review.user_id === userId
-    );
-    if (isReviewedBefore) {
-      return NextResponse.json(
-        { case: "error", message: "You have already reviewed this product." },
-        { status: 409, headers: { "Access-Control-Allow-Origin": "*" } }
-      );
-    }
 
     const query = `
       INSERT INTO reviews (
