@@ -5,13 +5,6 @@ export async function POST(req: NextRequest) {
   try {
     const { productId }: { productId: string } = await req.json();
 
-    if (!productId) {
-      return NextResponse.json(
-        { case: "error", message: "Missing productId" },
-        { status: 400, headers: { "Access-Control-Allow-Origin": "*" } }
-      );
-    }
-
     const query = `
       SELECT * FROM products
       WHERE id = $1
