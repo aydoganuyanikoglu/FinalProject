@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
 export async function POST(request: NextRequest) {
   try {
-    const { userId } = await request.json();
+    const { userId, origin } = await request.json();
 
     if (!userId) {
       return NextResponse.json(
@@ -41,8 +41,8 @@ export async function POST(request: NextRequest) {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/success?session=${orderId}`,
-      cancel_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/cancel?session=${orderId}`,
+      success_url: `${origin}/success?session=${orderId}`,
+      cancel_url: `${origin}/cancel?session=${orderId}`,
       metadata: {
         user_id: userId,
         order_id: orderId,
