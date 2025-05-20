@@ -10,7 +10,10 @@ export async function POST(req: NextRequest) {
   const sig = req.headers.get("stripe-signature");
 
   if (!sig) {
-    return new NextResponse("Missing Stripe signature", { status: 400 });
+    return new NextResponse("Missing Stripe signature", {
+      status: 400,
+      headers: { "Access-Control-Allow-Origin": "*" },
+    });
   }
 
   let event;
@@ -26,7 +29,10 @@ export async function POST(req: NextRequest) {
     );
   } catch (err: any) {
     console.error("Error verifying webhook signature:", err.message);
-    return new NextResponse(`Webhook Error: ${err.message}`, { status: 400 });
+    return new NextResponse(`Webhook Error: ${err.message}`, {
+      status: 400,
+      headers: { "Access-Control-Allow-Origin": "*" },
+    });
   }
 
   if (event.type === "checkout.session.completed") {
@@ -41,5 +47,8 @@ export async function POST(req: NextRequest) {
     await addOrder(userId, orderId, cart_items, session);
   }
 
-  return new NextResponse("Webhook received successfully", { status: 200 });
+  return new NextResponse("Webhook received successfully", {
+    status: 200,
+    headers: { "Access-Control-Allow-Origin": "*" },
+  });
 }

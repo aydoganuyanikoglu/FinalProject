@@ -1,24 +1,23 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { CartProductsType } from "@/lib/types";
 import { fetchCartProducts } from "@/lib/data";
-import { verifySession } from "@/auth/session";
 import { setOrderTokenCookie } from "@/lib/checkout";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "");
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const user = await verifySession();
+    const { userId } = await request.json();
 
-    if (!user?.id) {
+    if (!userId) {
       return NextResponse.json(
-        { error: "User not authenticated" },
-        { status: 401, headers: { "Access-Control-Allow-Origin": "*" } }
+        { error: "Missing userId in request body" },
+        { status: 400, headers: { "Access-Control-Allow-Origin": "*" } }
       );
     }
 
-    const cartItems = await fetchCartProducts(user?.id);
+    const cartItems = await fetchCartProducts(userId);
 
     const lineItems = cartItems?.map((item: CartProductsType) => {
       const discountPrice = parseFloat(item.discount_price || "0");
@@ -45,7 +44,7 @@ export async function POST(request: Request) {
       success_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/success?session=${orderId}`,
       cancel_url: `${process.env.NEXT_PUBLIC_CLIENT_URL}/cancel?session=${orderId}`,
       metadata: {
-        user_id: user?.id,
+        user_id: userId,
         order_id: orderId,
       },
       shipping_address_collection: {

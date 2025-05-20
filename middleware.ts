@@ -11,6 +11,8 @@ const protectedRoutes = [
   "/cart/selectaddress",
 ];
 const nativeRoutes = [
+  "/api/createCheckoutSession/mobile",
+  "/api/webhook",
   "/api/addresses",
   "/api/addresses/add",
   "/api/addresses/remove",
